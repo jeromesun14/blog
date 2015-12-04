@@ -1,7 +1,7 @@
 title: Linux命令行查看文件开头的内容 - head
 date: 2015-01-04 22:48:18
 toc: true
-tags: [Linux命令, 字符流操作]
+tags: [Linux, 字符流操作]
 categories: shell
 keywords: [linux, command, head]
 description: Linux命令行文件开头的内容。

@@ -1,6 +1,6 @@
 title: Linux命令行删除文件 - rm
 date: 2014-02-21 00:03:59
-tags: [Linux命令, 文件系统]
+tags: [Linux, 文件系统]
 categories: shell
 keywords: [linux, command, rm, file system]
 description: Linux命令行删除普通文件、目录文件。

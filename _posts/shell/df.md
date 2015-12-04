@@ -1,7 +1,7 @@
 title: Linux命令行查看磁盘空间使用情况 - df
 date: 2014-12-27 23:48:18
 toc: true
-tags: [Linux命令, 磁盘管理]
+tags: [Linux, 磁盘管理]
 categories: shell
 keywords: [linux, command, df]
 description: Linux命令行查看目录及子目录大小。

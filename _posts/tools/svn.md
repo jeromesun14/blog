@@ -1,7 +1,7 @@
 title: SVN基础用法
 date: 2015-01-08 22:48:18
 toc: true
-tags: [版本控制]
+tags: [版本控制, svn]
 categories: tools
 keywords: [svn, command, version control]
 description: 本文描述SVN的基础使用方法。

@@ -1,6 +1,6 @@
 title: Linux命令行查看当前内存使用情况 - free 
 date: 2015-04-13 22:31:59
-tags: [Linux命令, 内存管理]
+tags: [Linux, 内存管理]
 categories: shell
 toc: true
 keywords: [linux, command, free, memory management]

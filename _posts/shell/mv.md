@@ -1,6 +1,6 @@
 title: Linux命令行剪切、重命名文件 - mv
 date: 2014-02-21 00:03:59
-tags: [Linux命令, 文件系统]
+tags: [Linux, 文件系统]
 categories: shell
 keywords: [linux, command, mv, file system]
 description: Linux命令行剪切、重命名普通文件、目录文件。

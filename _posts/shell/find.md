@@ -1,6 +1,6 @@
 title: Linux命令行查找文件 - find
 date: 2014-12-25 23:01:18
-tags: [Linux命令, 文件系统]
+tags: [Linux, 文件系统]
 categories: shell
 keywords: [linux, command, find]
 toc: true
@@ -366,7 +366,7 @@ sunnogo@a3e420:~/test/hello$ find . -amin 0
 sunnogo@a3e420:~/test/hello$ 
 ```
 
-[1]: http://sunnogo.tk/shell/ls.html
+[1]: http://sunnogo.tk/201402/shell/ls.html
 
 > Written with [StackEdit](https://stackedit.io/).
 

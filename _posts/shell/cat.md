@@ -1,7 +1,7 @@
 title: Linux命令行浏览文件内容 - cat
 date: 2014-12-31 23:48:18
 toc: true
-tags: [Linux命令, 文件系统]
+tags: [Linux, 文件系统]
 categories: shell
 keywords: [linux, command, cat]
 description: Linux命令行浏览文件内容。
@@ -145,7 +145,7 @@ sunnogo@a3e420:~/test/hello$
 
 ```
 
-[1]: http://sunnogo.tk/shell/head.html
-[2]: http://sunnogo.tk/shell/tail.html
-[3]: http://sunnogo.tk/shell/less.html
+[1]: http://sunnogo.tk/201501/shell/head.html
+[2]: http://sunnogo.tk/201501/shell/tail.html
+[3]: http://sunnogo.tk/201501/shell/less.html
 

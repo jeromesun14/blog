@@ -1,6 +1,6 @@
 title: Linux命令行浏览文件 - ls
 date: 2014-02-21 00:03:59
-tags: [Linux命令, 文件系统]
+tags: [Linux, 文件系统]
 categories: shell
 toc: true
 keywords: [linux, command, ls, file system]

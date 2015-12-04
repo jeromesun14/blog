@@ -1,7 +1,7 @@
 title: Linux命令行查看目录及子目录大小 - du
 date: 2014-12-23 23:48:18
 toc: true
-tags: [Linux命令, 文件系统]
+tags: [Linux, 文件系统]
 categories: shell
 keywords: [linux, command, du]
 description: Linux命令行查看目录及子目录大小。
@@ -117,7 +117,7 @@ sunnogo@a3e420:~/github/hexo$ du -hd 1 --exclude '*.js' --exclude '*.txt'
 14M     .
 ```
 
-[1]: http://sunnogo.tk/shell/ls.html
+[1]: http://sunnogo.tk/201402/shell/ls.html
 [2]: Not_support_yet
 [3]: Not_support_yet
 [4]: Not_support_yet

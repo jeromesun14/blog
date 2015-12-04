@@ -1,7 +1,7 @@
 title: Linux命令行查看文件结尾的内容 - tail
 date: 2015-01-04 22:48:18
 toc: true
-tags: [Linux命令, 字符流操作]
+tags: [Linux, 字符流操作]
 categories: shell
 keywords: [linux, command, tail]
 description: Linux命令行文件结尾的内容。
