@@ -20,8 +20,6 @@ svn copy src_url [-r version] dst_url [-m "message"] [--username your_name --pas
 如果不带`-r version`，则默认使用src_url的最新版本。version为数字，版本号。  
 建议所有含提交功能的命令都要带`-m message`，这样才能通过log直接明了地看出这个版本提交了什么修订。
 
-**注意**，user 需同时拥有src_url和dst_url的权限，才可创建新分支成功，否则会提示仅限问题。
-
 # 下载代码 #
 ```
 svn checkout url -r version
@@ -143,6 +141,8 @@ svn merge -r ver1:ver2 src_url working_copy_path
 
 另外也可以操作服务器仓库，把working_copy_path直接换成目的分支的url即可，但是这种做法比较危险，不建议新手直接使用。
 
+**注意**，`svn merge`后的commit需要user同时拥有源分支和目的分支的权限才能提交。
+
 # 回退工作副本的修订 #
 ```
 svn revert file1 file2 ...
@@ -168,4 +168,11 @@ svn log [OPTIONS] [FILE_LIST]
 * `--search`，根据当前输出的log信息，按关键字过滤log，该关键字可以匹配输出信息的任意字符串，比如可匹配到提交者、提交的log信息，如果带`-v`选项还可以匹配到修订的文件等。
 * `--stop-on-copy`，只显示当前分支的修订的log，不会回溯源基线分支修订的log。比如分支branch基于tags分支版本100创建，此时branch分支的svn log会默认显示tags分支版本100以前所有修订的log，而如果带上本选项，则只会显示branch分支自己修订的log。
 
+## svn版本信息导入execl表 ##
+方法来自[stackoverflow](http://stackoverflow.com/questions/11436214/how-to-export-the-subversion-log-to-spreadsheet)
 
+Use the following Subversion command to create an xml file out of the repository's log:
+
+1. `svn log -v --xml > repository_log.xml`，还可以根据需求配搭其他的`svn log`选项。
+2. Import the xml file into an Excel spreadsheet (not sure if it will work with LibreOffice/OpenOffice).
+3. You can then save it as a spreadsheet.
