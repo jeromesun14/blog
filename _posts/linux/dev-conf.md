@@ -164,6 +164,12 @@ dialout:x:20:your_user_name
 ```
 其中，linuxMint是共享目录显示给使用者的名称。path是实际共享的目录，valid users是合法的用户。
 
+#### windows 7 如何清除自动登录的凭据
+
+`控制面板` -> `用户账户` -> `管理您的凭据`，然后单击要清除的那个凭据，点击`从保管库中删除`，重启生效。
+
+解决Ubuntu用户名变动后，无法从win7 登录samba。
+
 ### tftp
 安装包：`tftpd-hpa`
 
