@@ -20,6 +20,8 @@ svn copy src_url [-r version] dst_url [-m "message"] [--username your_name --pas
 如果不带`-r version`，则默认使用src_url的最新版本。version为数字，版本号。  
 建议所有含提交功能的命令都要带`-m message`，这样才能通过log直接明了地看出这个版本提交了什么修订。
 
+**注意**，user 需同时拥有src_url和dst_url的权限，才可创建新分支成功，否则会提示仅限问题。
+
 # 下载代码 #
 ```
 svn checkout url -r version
