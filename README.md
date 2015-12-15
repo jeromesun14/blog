@@ -1,1 +1,1 @@
-Sources of [sunnogo.tk](sunnogo.tk), which is my personal blog.
+Sources of www.sunnogo.tk, which is my personal blog.
