@@ -109,8 +109,8 @@ set protocol xmodem
 可以将所有的波特率的配置都添加进去，注意使用不同的端口号。
 
 ```
-2001:telnet:600:/dev/ttyUSB1:9600 8DATABITS NONE 1STOPBIT -XONXOFF -RTSCTS b    anner 
-3001:telnet:600:/dev/ttyUSB1:115200 8DATABITS NONE 1STOPBIT -XONXOFF -RTSCTS b    anner 
+2001:telnet:600:/dev/ttyUSB1:9600 8DATABITS NONE 1STOPBIT -XONXOFF -RTSCTS banner 
+3001:telnet:600:/dev/ttyUSB1:115200 8DATABITS NONE 1STOPBIT -XONXOFF -RTSCTS banner 
 ```
 
 Windows下，可使用[`Comfoolery`](https://github.com/sunnogo/comfoolery)共享串口，功能更加强大。
