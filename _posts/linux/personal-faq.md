@@ -7,8 +7,6 @@ keywords: [ubuntu, apt, 网络配置, 中文支持, fcitx, grub]
 description: Linux装机后的常用配置、软件说明，及使用问题记录。
 ---
 
-推荐使用Server类iso安装系统，原因——干净！
-
 善用/var/log
 ----------------
 该目录存放系统日志，很多异常，比如进不了GUI、服务器连不上等问题，都可通过此目录内的log排查。
