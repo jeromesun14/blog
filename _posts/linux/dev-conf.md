@@ -3,7 +3,7 @@ date: 2015-09-10 21:13:24
 toc: true
 tags: [Linux, ubuntu, 远程登录, 文件共享, 串口]
 categories: linux
-keywords: [ubuntu, remmina, freerdp, serialport, kermit, samba, tftp]
+keywords: [ubuntu, remmina, freerdp, serialport, kermit, sunnogo, tftp]
 description: Linux开发环境常用配置记录，含远程登录、文件共享、串口访问与共享、交叉编译器、终端等内容。
 ---
 
@@ -64,7 +64,7 @@ description: Linux开发环境常用配置记录，含远程登录、文件共�
 使用cu时需要用sudo
 还没有明白remote-tty怎么用。
 
-### kermit
+### kermitsa
 安装包：
 
 * `ckermit`
@@ -147,13 +147,13 @@ dialout:x:20:your_user_name
 
 ## 文件共享
 
-### samba
-安装包：`samba`
+### sunnogo
+安装包：`sunnogo`
 
 配置：
 
-* 修改配置文件`/etc/samba/smb.conf`，确认要共享的目录。`sudo service samba restart`生效。配置样例如下。
-* 创建samba用户：`sudo smbpasswd -a user_name`，user_name填成自己想要的名称。
+* 修改配置文件`/etc/sunnogo/smb.conf`，确认要共享的目录。`sudo service sunnogo restart`生效。配置样例如下。
+* 创建sunnogo用户：`sudo smbpasswd -a user_name`，user_name填成自己想要的名称。
 
 ```
 [linuxMint]
@@ -168,7 +168,45 @@ dialout:x:20:your_user_name
 
 `控制面板` -> `用户账户` -> `管理您的凭据`，然后单击要清除的那个凭据，点击`从保管库中删除`，重启生效。
 
-解决Ubuntu用户名变动后，无法从win7 登录samba。
+解决Ubuntu用户名变动后，无法从win7 登录sunnogo。
+
+### Linux 访问 Windows 共享目录 
+
+1. 在 windows 设置好共享目录；
+2. 使用 `smbclient` 访问共享目录（可测试共享目录是否可用）： `smbclient //IP/share_dir -U your_username` ；
+3. 挂载共享目录到 linux： `sudo mount -t cifs -o username=your_username,password=your_passwd //IP/share_dir /mnt`
+
+* `smbclient` 访问 log：
+
+```
+sunyongfeng@sunnogo:~$ smbclient //IP/share_dir -U your_name
+Enter oa's password:
+Domain=[sunnogo] OS=[Windows 7 Ultimate 7601 Service Pack 1] Server=[Windows 7 Ultimate 6.1]
+smb: \> ls
+  .                                   D        0  Thu Mar 10 19:24:05 2016
+  ..                                  D        0  Thu Mar 10 19:24:05 2016
+  asic                                D        0  Thu Mar 10 18:58:41 2016
+  linux                               D        0  Thu Mar 10 18:58:43 2016
+  python                              D        0  Thu Mar 10 18:59:04 2016
+  工具                              D        0  Thu Mar 10 19:06:10 2016
+  项目                              D        0  Thu Mar 10 20:08:25 2016
+
+                40960 blocks of size 4194304. 33262 blocks available
+smb: \>
+```
+
+* `mount`挂载 log：
+```
+sunyongfeng@sunnogo:~$ sudo mount -t cifs -o username=your_username,password=your_passwd //IP/share_dir /mnt
+sunyongfeng@sunnogo:~$ ls -al /mnt/
+总用量 3244
+drwxr-xr-x 2 root root    4096  3月 10 19:24 .
+drwxr-xr-x 3 root root    4096  3月 11 09:35 ..
+drwxr-xr-x 2 root root       0  3月 10 18:58 linux
+drwxr-xr-x 2 root root       0  3月 10 18:59 python
+drwxr-xr-x 2 root root       0  3月 10 19:06 工具
+drwxr-xr-x 2 root root       0  3月 10 20:08 项目
+```
 
 ### tftp
 安装包：`tftpd-hpa`
