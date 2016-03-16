@@ -1,4 +1,12 @@
 
+title: shadowsocks 记录
+date: 2016-02-28 20:48:18
+toc: true
+tags: [外面的世界]
+categories: tools
+keywords: [shadowsocks, linux, chrome, switchyOmega, proxychains]
+description: 到外面的世界看看。
+---
 
 ## shadowsocks in linux
 
@@ -16,5 +24,5 @@ chromium 无法使用 proxychains，有个 [issue](https://github.com/rofl0r/pro
 ## switchyOmega
 
 可在 Profiles 下的 auto switch 以 rule list 的形式加入自动切换的列表，在 `Rule List Config` 下填入 rule list 的链接即可。
-这是一个 [gfwlist](https://github.com/calfzhou/autoproxy-gfwlist)
+这是一个 [gfwlist](https://github.com/calfzhou/autoproxy-gfwlist)。
 
