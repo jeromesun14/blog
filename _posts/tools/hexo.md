@@ -1,5 +1,13 @@
+title: hexo 搭站备忘
+date: 2015-03-16 09:48:18
+toc: true
+tags: [hexo]
+categories: tools
+keywords: [blog, hexo, npm, RSS, sitemap]
+description: 本文描述 hexo 搭个人博客的记录，备忘。
+---
 
-# 安装 `hexo`
+## 安装 `hexo`
 
 * 安装 `git`
 * 安装 `nodejs`，debian / ubuntu 类的环境：`sudo apt-get install npm nodejs-legacy`
@@ -19,7 +27,7 @@ npm WARN For further explanations, please read
 npm ERR! weird error 1
 ```
 
-# 安装插件
+## 安装插件
 
 * RSS: `npm install hexo-generator-feed`
 * sitmap: `npm install hexo-generator-sitemap`
