@@ -18,3 +18,8 @@ npm WARN For further explanations, please read
 npm ERR! weird error 1
 ```
 
+# 安装插件
+
+* RSS: `npm install hexo-generator-feed`
+* sitmap: `npm install hexo-generator-sitemap`
+
