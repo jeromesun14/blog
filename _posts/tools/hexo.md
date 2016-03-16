@@ -3,7 +3,8 @@
 
 * 安装 `git`
 * 安装 `nodejs`，debian / ubuntu 类的环境：`sudo apt-get install npm nodejs-legacy`
-如果安装的是 `node` 包，则 `sudo npm install -g hexo-cli` 时可能出现 error ：
+如果安装的是 `node` 包，则安装 hexo 时可能出现下文的 error 。
+* 安装 `hexo`，`npm install -g hexo-cli`，如果想用淘宝的源：`npm install -g hexo-cli --registry=https://registry.npm.taobao.org`。实测官方源没有问题。
 
 ```
 npm http GET https://registry.npm.taobao.org/inherits
