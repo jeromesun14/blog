@@ -4,7 +4,7 @@ toc: true
 tags: [版本控制, git]
 categories: tools
 keywords: [git, error, git push]
-description: 本文描述SVN的基础使用方法。
+description: 本文记录 git 使用过程中出现的一些问题及解决备忘。
 ---
 
 ## `git push` 相关 ##
