@@ -1,3 +1,11 @@
+title: git 问题记录
+date: 2016-02-18 20:48:18
+toc: true
+tags: [版本控制, git]
+categories: tools
+keywords: [git, error, git push]
+description: 本文描述SVN的基础使用方法。
+---
 
 ## `git push` 相关 ##
 
