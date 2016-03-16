@@ -1,5 +1,11 @@
-Windows 10 在 thinkpad E420 启机慢
-----------------------------------
+title: Windows 10 在 thinkpad E420 启机慢
+date: 2016-01-18 19:40:18
+toc: true
+tags: [windows]
+categories: windows
+keywords: [windows 10, thinkpad, E420, 启机慢，黑屏]
+description: 本文描述 thinkpad e420 安装 windows 10 后启机慢的问题，及优化解决方法。
+---
 
 ## 启动慢
 ### 现象
