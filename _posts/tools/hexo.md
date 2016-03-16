@@ -1,5 +1,5 @@
 title: hexo 搭站备忘
-date: 2015-03-16 09:48:18
+date: 2016-03-16 09:48:18
 toc: true
 tags: [hexo]
 categories: tools
@@ -13,6 +13,8 @@ description: 本文描述 hexo 搭个人博客的记录，备忘。
 * 安装 `nodejs`，debian / ubuntu 类的环境：`sudo apt-get install npm nodejs-legacy`
 如果安装的是 `node` 包，则安装 hexo 时可能出现下文的 error 。
 * 安装 `hexo`，`npm install -g hexo-cli`，如果想用淘宝的源：`npm install -g hexo-cli --registry=https://registry.npm.taobao.org`。实测官方源没有问题。
+
+<!--more-->
 
 ```
 npm http GET https://registry.npm.taobao.org/inherits
