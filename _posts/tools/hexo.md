@@ -34,3 +34,18 @@ npm ERR! weird error 1
 * RSS: `npm install hexo-generator-feed`
 * sitmap: `npm install hexo-generator-sitemap`
 
+## next 主题
+
+next 主题 tags 页和 categories 页的设置与其他主题的不一样，会导致 tags 页和 categories 页没有内容。
+
+以 tags 页为例：
+
+```
+---
+title: tags
+layout: tags  <-- 这个是之前的设置方式，不知道是不是 hexo 版本变化发生变化了。
+type: "tags"  <-- 这个是当前 next 主题的配置方式。
+date: 2016-03-18 00:32:32
+---
+```
+

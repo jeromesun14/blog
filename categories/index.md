@@ -1,4 +1,6 @@
-title: 目录
+---
+title: categories
 layout: categories
-date: 2014-12-30 21:21:32
+type: "categories"
+date: 2016-03-18 00:32:45
 ---

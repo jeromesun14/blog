@@ -1,4 +1,6 @@
-title: 标签
+---
+title: tags
 layout: tags
-date: 2014-12-30 21:21:11
+type: "tags"
+date: 2016-03-18 00:32:32
 ---

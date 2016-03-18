@@ -8,7 +8,7 @@ subtitle: Keep it simple, stupid
 description:
 author: sunnogo
 email: sunnogo@gmail.com
-language: zh-CN
+language: zh-Hans
 timezone:
 
 # URL
@@ -65,11 +65,11 @@ pagination_dir: page
 
 ## Plugins: https://github.com/hexojs/hexo/wiki/Plugins
 plugins:
-- hexo-generator-feed
-- hexo-generator-sitemap  
+#- hexo-generator-feed
+#- hexo-generator-sitemap  
 #- hexo-generator-robotstxt
 ## Themes: https://github.com/hexojs/hexo/wiki/Themes
-theme: freemind
+theme: next
 exclude_generator:
 
 # robots.txt
