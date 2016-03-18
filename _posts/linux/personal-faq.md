@@ -3,7 +3,7 @@ date: 2015-09-02 20:03:22
 toc: true
 tags: [Linux, ubuntu, apt]
 categories: linux
-keywords: [ubuntu, apt, 网络配置, 中文支持, fcitx, grub]
+keywords: [ubuntu, apt, 网络配置, 中文支持, fcitx, grub, Linux, 静态IP配置, DNS配置, 引导修复, 大写提示, 禁用触摸板, root密码]
 description: Linux装机后的常用配置、软件说明，及使用问题记录。
 ---
 
@@ -56,9 +56,8 @@ route add default gw 192.168.204.1
 
 ```
 sunnogo@sunyongfeng:~/Downloads$ cat /etc/resolvconf/resolv.conf.d/base 
-nameserver 192.168.58.110
-nameserver 192.168.58.111
 nameserver 8.8.8.8
+nameserver 114.114.114.114
 ```
 
 #### 禁用IPv6
