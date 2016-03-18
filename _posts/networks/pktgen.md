@@ -1,10 +1,16 @@
+title: pktgen
+date: 2016-03-18 12:00:30
+toc: true
+tags: [网络测试, 发包工具]
+categories: networks
+keywords: [发包, pktgen, linux, 网络测试, packet generator]
+description: 介绍 Linux 内核发包工具 pktgen 及其配置、使用方法和样例。
+---
 
 ## 什么是 pktgen
 pktgen 是一款 Linux 发包工具，可在内核高速发包。 
 
 > Linux packet generator is a tool to generate packets at very high speed in the kernel.
-
-
 
 ## 使能 pktgen
 内核配置文件开启 `CONFIG_NET_PKTGEN`，通过查看是否有 `/proc/net/pktgen/` 目录确认是否编译 OK。
