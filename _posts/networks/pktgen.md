@@ -1,7 +1,7 @@
 title: pktgen
 date: 2016-03-18 12:00:30
 toc: true
-tags: [网络测试, 发包工具]
+tags: [网络测试]
 categories: networks
 keywords: [发包, pktgen, linux, 网络测试, packet generator]
 description: 介绍 Linux 内核发包工具 pktgen 及其配置、使用方法和样例。
