@@ -69,7 +69,7 @@ cat /proc/net/pktgen/eth3
 [1209-20:30:05:839] root@ubuntu:/proc/net/pktgen# 
 ```
 
-## 完整的说明
+## 完整说明
 > From [linuxfoundation.org pktgen](http://www.linuxfoundation.org/collaborate/workgroups/networking/pktgen)：
 > ### Setup
 > 
