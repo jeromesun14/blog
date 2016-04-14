@@ -31,4 +31,7 @@ COUNTIF(total!H:H,"")
 ```
 
 * 统计 "total" 标签所有 A 列值为 "*2015" （此处 `*` 为通配符）且 "total" 标签 I 列值为空的单元格个数
-=COUNTIFS(total!A:A,"*2015",total!I:I,"")
+
+```
+COUNTIFS(total!A:A,"*2015",total!I:I,"")
+```
