@@ -7,6 +7,12 @@
 
 ## Windows
 
+* Launchy
+
+## web
+
+* [diigo](https://www.diigo.com/)，网页标注或网页上的 pdf 标注。
+
 ## 编程
 
 ### PlantUML
