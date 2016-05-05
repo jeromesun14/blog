@@ -64,14 +64,14 @@ description: Linux开发环境常用配置记录，含远程登录、文件共�
 使用cu时需要用sudo
 还没有明白remote-tty怎么用。
 
-### kermitsa
+### kermit
 安装包：
 
 * `ckermit`
 * `lrzsz`，用于xmodem传输
 
 不改权限的话，只有用超级用户才能正常用kermit访问串口。
-```
+```s
 sudo kermit
 set line /dev/ttyUSB0
 set speed 115200
@@ -175,6 +175,7 @@ dialout:x:20:your_user_name
 1. 在 windows 设置好共享目录；
 2. 使用 `smbclient` 访问共享目录（可测试共享目录是否可用）： `smbclient //IP/share_dir -U your_username` ；
 3. 挂载共享目录到 linux： `sudo mount -t cifs -o username=your_username,password=your_passwd //IP/share_dir /mnt`
+4. 亦可直接在文件管理器中直接输入`smb://IP`，按提示输入用户名密码，即可从 Linux 文件管理器中直接查看 windows 的共享目录。
 
 * `smbclient` 访问 log：
 
