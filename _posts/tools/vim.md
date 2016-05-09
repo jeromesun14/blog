@@ -16,15 +16,14 @@ VIM 使用记录
 > 著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
 
 ### 批量文件替换
-> 方法１:　用dos2unix工具，
+> * 方法 1: 用 dos2unix 工具
 > 把win文档转换成linux下文档
-> 命令:
 > `find ./ -type f -print0 | xargs -0 dos2unix`
 >
 > 如果想把linux下的文档转换成win下的:
 > `find ./ -type f -print0 | xargs -0 unix2dos`
 >
-> 方法2: 用sed命令
+> * 方法2: 用 sed 命令
 > 把win文档转换成linux下文档:
 > `find ./ -type f print0 | xargs -0 sed -i 's/^M$//'`
 > 
