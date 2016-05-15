@@ -208,7 +208,8 @@ To find the necessary bits, look in setup.py in detect_modules() for the module'
 键入如下命令自动安装一些依赖：
 ```
 $ sudo apt-get build-dep python2.7
-``
+```
+
 确认安装如下列下的其他 -dev 包。
 * python-dev
 * libncurses5-dev
