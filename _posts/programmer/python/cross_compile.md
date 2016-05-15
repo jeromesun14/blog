@@ -95,14 +95,16 @@ sunyongfeng@R04220:~/python-install$
 
 ## 问题
 ### 编译依赖
-交叉编译的时候，如果没有配置好 CFLAGS、LDFLAGS 之类的变量，可能找不到 python 编译所依赖的头文件或库文件。最终体现在编译的结果（此处可能因不同的变量配置而不同，比如 sqlite3、readline、_ssl 等）：
+交叉编译的时候，如果没有配置好 CFLAGS、LDFLAGS 之类的变量，可能找不到 python 编译所依赖的头文件或库文件。最终体现在编译的结果（此处可能因不同的变量配置而不同）：
 
 ```
 Python build finished, but the necessary bits to build these modules were not found:
-_bsddb             _curses_panel      _tkinter        
+_bsddb             _curses            _curses_panel   
+_sqlite3           _ssl               _tkinter        
 bsddb185           bz2                dbm             
 dl                 gdbm               imageop         
-linuxaudiodev      ossaudiodev        sunaudiodev     
+linuxaudiodev      ossaudiodev        readline        
+sunaudiodev        zlib                               
 To find the necessary bits, look in setup.py in detect_modules() for the module's name.
 ```
 
