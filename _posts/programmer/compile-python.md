@@ -227,7 +227,7 @@ $ sudo apt-get build-dep python2.7
 
 如果想支持 xml 相关：
 * libxml2-dev
-*libxslt1-dev
+* libxslt1-dev
 
 如果想支持 MySQLdb （在 pypi 中实际命令为 MySQL-python）：
 * libmysqlclient-dev
