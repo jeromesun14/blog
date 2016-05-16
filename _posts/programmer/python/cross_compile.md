@@ -1,23 +1,223 @@
 交叉编译 python
 ===============
 
-## 下载解压 python 源代码
-## 配置交叉编译环境变量
-比如 CC、CFLAGS、LDFLAGS 等。
+## 下载、解压 python 源代码
+## 创建 build 目录
+在 python 源代码下创建 build 目录，做 configure、make、make install，编译时用于保存临时生成的文件，保证 python 源代码干净。如下为编译结果。
+
+```
+sunyongfeng@R04220:~/workshop/rgosm-build/Python-2.7.11/build-pc$ ls -al *
+-rw-rw-r-- 1 sunyongfeng sunyongfeng   559047  5月 16 17:11 config.log
+-rwxrwxr-x 1 sunyongfeng sunyongfeng    39223  5月 16 17:11 config.status
+-rw-rw-r-- 1 sunyongfeng sunyongfeng 14957864  5月 16 17:13 libpython2.7.a
+-rw-rw-r-- 1 sunyongfeng sunyongfeng    50066  5月 16 17:11 Makefile
+-rw-rw-r-- 1 sunyongfeng sunyongfeng    46673  5月 16 17:11 Makefile.pre
+-rw-rw-r-- 1 sunyongfeng sunyongfeng       26  5月 16 17:13 pybuilddir.txt
+-rw-rw-r-- 1 sunyongfeng sunyongfeng    36927  5月 16 17:11 pyconfig.h
+-rwxrwxr-x 1 sunyongfeng sunyongfeng  8380079  5月 16 17:13 python
+-rw-r--r-- 1 sunyongfeng sunyongfeng    55187  5月 16 17:13 python-gdb.py
+
+build:
+总用量 20
+drwxrwxr-x  5 sunyongfeng sunyongfeng 4096  5月 16 17:13 .
+drwxrwxr-x 11 sunyongfeng sunyongfeng 4096  5月 16 17:13 ..
+drwxrwxr-x  2 sunyongfeng sunyongfeng 4096  5月 16 17:13 lib.linux-x86_64-2.7
+drwxrwxr-x  2 sunyongfeng sunyongfeng 4096  5月 16 17:13 scripts-2.7
+drwxrwxr-x  4 sunyongfeng sunyongfeng 4096  5月 16 17:13 temp.linux-x86_64-2.7
+
+Grammar:
+总用量 8
+drwxrwxr-x  2 sunyongfeng sunyongfeng 4096  5月 16 17:11 .
+drwxrwxr-x 11 sunyongfeng sunyongfeng 4096  5月 16 17:13 ..
+
+Include:
+总用量 12
+drwxrwxr-x  2 sunyongfeng sunyongfeng 4096  5月 16 17:12 .
+drwxrwxr-x 11 sunyongfeng sunyongfeng 4096  5月 16 17:13 ..
+-rw-rw-r--  1 sunyongfeng sunyongfeng 1917  5月 16 17:12 graminit.h
+
+Mac:
+总用量 8
+drwxrwxr-x  2 sunyongfeng sunyongfeng 4096  5月 16 17:11 .
+drwxrwxr-x 11 sunyongfeng sunyongfeng 4096  5月 16 17:13 ..
+
+Misc:
+总用量 12
+drwxrwxr-x  2 sunyongfeng sunyongfeng 4096  5月 16 17:11 .
+drwxrwxr-x 11 sunyongfeng sunyongfeng 4096  5月 16 17:13 ..
+-rw-rw-r--  1 sunyongfeng sunyongfeng  314  5月 16 17:11 python.pc
+
+Modules:
+总用量 1580
+drwxrwxr-x  2 sunyongfeng sunyongfeng   4096  5月 16 17:13 .
+drwxrwxr-x 11 sunyongfeng sunyongfeng   4096  5月 16 17:13 ..
+-rw-rw-r--  1 sunyongfeng sunyongfeng 100560  5月 16 17:13 _codecsmodule.o
+-rw-rw-r--  1 sunyongfeng sunyongfeng   2201  5月 16 17:11 config.c
+-rw-rw-r--  1 sunyongfeng sunyongfeng   7232  5月 16 17:12 config.o
+-rw-rw-r--  1 sunyongfeng sunyongfeng  38944  5月 16 17:12 errnomodule.o
+-rw-rw-r--  1 sunyongfeng sunyongfeng 107704  5月 16 17:12 gcmodule.o
+-rw-rw-r--  1 sunyongfeng sunyongfeng   7992  5月 16 17:13 getbuildinfo.o
+-rw-rw-r--  1 sunyongfeng sunyongfeng 126792  5月 16 17:12 getpath.o
+-rwxrwxr-x  1 sunyongfeng sunyongfeng   6205  5月 16 17:11 ld_so_aix
+-rw-rw-r--  1 sunyongfeng sunyongfeng  65152  5月 16 17:12 main.o
+-rw-rw-r--  1 sunyongfeng sunyongfeng 403424  5月 16 17:12 posixmodule.o
+-rw-rw-r--  1 sunyongfeng sunyongfeng  33680  5月 16 17:12 pwdmodule.o
+-rw-rw-r--  1 sunyongfeng sunyongfeng   6704  5月 16 17:12 python.o
+-rw-r--r--  1 sunyongfeng sunyongfeng  18479  5月 16 17:11 Setup
+-rw-rw-r--  1 sunyongfeng sunyongfeng    368  5月 16 17:11 Setup.config
+-rw-rw-r--  1 sunyongfeng sunyongfeng     41  5月 16 17:11 Setup.local
+-rw-rw-r--  1 sunyongfeng sunyongfeng  77680  5月 16 17:12 signalmodule.o
+-rw-rw-r--  1 sunyongfeng sunyongfeng 299208  5月 16 17:13 _sre.o
+-rw-rw-r--  1 sunyongfeng sunyongfeng  26176  5月 16 17:13 symtablemodule.o
+-rw-rw-r--  1 sunyongfeng sunyongfeng  76896  5月 16 17:12 threadmodule.o
+-rw-rw-r--  1 sunyongfeng sunyongfeng  23952  5月 16 17:13 _weakref.o
+-rw-rw-r--  1 sunyongfeng sunyongfeng  32328  5月 16 17:13 xxsubtype.o
+-rw-rw-r--  1 sunyongfeng sunyongfeng 110584  5月 16 17:13 zipimport.o
+
+Objects:
+总用量 7288
+drwxrwxr-x  2 sunyongfeng sunyongfeng   4096  5月 16 17:12 .
+drwxrwxr-x 11 sunyongfeng sunyongfeng   4096  5月 16 17:13 ..
+-rw-rw-r--  1 sunyongfeng sunyongfeng 428832  5月 16 17:12 abstract.o
+-rw-rw-r--  1 sunyongfeng sunyongfeng  27648  5月 16 17:12 boolobject.o
+-rw-rw-r--  1 sunyongfeng sunyongfeng 109240  5月 16 17:12 bufferobject.o
+-rw-rw-r--  1 sunyongfeng sunyongfeng 390720  5月 16 17:12 bytearrayobject.o
+-rw-rw-r--  1 sunyongfeng sunyongfeng  34632  5月 16 17:12 bytes_methods.o
+-rw-rw-r--  1 sunyongfeng sunyongfeng  40912  5月 16 17:12 capsule.o
+-rw-rw-r--  1 sunyongfeng sunyongfeng  26648  5月 16 17:12 cellobject.o
+-rw-rw-r--  1 sunyongfeng sunyongfeng 818400  5月 16 17:12 classobject.o
+-rw-rw-r--  1 sunyongfeng sunyongfeng  29088  5月 16 17:12 cobject.o
+-rw-rw-r--  1 sunyongfeng sunyongfeng  53040  5月 16 17:12 codeobject.o
+-rw-rw-r--  1 sunyongfeng sunyongfeng 160528  5月 16 17:12 complexobject.o
+-rw-rw-r--  1 sunyongfeng sunyongfeng 133520  5月 16 17:12 descrobject.o
+-rw-rw-r--  1 sunyongfeng sunyongfeng 234424  5月 16 17:12 dictobject.o
+-rw-rw-r--  1 sunyongfeng sunyongfeng  38536  5月 16 17:12 enumobject.o
+-rw-rw-r--  1 sunyongfeng sunyongfeng 256888  5月 16 17:12 exceptions.o
+-rw-rw-r--  1 sunyongfeng sunyongfeng 200632  5月 16 17:12 fileobject.o
+-rw-rw-r--  1 sunyongfeng sunyongfeng 229320  5月 16 17:12 floatobject.o
+-rw-rw-r--  1 sunyongfeng sunyongfeng  91552  5月 16 17:12 frameobject.o
+-rw-rw-r--  1 sunyongfeng sunyongfeng  71680  5月 16 17:12 funcobject.o
+-rw-rw-r--  1 sunyongfeng sunyongfeng  53112  5月 16 17:12 genobject.o
+-rw-rw-r--  1 sunyongfeng sunyongfeng 146776  5月 16 17:12 intobject.o
+-rw-rw-r--  1 sunyongfeng sunyongfeng  32344  5月 16 17:12 iterobject.o
+-rw-rw-r--  1 sunyongfeng sunyongfeng 235704  5月 16 17:12 listobject.o
+-rw-rw-r--  1 sunyongfeng sunyongfeng 399232  5月 16 17:12 longobject.o
+-rw-rw-r--  1 sunyongfeng sunyongfeng  86736  5月 16 17:12 memoryobject.o
+-rw-rw-r--  1 sunyongfeng sunyongfeng  50808  5月 16 17:12 methodobject.o
+-rw-rw-r--  1 sunyongfeng sunyongfeng  35264  5月 16 17:12 moduleobject.o
+-rw-rw-r--  1 sunyongfeng sunyongfeng 198248  5月 16 17:12 object.o
+-rw-rw-r--  1 sunyongfeng sunyongfeng  21600  5月 16 17:12 obmalloc.o
+-rw-rw-r--  1 sunyongfeng sunyongfeng  33144  5月 16 17:12 rangeobject.o
+-rw-rw-r--  1 sunyongfeng sunyongfeng 229344  5月 16 17:12 setobject.o
+-rw-rw-r--  1 sunyongfeng sunyongfeng  40808  5月 16 17:12 sliceobject.o
+-rw-rw-r--  1 sunyongfeng sunyongfeng 595896  5月 16 17:12 stringobject.o
+-rw-rw-r--  1 sunyongfeng sunyongfeng  62128  5月 16 17:12 structseq.o
+-rw-rw-r--  1 sunyongfeng sunyongfeng  91608  5月 16 17:12 tupleobject.o
+-rw-rw-r--  1 sunyongfeng sunyongfeng 624544  5月 16 17:12 typeobject.o
+-rw-rw-r--  1 sunyongfeng sunyongfeng  74408  5月 16 17:12 unicodectype.o
+-rw-rw-r--  1 sunyongfeng sunyongfeng 855600  5月 16 17:12 unicodeobject.o
+-rw-rw-r--  1 sunyongfeng sunyongfeng 139624  5月 16 17:12 weakrefobject.o
+
+Parser:
+总用量 860
+drwxrwxr-x  2 sunyongfeng sunyongfeng   4096  5月 16 17:12 .
+drwxrwxr-x 11 sunyongfeng sunyongfeng   4096  5月 16 17:13 ..
+-rw-rw-r--  1 sunyongfeng sunyongfeng  16736  5月 16 17:12 acceler.o
+-rw-rw-r--  1 sunyongfeng sunyongfeng  11312  5月 16 17:12 bitset.o
+-rw-rw-r--  1 sunyongfeng sunyongfeng  17416  5月 16 17:12 firstsets.o
+-rw-rw-r--  1 sunyongfeng sunyongfeng   8760  5月 16 17:12 grammar1.o
+-rw-rw-r--  1 sunyongfeng sunyongfeng  26176  5月 16 17:12 grammar.o
+-rw-rw-r--  1 sunyongfeng sunyongfeng  27104  5月 16 17:12 listnode.o
+-rw-rw-r--  1 sunyongfeng sunyongfeng  13464  5月 16 17:12 metagrammar.o
+-rw-rw-r--  1 sunyongfeng sunyongfeng  28912  5月 16 17:12 myreadline.o
+-rw-rw-r--  1 sunyongfeng sunyongfeng  29440  5月 16 17:12 node.o
+-rw-rw-r--  1 sunyongfeng sunyongfeng  26264  5月 16 17:12 parser.o
+-rw-rw-r--  1 sunyongfeng sunyongfeng  49528  5月 16 17:12 parsetok.o
+-rwxrwxr-x  1 sunyongfeng sunyongfeng 254563  5月 16 17:12 pgen
+-rw-rw-r--  1 sunyongfeng sunyongfeng  40512  5月 16 17:12 pgenmain.o
+-rw-rw-r--  1 sunyongfeng sunyongfeng  72232  5月 16 17:12 pgen.o
+-rw-rw-r--  1 sunyongfeng sunyongfeng  25168  5月 16 17:12 printgrammar.o
+-rw-rw-r--  1 sunyongfeng sunyongfeng 128656  5月 16 17:12 tokenizer.o
+-rw-rw-r--  1 sunyongfeng sunyongfeng  51952  5月 16 17:12 tokenizer_pgen.o
+
+Python:
+总用量 5552
+drwxrwxr-x  2 sunyongfeng sunyongfeng    4096  5月 16 17:12 .
+drwxrwxr-x 11 sunyongfeng sunyongfeng    4096  5月 16 17:13 ..
+-rw-rw-r--  1 sunyongfeng sunyongfeng   19328  5月 16 17:12 asdl.o
+-rw-rw-r--  1 sunyongfeng sunyongfeng  303848  5月 16 17:12 ast.o
+-rw-rw-r--  1 sunyongfeng sunyongfeng  230232  5月 16 17:12 bltinmodule.o
+-rw-rw-r--  1 sunyongfeng sunyongfeng  622480  5月 16 17:12 ceval.o
+-rw-rw-r--  1 sunyongfeng sunyongfeng  109648  5月 16 17:12 codecs.o
+-rw-rw-r--  1 sunyongfeng sunyongfeng  393064  5月 16 17:12 compile.o
+-rw-rw-r--  1 sunyongfeng sunyongfeng  178976  5月 16 17:12 dtoa.o
+-rw-rw-r--  1 sunyongfeng sunyongfeng   26208  5月 16 17:12 dynload_shlib.o
+-rw-rw-r--  1 sunyongfeng sunyongfeng   98584  5月 16 17:12 errors.o
+-rw-rw-r--  1 sunyongfeng sunyongfeng  113440  5月 16 17:12 formatter_string.o
+-rw-rw-r--  1 sunyongfeng sunyongfeng   39416  5月 16 17:12 formatter_unicode.o
+-rw-rw-r--  1 sunyongfeng sunyongfeng   11936  5月 16 17:12 frozenmain.o
+-rw-rw-r--  1 sunyongfeng sunyongfeng    6096  5月 16 17:12 frozen.o
+-rw-rw-r--  1 sunyongfeng sunyongfeng   38336  5月 16 17:12 future.o
+-rw-rw-r--  1 sunyongfeng sunyongfeng  197032  5月 16 17:12 getargs.o
+-rw-rw-r--  1 sunyongfeng sunyongfeng    5664  5月 16 17:12 getcompiler.o
+-rw-rw-r--  1 sunyongfeng sunyongfeng    6024  5月 16 17:12 getcopyright.o
+-rw-rw-r--  1 sunyongfeng sunyongfeng   12392  5月 16 17:12 getopt.o
+-rw-rw-r--  1 sunyongfeng sunyongfeng    5656  5月 16 17:12 getplatform.o
+-rw-rw-r--  1 sunyongfeng sunyongfeng    6680  5月 16 17:12 getversion.o
+-rw-rw-r--  1 sunyongfeng sunyongfeng   42895  5月 16 17:12 graminit.c
+-rw-rw-r--  1 sunyongfeng sunyongfeng   99888  5月 16 17:12 graminit.o
+-rw-rw-r--  1 sunyongfeng sunyongfeng   21144  5月 16 17:12 importdl.o
+-rw-rw-r--  1 sunyongfeng sunyongfeng  304840  5月 16 17:12 import.o
+-rw-rw-r--  1 sunyongfeng sunyongfeng  366384  5月 16 17:12 marshal.o
+-rw-rw-r--  1 sunyongfeng sunyongfeng  116208  5月 16 17:12 modsupport.o
+-rw-rw-r--  1 sunyongfeng sunyongfeng   10408  5月 16 17:12 mysnprintf.o
+-rw-rw-r--  1 sunyongfeng sunyongfeng   12280  5月 16 17:12 mystrtoul.o
+-rw-rw-r--  1 sunyongfeng sunyongfeng   52536  5月 16 17:12 peephole.o
+-rw-rw-r--  1 sunyongfeng sunyongfeng   22560  5月 16 17:12 pyarena.o
+-rw-rw-r--  1 sunyongfeng sunyongfeng    6904  5月 16 17:12 pyctype.o
+-rw-rw-r--  1 sunyongfeng sunyongfeng    2992  5月 16 17:12 pyfpe.o
+-rw-rw-r--  1 sunyongfeng sunyongfeng    5736  5月 16 17:12 pymath.o
+-rw-rw-r--  1 sunyongfeng sunyongfeng   63320  5月 16 17:12 pystate.o
+-rw-rw-r--  1 sunyongfeng sunyongfeng    9784  5月 16 17:12 pystrcmp.o
+-rw-rw-r--  1 sunyongfeng sunyongfeng   73048  5月 16 17:12 pystrtod.o
+-rw-rw-r--  1 sunyongfeng sunyongfeng 1018632  5月 16 17:12 Python-ast.o
+-rw-rw-r--  1 sunyongfeng sunyongfeng  387616  5月 16 17:12 pythonrun.o
+-rw-rw-r--  1 sunyongfeng sunyongfeng   33680  5月 16 17:12 random.o
+-rw-rw-r--  1 sunyongfeng sunyongfeng   40560  5月 16 17:12 structmember.o
+-rw-rw-r--  1 sunyongfeng sunyongfeng  149280  5月 16 17:12 symtable.o
+-rw-rw-r--  1 sunyongfeng sunyongfeng  148672  5月 16 17:12 sysmodule.o
+-rw-rw-r--  1 sunyongfeng sunyongfeng   34096  5月 16 17:12 thread.o
+-rw-rw-r--  1 sunyongfeng sunyongfeng   43328  5月 16 17:12 traceback.o
+-rw-rw-r--  1 sunyongfeng sunyongfeng   96056  5月 16 17:12 _warnings.o
+```
+
+## 编译本地 Python 与 pgen
+用于生成 grammar 所需要文件用。
+
+```
+../configure CC=gcc CXX=g++ AR=ar RANLIB=ranlib LDFLAGS="-L/usr/lib -L/usr/lib64 -L/usr/local/lib -L/usr/local/lib64" CFLAGS="-I/usr/include -I/usr/local/include"
+ 
+make
+```
 
 ## 配置
+
+### 配置交叉编译环境变量
+比如 CC、CFLAGS、LDFLAGS 等。
+
+### configure 配置
 配置命令如下：
 configure 的 prefix 只支持绝对路径。
 
 ```
-./configure --host=mips64-octeon-linux-gnu --build=x86_64-linux-gnu prefix=/home/sunyongfeng/python-install --disable-ipv6 ac_cv_file__dev_ptmx=no ac_cv_file__dev_ptc=no ac_cv_have_long_long_format=yes
+../configure --host=mips64-octeon-linux-gnu --build=x86_64-linux-gnu --prefix=/home/sunyongfeng/python-install --disable-ipv6 ac_cv_file__dev_ptmx=no ac_cv_file__dev_ptc=no ac_cv_have_long_long_format=yes
 ```
 
 问题：
 * `--enable-FEATURE`，不清楚有哪些 features ，怎么配置；
 * `--enable-PACKAGE`，不清楚有哪些 package，怎么配置。
 
-配置完了之后，在 Modules 目录会生成 Setup 文件。修改 `Modules/Setup` 文件，定制想编译的内置模块。以下是基础模块，目前还不清楚如果不想内置的话要如何编译。
+配置完了之后，在 Modules 目录会生成 Setup 文件。x86 的默认编译会编译到必须的模块，而 mips64 的交叉编译很多模块没有编译下，如 socket 等。修改 `Modules/Setup` 文件，定制想编译的内置模块。以下是基础模块，目前还不清楚如果不想内置的话要如何编译。
 定制内置模块，参见这篇博文 《[定制 Python 嵌入 C++: (四) 定制 Python 内建模块](http://www.adintr.com/article/blog/249)》，讲述各个内置模块的功能。
 
 ```
@@ -254,3 +454,4 @@ To find the necessary bits, look in setup.py in detect_modules() for the module'
 * [定制 Python 嵌入 C++: (四) 定制 Python 内建模块](http://www.adintr.com/article/blog/249)
 * [build python 2.7.11 for mips](http://jyhshin.pixnet.net/blog/post/45780376-build-python-2.7.11-for-mips)
 * [Python Deployment](https://gist.github.com/reorx/4067217)
+* [How to cross compile python for MIPS](http://python-mips.blogspot.sg/)
