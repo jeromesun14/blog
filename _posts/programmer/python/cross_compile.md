@@ -2,6 +2,10 @@
 ===============
 
 ## 下载、解压 python 源代码
+
+## 导入交叉编译 patch
+参考自 [python-2.7-001-support-for-build.patch](http://code.openhub.net/file?fid=gbEPeGEYo_iBj7isfd9QeVX7N8A&cid=r3Ocm3qAuhY&s=python&fp=520151&mp=&projSelected=true#L0)。2.7.11 的修改地方有稍微变化。
+
 ## 创建 build 目录
 在 python 源代码下创建 build 目录，做 configure、make、make install，编译时用于保存临时生成的文件，保证 python 源代码干净。如下为编译结果。
 
@@ -450,8 +454,11 @@ To find the necessary bits, look in setup.py in detect_modules() for the module'
 * sunaudiodev: For Sun hardware. Deprecated.
 * _tkinter: For tkinter graphy library, unnecessary if you don't develop tkinter programs.
 
+## 裁剪考虑
+
 ## 参考文献
 * [定制 Python 嵌入 C++: (四) 定制 Python 内建模块](http://www.adintr.com/article/blog/249)
 * [build python 2.7.11 for mips](http://jyhshin.pixnet.net/blog/post/45780376-build-python-2.7.11-for-mips)
 * [Python Deployment](https://gist.github.com/reorx/4067217)
 * [How to cross compile python for MIPS](http://python-mips.blogspot.sg/)
+* [python-2.7-001-support-for-build.patch](http://code.openhub.net/file?fid=gbEPeGEYo_iBj7isfd9QeVX7N8A&cid=r3Ocm3qAuhY&s=python&fp=520151&mp=&projSelected=true#L0)
