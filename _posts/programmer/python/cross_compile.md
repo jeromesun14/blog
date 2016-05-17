@@ -5,9 +5,17 @@
 从 python.org 下载。
 
 ## 导入交叉编译 patch
-参考自 [python-2.7-001-support-for-build.patch](http://code.openhub.net/file?fid=gbEPeGEYo_iBj7isfd9QeVX7N8A&cid=r3Ocm3qAuhY&s=python&fp=520151&mp=&projSelected=true#L0)。2.7.11 的修改地方有稍微变化，详见如下代码。
+参考自 [python-2.7-001-support-for-build.patch](http://code.openhub.net/file?fid=gbEPeGEYo_iBj7isfd9QeVX7N8A&cid=r3Ocm3qAuhY&s=python&fp=520151&mp=&projSelected=true#L0)，2.7.11 的修改地方有稍微变化，详见如下 patch。
 
 Python 虽然使用 `autoconf`，但是事实上代码中已经包含 `configure` 文件，因此下文代码给出的是修改 `configure.ac` 并执行 `autoconf` 后生成的 `configure` 文件。
+
+patch 的使用方法，在 python 源代码根目录下执行：
+
+```
+patch -p1 < ../0001-cross-compile.patch
+```
+
+python 2.7.11 交叉编译 patch：
 
 ```
 diff --git a/Makefile.pre.in b/Makefile.pre.in
