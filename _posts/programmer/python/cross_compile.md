@@ -405,7 +405,7 @@ To find the necessary bits, look in setup.py in detect_modules() for the module'
 ## 附录三 编译结果
 
 ```
-sunyongfeng@R04220:~/workshop/rgosm-build/Python-2.7.11/build-pc$ ls -al *
+sunyongfeng@R04220:~/workshop/Python-2.7.11/build-pc$ ls -al *
 -rw-rw-r-- 1 sunyongfeng sunyongfeng   559047  5月 16 17:11 config.log
 -rwxrwxr-x 1 sunyongfeng sunyongfeng    39223  5月 16 17:11 config.status
 -rw-rw-r-- 1 sunyongfeng sunyongfeng 14957864  5月 16 17:13 libpython2.7.a
