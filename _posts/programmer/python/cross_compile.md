@@ -105,7 +105,7 @@ cd build-pc
 
 ../configure CC=gcc CXX=g++ AR=ar RANLIB=ranlib LDFLAGS="-L/usr/lib -L/usr/lib64 -L/usr/local/lib -L/usr/local/lib64" CFLAGS="-I/usr/include -I/usr/local/include"
  
-make
+make python Parser/pgen
 ```
 
 ## 配置
