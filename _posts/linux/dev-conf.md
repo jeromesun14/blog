@@ -3,7 +3,7 @@ date: 2015-09-10 21:13:24
 toc: true
 tags: [Linux, ubuntu, 远程登录, 文件共享, 串口]
 categories: linux
-keywords: [ubuntu, remmina, freerdp, serialport, kermit, sunnogo, tftp]
+keywords: [ubuntu, remmina, freerdp, serialport, kermit, samba, tftp]
 description: Linux开发环境常用配置记录，含远程登录、文件共享、串口访问与共享、交叉编译器、终端等内容。
 ---
 
@@ -147,13 +147,13 @@ dialout:x:20:your_user_name
 
 ## 文件共享
 
-### sunnogo
-安装包：`sunnogo`
+### samba
+安装包：`samba`
 
 配置：
 
-* 修改配置文件`/etc/sunnogo/smb.conf`，确认要共享的目录。`sudo service sunnogo restart`生效。配置样例如下。
-* 创建sunnogo用户：`sudo smbpasswd -a user_name`，user_name填成自己想要的名称。
+* 修改配置文件`/etc/samba/smb.conf`，确认要共享的目录。`sudo service samba restart`生效。配置样例如下。
+* 创建samba用户：`sudo smbpasswd -a user_name`，user_name填成自己想要的名称。
 
 ```
 [linuxMint]
@@ -168,7 +168,7 @@ dialout:x:20:your_user_name
 
 `控制面板` -> `用户账户` -> `管理您的凭据`，然后单击要清除的那个凭据，点击`从保管库中删除`，重启生效。
 
-解决Ubuntu用户名变动后，无法从win7 登录sunnogo。
+解决Ubuntu用户名变动后，无法从win7 登录 samba。
 
 ### Linux 访问 Windows 共享目录 
 
