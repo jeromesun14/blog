@@ -1,5 +1,11 @@
-vim 配置
-========
+title: VIM 配置文件
+date: 2016-05-22 13:03:24
+toc: true
+tags: [vim]
+categories: programmer
+keywords: [vim, 配置, vimrc]
+description: vim 配置文件备忘
+---
 
 这是我的个人 vim 配置。
 
