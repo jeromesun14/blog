@@ -1,5 +1,11 @@
-makefile 学习记录
-=================
+title: makefile 学习记录
+date: 2016-04-15 20:03:24
+toc: true
+tags: [makefile]
+categories: programmer
+keywords: [makefile, compile, gcc, make]
+description: makefile 使用备忘
+---
 
 ## miscellaneous
 
