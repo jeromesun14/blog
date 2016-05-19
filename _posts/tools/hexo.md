@@ -12,10 +12,6 @@ description: 本文描述 hexo 搭个人博客的记录，备忘。
 * 安装 `git`
 * 安装 `nodejs`，debian / ubuntu 类的环境：`sudo apt-get install npm nodejs-legacy`
 如果安装的是 `node` 包，则安装 hexo 时可能出现下文的 error 。
-* 安装 `hexo`，`npm install -g hexo-cli`，如果想用淘宝的源：`npm install -g hexo-cli --registry=https://registry.npm.taobao.org`。实测官方源没有问题。
-* 配置 npm 的默认源为淘宝源：`npm config set registry https://registry.npm.taobao.org/`
-
-<!--more-->
 
 ```
 npm http GET https://registry.npm.taobao.org/inherits
@@ -29,6 +25,11 @@ npm WARN For further explanations, please read
 
 npm ERR! weird error 1
 ```
+
+* 安装 `hexo`，`sudo npm install -g hexo-cli`，如果想用淘宝的源：`npm install -g hexo-cli --registry=https://registry.npm.taobao.org`。实测官方源没有问题。
+* 配置 npm 的默认源为淘宝源：`npm config set registry https://registry.npm.taobao.org/`
+
+<!--more-->
 
 ## 安装插件
 
