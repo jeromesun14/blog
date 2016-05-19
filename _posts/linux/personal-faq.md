@@ -249,3 +249,13 @@ root	ALL=(ALL:ALL) ALL
 usernamexxxx	ALL=(ALL:ALL) ALL
 ```
 
+### 配置字体
+* 拷贝字体
+* 配置字体
+* 刷新字体
+
+```
+sudo cp -a msfonts /usr/share/fonts/msfonts
+sudo fc-cache -f -v
+fc-cache -f -s -v
+```
