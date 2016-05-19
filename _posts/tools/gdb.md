@@ -2,7 +2,7 @@ title: GDB使用记录
 date: 2015-06-17 20:40:18
 toc: true
 tags: [调试, GDB, Linux]
-categories: tools
+categories: programmer
 keywords: [gdb, 调试, Debug, Linux]
 description: 记录GDB使用过的方法。
 ---
