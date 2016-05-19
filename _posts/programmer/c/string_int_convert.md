@@ -1,5 +1,11 @@
-C 语言字符串与整型相互转换
-==========================
+title: C 语言字符串与整型相互转换
+date: 2016-04-22 13:03:24
+toc: true
+tags: [Linux, c]
+categories: c
+keywords: [Linux, c, string, int, convert]
+description: Linux c，字符串与整型数据相互转换。
+---
 
 ## string to int
 
