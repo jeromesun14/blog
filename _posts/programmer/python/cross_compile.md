@@ -1,5 +1,11 @@
-交叉编译 python
-===============
+title: 交叉编译 python
+date: 2016-05-17 12:13:24
+toc: true
+tags: [Linux, ubuntu, python, 交叉编译]
+categories: python
+keywords: [ubuntu, python, 交叉编译, mips64]
+description: ubuntu 16.04 下交叉编译 mips64 python 2.7.11
+---
 
 ## 下载、解压 python 源代码
 从 python.org 下载。
