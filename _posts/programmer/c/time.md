@@ -1,5 +1,11 @@
-Linux C 语言时间相关处理
-==================
+title: Linux C 语言时间相关处理
+date: 2016-04-23 19:23:30
+toc: true
+tags: [Linux, c]
+categories: c
+keywords: [Linux, c, time, clock]
+description: Linux c 时间相关处理。
+---
 
 * time
 * gettimeofday
