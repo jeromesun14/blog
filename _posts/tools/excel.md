@@ -1,3 +1,11 @@
+title: Excel 使用记录
+date: 2016-04-12 22:23:00
+toc: true
+tags: [Excel]
+categories: tools
+keywords: [office, excel]
+description: Excel 使用备忘，主要是函数相关
+---
 
 ## 统计单元格数目
 
