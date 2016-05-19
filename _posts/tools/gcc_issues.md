@@ -1,5 +1,11 @@
-GCC 问题记录
-============
+title: GCC 问题记录
+date: 2016-02-28 14:13:20
+toc: true
+tags: [gcc]
+categories: programmer
+keywords: [linux, gcc, compile, 编译]
+description: Linux c gcc 使用问题记录。
+---
 
 ## errors
 
