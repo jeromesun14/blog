@@ -1,5 +1,11 @@
-Thinkpad E420 无法上电
-======================
+title: Thinkpad E420 无法上电
+date: 2016-04-16 23:13:00
+toc: true
+tags: [misc]
+categories: misc
+keywords: [thinkpad, e420, 突然，无法上电，无法开机，灯不亮]
+description: Thinkpad e420 突然无法上电，电源指示灯不亮。
+---
 
 2016.04.16
 
