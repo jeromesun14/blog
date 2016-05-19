@@ -1,4 +1,11 @@
-VIM 使用记录
+title: VIM 使用记录
+date: 2016-03-14 13:13:24
+toc: true
+tags: [vim]
+categories: vim
+keywords: [vim]
+description: vim 使用备忘
+---
 
 ## 替换选区内的字符串
 `v` 选中区域后键入 `:`，会自动选中选区 `:'<,'>`，之后像在全局操作那样 `%s/str/substr/g`，替换“str”为“substr”。
