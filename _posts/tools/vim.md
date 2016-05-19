@@ -2,7 +2,7 @@ title: VIM 使用记录
 date: 2016-03-14 13:13:24
 toc: true
 tags: [vim]
-categories: vim
+categories: programmer
 keywords: [vim]
 description: vim 使用备忘
 ---
