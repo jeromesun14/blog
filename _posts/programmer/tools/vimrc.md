@@ -119,6 +119,7 @@ set hlsearch
 set nu
 set cc=100
 set ts=4
+set shiftwidth =4
 set expandtab
 set autoindent
 set cindent
