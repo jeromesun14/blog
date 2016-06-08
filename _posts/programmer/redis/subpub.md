@@ -1,7 +1,19 @@
+title: Redis 订阅发布
+date: 2016-06-02 13:03:24
+toc: true
+tags: [redis]
+categories: redis
+keywords: [Linux, redis, 配置, configure, 发布订阅, subscribe, publish]
+description: redis 发布订阅相关内容，含配置。
+---
 
-订阅配置： 
+订阅配置
+--------
 
-redis 配置文件，EVENT NOTIFICATION 一节，配置监听响应哪种事件。这里配置为`notify-keyspace-events "KA"`
+redis 配置文件，EVENT NOTIFICATION 一节，配置监听响应哪种事件。
+这里配置为 `notify-keyspace-events "KA"`。
+
+<!--more-->
 
 ```
 ############################# EVENT NOTIFICATION ##############################

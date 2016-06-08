@@ -22,6 +22,8 @@ description: 介绍开源网络系统 openswitch 编译过程。
   + gawk
   + makeinfo，软件包名字是 `texinfo`
 
+<!--more-->
+
 ```
 sudo apt-get install screen chrpath device_tree_compiler gawk texinfo
 ```

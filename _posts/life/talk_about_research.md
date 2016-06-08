@@ -1,3 +1,12 @@
+title: 关于研究
+date: 2016-05-10 12:30:24
+toc: true
+tags: [思考]
+categories: 思考
+keywords: [思考，研究]
+description: 领导谈招人的期待。
+---
+
 关于研究
 ========
 

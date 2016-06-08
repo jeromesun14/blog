@@ -15,6 +15,8 @@ description: Linux c 时间相关处理。
 * 信号
 * 条件锁
 
+<!--more-->
+
 ## time()
 
 以下是 `man 2 time`：

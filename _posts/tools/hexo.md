@@ -26,6 +26,8 @@ npm WARN For further explanations, please read
 npm ERR! weird error 1
 ```
 
+<!--more-->
+
 * 安装 `hexo`，`sudo npm install -g hexo-cli`，如果想用淘宝的源：`npm install -g hexo-cli --registry=https://registry.npm.taobao.org`。实测官方源没有问题。
 * 配置 npm 的默认源为淘宝源：`npm config set registry https://registry.npm.taobao.org/`
 

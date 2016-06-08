@@ -20,6 +20,8 @@ description: Excel 使用备忘，主要是函数相关
 COUNTIF(total!H:H,A12)，
 ```
 
+<!--more-->
+
 * 统计 "total" 标签所有 H 列，值为 "abc" 的单元格个数
 
 ```

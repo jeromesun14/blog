@@ -20,6 +20,8 @@ description: Linux c，字符串与整型数据相互转换。
 * itoa
 * sprintf / snprintf
 
+<!--more-->
+
 ## MAC to string
 本节来自 [stackoverflow](http://stackoverflow.com/questions/12772685/how-to-convert-mac-string-to-a-byte-address-in-c)：
 

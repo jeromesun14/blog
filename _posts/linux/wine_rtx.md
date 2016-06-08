@@ -23,6 +23,8 @@ sudo apt-get update
 sudo apt-get install wine-devel
 ```
 
+<!--more-->
+
 要注意，若安装 wine 包是老的稳定版，新开发版本是 wine-devel ，经常有不少优化和修正。
 
 如果愿意安装比 devel 稍微更 devel 的 staging 版本的话，可以试试 wine-staging。
@@ -49,3 +51,4 @@ WINEARCH=win32 WINEPREFIX=~/.wine wine Downloads/rtxclient2015formal.exe
 ```
 
 安装完后，直接可用。字体、截图及发送、文件发送皆正常。
+

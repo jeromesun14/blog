@@ -21,6 +21,8 @@ patch 的使用方法，在 python 源代码根目录下执行：
 patch -p1 < ../0001-cross-compile.patch
 ```
 
+<!--more-->
+
 python 2.7.11 交叉编译 patch：
 
 ```

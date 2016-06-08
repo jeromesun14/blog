@@ -9,6 +9,8 @@ description: vim 配置文件备忘
 
 这是我的个人 vim 配置。
 
+<!--more-->
+
 ```vim
 " 1. Install bundle
 " git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle

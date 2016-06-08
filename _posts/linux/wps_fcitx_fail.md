@@ -1,5 +1,11 @@
-fcitx 在 WPS for Linux 中无法使用
-=================================
+title: fcitx 在 WPS for Linux 中无法使用
+date: 2016-05-26 12:30:24
+toc: true
+tags: [ubuntu, wps, fcitx]
+categories: linux
+keywords: [wps, wpp, et, Ubuntu, 16.04, linux, fcitx, 无法输入]
+description: ubuntu 下，设置环境变量，让 fcitx 在 WPS for Linux 可以正常使用。
+---
 
 问题： fcitx 在 WPS for Linux 中调不出来，在 Linux 的其他应用中可以正常使用。
 原因：环境变量未正确设置。
