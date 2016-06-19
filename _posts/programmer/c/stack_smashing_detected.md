@@ -10,12 +10,12 @@ description: Linux C程序异常提示“stack smashing detected”。
 如题，在程序运行中出现：
 
 ```
-*** stack smashing detected ***: /home/sunyongfeng/workshop/test/ss_redis.x86/ssc_ef/ef.elf terminated
+*** stack smashing detected ***: /home/sunyongfeng/workshop/test/sredis.x86/x.elf terminated
 
 Program received signal SIGABRT, Aborted.
 ```
 
-原因： memcpy 拷贝溢出，拷贝超过预期的大小。
+原因： 操作溢出。我的问题是 memcpy 拷贝超过预期长度的内存。
 
 详见 [stackoverflow](http://stackoverflow.com/questions/1345670/stack-smashing-detected) 的 sud03r 回答。以下引用该回答。
 > Stack Smashing here is actually caused due to a protection mechanism used by gcc to detect buffer overflow errors. For example in the following snippet:
