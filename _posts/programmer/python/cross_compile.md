@@ -269,8 +269,11 @@ To find the necessary bits, look in setup.py in detect_modules() for the module'
 ```
 
 * ncurses
-ncurses 提供字符终端处理库。如果 ncurses 编译失败，会导致退格键、方向键等不可用。下面错误中"^"位置是退格键。
-交叉编译 python 前需要先编译好 ncurses ，并配置好其头文件路径与库路径。
+ncurses 提供字符终端处理库。
+
+* readline
+如果 readline 模块编译失败，会导致退格键、方向键等不可用。下面错误中"^"位置是退格键。
+交叉编译 python 前需要先编译好 libreadline ，并将头文件和库文件放到默认可索引到的路径。
 
 ```
 >>> print "abc"
