@@ -270,6 +270,7 @@ To find the necessary bits, look in setup.py in detect_modules() for the module'
 
 * ncurses
 ncurses 提供字符终端处理库。
+> [维基百科](https://zh.wikipedia.org/wiki/Ncurses) ncurses（new curses）是一个程序库，它提供了API，可以允许程序员编写独立于终端的基于文本的用户界面。它是一个虚拟终端中的“类GUI”应用软件工具箱。它还优化了屏幕刷新方法，以减少使用远程shell时遇到的延迟。
 
 * readline
 如果 readline 模块编译失败，会导致退格键、方向键等不可用。下面错误中"^"位置是退格键。
