@@ -54,7 +54,7 @@ GDB提示符
 4. 线程调试
     info thread
     thread n
-
+    thread apply all bt full
    
 ```
 
