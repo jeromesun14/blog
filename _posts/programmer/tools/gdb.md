@@ -588,6 +588,9 @@ sunnogo@a3e420:~/test/gdb$
 
 ```
 
+### 查看所有线程堆栈 ###
+使用 `thread apply all bt full`，查看所有线程的堆栈，如果线程多，可能会产生短暂刷屏。
+
 gdb中调用调用函数
 -------
 `call func_name(param1, param2, ...)`，目前还没有明白如果参数是结构体要怎么整。注意，只能在进程上下文中才能使用，coredump中无法使用。
