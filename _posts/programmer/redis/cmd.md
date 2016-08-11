@@ -124,3 +124,15 @@ cluster_enabled:0
 db0:keys=3073,expires=0,avg_ttl=0
 ```
 
+* MONITOR，监控数据库使用情况，CTRL C 退出。
+```
+[0809-09:49:06:833] ~ # redis-cli -s /tmp/redis/redis_de_global.sock 
+[0809-09:49:08:744] redis /tmp/redis/redis_de_global.sock> MONITOR
+[0809-09:49:08:753] OK
+[0809-09:49:10:853] 
+[0809-09:49:14:849] 1470735840.255050 [0 unix:/tmp/redis/redis_de_global.sock] "HMSET" "/SS/NHOP/TBL/7623" "INTFID" "1" "VLAN" "100" "MAC" "0000.0000.0003" "PHYID" "07001b0b" "ACTION" "2" "FLOWID" "0" "FLAG" "00000000" "CTRL_FLAG" "00000000" "ENCAPID" "0"
+[0809-09:49:14:870] 1470735840.256824 [0 unix:/tmp/redis/redis_de_global.sock] "HMSET" "/SS/UC/RT/TBL/0/0/2.2.2.3/32/0" "VID" "0" "URPF" "0" "ACTION" "2" "NH_TYPE" "0" "NH_SIZE" "1" "ECMPGRP_ID" "0" "NHBASE_ID" "7623" "ENCAP_ID" "0" "CLASSID" "0" "INTFID" "0" "PHYID" "00000000" "MAC" "0001.0203.0405"
+[0809-09:49:14:894] 1470735840.261173 [0 unix:/tmp/redis/redis_de_global.sock] "HMSET" "/SS/NHOP/TBL/7624" "INTFID" "1" "VLAN" "100" "MAC" "0000.0000.0004" "PHYID" "07001b0b" "ACTION" "2" "FLOWID" "0" "FLAG" "00000000" "CTRL_FLAG" "00000000" "ENCAPID" "0"
+[0809-09:53:05:655] 1470735856.464859 [0 unix:/tmp/redis/redis_de_global.sock] "HMSET" "/SS/NHOP/TBL/12699" "INTFID" "1" "VLAN" "100" "MAC" "0000.0000.13d7" "PHYID" "07001b0b" "ACTION" "2" "FLOWID" "0" "FLAG" ""/SS/NHOP/TBL/12700" "INTFID" "1" "VLAN" "100" "MAC" "0000.0000.13d8" "PHYID" "07001b0b" "ACTION" "2" "FLOWID" "0" "FLAG" "00000000" "CTRL_FL
+[0809-09:54:52:443] ~ # 
+```
