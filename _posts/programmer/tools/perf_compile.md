@@ -14,6 +14,7 @@ Linux Kernel 工具 perf 交叉编译
     -  [*]   Debug: use vmalloc to back perf mmap() buffers
 
 体现在配置文件上的配置项：
+
 ARM Cortex a9：
 * CONFIG_HAVE_PERF_EVENTS=y
 * CONFIG_PERF_USE_VMALLOC=y
