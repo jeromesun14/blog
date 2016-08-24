@@ -5,18 +5,139 @@ Linux Kernel 工具 perf 交叉编译
 > 
 > perf 支持硬件性能计数器、tracepoints、软件性能计数器（如 hrtimer），和动态 probes （比如 kprobes 或uprobes）。IBM 在 2012 年将 perf 与 Oprofile 评为两个最常用的 linux performance counter profiling tools。
 
-MIPS
-----
-截止
+内核选项
+--------
+* General setup  ---> 
+  + [*] Profiling support
+  + Kernel Performance Events And Counters  --->
+    -  [*] Kernel performance events and counters
+    -  [*]   Debug: use vmalloc to back perf mmap() buffers
 
-ARM
+体现在配置文件上的配置项：
+ARM Cortex a9：
+* CONFIG_HAVE_PERF_EVENTS=y
+* CONFIG_PERF_USE_VMALLOC=y
+* CONFIG_PERF_EVENTS=y
+* CONFIG_DEBUG_PERF_USE_VMALLOC=y
+* CONFIG_VM_EVENT_COUNTERS=y
+* CONFIG_PROFILING=y
+
+MIPS OCTEON II：
+* CONFIG_CAVIUM_OCTEON_PERF=y
+* CONFIG_HAVE_PERF_EVENTS=y
+* CONFIG_PERF_USE_VMALLOC=y
+* CONFIG_PERF_EVENTS=y
+* CONFIG_DEBUG_PERF_USE_VMALLOC=y
+* CONFIG_VM_EVENT_COUNTERS=y
+* CONFIG_PROFILING=y
+* CONFIG_HAVE_PERF_REGS=y
+* CONFIG_HAVE_PERF_USER_STACK_DUMP=y
+
+X86_64
+------
+ubuntu 16.04 上：
+* 安装 `linux-tools-generic`、`linux-cloud-tools-generic`、`perf-tools-unstable`
+* 如果 perf 工具支持的内核不是当前默认启机的内核，则启机后，通过 grub 菜单选择对应的内核后，perf 才能使用。
+
+实测可用。
+
+MIPS OCTEON II
+----
+截止 2016年8月24日，MIPS 平台的 perf 还不支持用户空间 callchain，即 perf 使用时无法识别用户空间的函数。
+
+来自 [arch/mips/kernel/perf_events.c](http://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/tree/arch/mips/kernel/perf_event.c):
+```c
+ 23 /*                                                                                                  
+ 24  * Leave userspace callchain empty for now. When we find a way to trace                             
+ 25  * the user stack callchains, we will add it here.                                                  
+ 26  */
+```
+
+实测不支持用户空间 callchains。
+
+```
+# perf version : 3.9.9.g3b9f02
+# arch : mips64
+# nrcpus online : 4
+# nrcpus avail : 4
+# cpudesc : Cavium Octeon II V0.1
+# total memory : 4093516 kB
+# cmdline : /bin/perf record -g -e cpu-clock ./t1 
+# event : name = cpu-clock, type = 1, config = 0x0, config1 = 0x0, config2 = 0x0, excl_usr = 0, excl_kern = 0, excl_host = 0, excl_guest = 1, precise_ip = 0
+# HEADER_CPU_TOPOLOGY info available, use -I to display
+# pmu mappings: software = 1, uncore_l2c = 7, uncore_tad = 8, uncore_mc = 6
+# ========
+#
+# Samples: 6K of event 'cpu-clock'
+# Event count (approx.): 1560000000
+#
+# Overhead  Command      Shared Object
+# ........  .......  .................
+#
+    99.92%       t1  t1 （用户空间程序）              
+
+     0.06%       t1  [kernel.kallsyms]
+                 |          
+                 |--25.00%--kmem_cache_alloc
+                 |          anon_vma_prepare
+                 |          handle_pte_fault
+                 |          __do_page_fault
+                 |          ret_from_exception
+                 |          
+                 |--25.00%--__update_tlb
+                 |          __do_fault
+                 |          handle_pte_fault
+                 |          __do_page_fault
+                 |          ret_from_exception
+                 |          
+                 |--25.00%-- unlock_page
+                 |          __do_fault
+                 |          handle_pte_fault
+                 |          __do_page_fault
+                 |          ret_from_exception
+                 |          
+                  --25.00%--release_pages
+                            pagevec_lru_move_fn
+                            lru_add_drain_cpu
+/data2 # 
+```
+
+ARM Cortex a9
 ---
-依赖 zlib、elfutils。
+实测perf stat 时 counter 无计数，perf record 亦无数据，还不清楚问题在哪。
+
+```
+~ # perf stat ls
+bin            etc            mnt            rgos           sys
+boot           home           perf.data      root           tmp
+bootloader     include        perf.data.old  rootfs         usr
+data           lib            proc           sbin           var
+dev            linuxrc        rg_cfg         share
+
+ Performance counter stats for 'ls':
+
+     <not counted> task-clock              
+     <not counted> context-switches        
+     <not counted> cpu-migrations          
+     <not counted> page-faults             
+   <not supported> cycles                  
+   <not supported> stalled-cycles-frontend 
+   <not supported> stalled-cycles-backend  
+   <not supported> instructions            
+   <not supported> branches                
+   <not supported> branch-misses           
+
+       0.003733662 seconds time elapsed
+~ #
+```
+
+以下为编译记录：
 
 交叉编译记录参考，丫凡的博文《[交叉编译 perf for arm](http://freenix.blogcn.com/articles/%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91-perf-for-arm.html)》。
 
 * 内核版本：3.10.18
 * arm 交叉编译工具链：arm-cortex_a9-linux-gnueabi-gcc
+* 依赖：zlib、elfutils
 
 ### zlib
 zlib 因公司的交叉编译环境已支持，不用重新编译，略过。
@@ -124,8 +245,9 @@ sunnogo@R04220:~/workshop/elfutils-0.150$
 ```
 
 * 修改 Makefile
-  + 删除根目录 Makefile 中的 libcpu
-  + 删除 libebl_i386.a and libebl_x86_64.a (这里把所有 i386 和 x86_64 字眼所在行全部注释)。
+  + 删除根目录 Makefile 中的 libcpu 
+  + 删除 backends/Makefile 中的 libebl_i386.a and libebl_x86_64.a 相关内容 (这里把所有 i386 和 x86_64 字眼所在行全部注释)
+  + test 代码依赖 libz
   
 patch 如下：
 ```patch
