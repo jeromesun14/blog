@@ -17,9 +17,9 @@ ARM 平台 assert 退出后堆栈打不出来的原因是：调用了abort()函�
 > to be able to see a backtrace from abort(3).
 >
 > I suppose it optimizes away the instructions to save the return
-> address, because abort() is marked with __attribute__(noreturn).  But
+> address, because abort() is marked with `__attribute__`(noreturn).  But
 > that means there is very little point in actually doing that
-> optimization since __attribute__(noreturn) implies that the function
+> optimization since `__attribute__`(noreturn) implies that the function
 > will only be called once!  I suppose there are some space savings but
 > are they really significant?
 >>  Joe> There are several effects from "noreturn".  We would want some
