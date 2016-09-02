@@ -23,7 +23,9 @@ ARM 平台 assert 退出后堆栈打不出来的原因是：调用了abort()函�
 > will only be called once!  I suppose there are some space savings but
 > are they really significant?
 >>  Joe> There are several effects from "noreturn".  We would want some
+>>
 >>  Joe> of these effects for "abort", but not others, to get debuggable
+>>
 >>  Joe> code without degrading compile-time warnings.
 >>
 >> So the issue is that two unrelated features are currently combined in
