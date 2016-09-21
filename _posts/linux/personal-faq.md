@@ -226,7 +226,7 @@ Ubuntu配置禁用触摸板[wiki](http://wiki.ubuntu.org.cn/%E8%A7%A6%E6%91%B8%E
 
 #### Add user and add to sudoers group
 
-From [How can I add a new user as sudoer using the command line?](http://askubuntu.com/questions/7477/how-can-i-add-a-new-user-as-sudoer-using-the-command-line), ændrük's answer.
+From [How can I add a new user as sudoer using the command line?](http://askubuntu.com/questions/7477/how-can-i-add-a-new-user-as-sudoer-using-the-command-line), ændrük's answer.  
 From [RootSudo#Allowing_other_users_to_run_sudo](https://help.ubuntu.com/community/RootSudo#Allowing_other_users_to_run_sudo):
 
 > Allowing other users to run sudo
