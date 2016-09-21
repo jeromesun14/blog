@@ -50,7 +50,7 @@ description: Linux开发环境常用配置记录，含远程登录、文件共�
 >I would have thought by win7 this would have been fixed, but I am running Win7 enterprise trial right now and having the problem there.
 
 ### ssh远程登录Linux
-安装包：`openssh-server`
+安装包：`openssh-server`  
 客户端登录：`ssh username@hostIP`
 
 ## 串口
