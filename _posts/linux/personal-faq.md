@@ -224,12 +224,36 @@ Ubuntu配置禁用触摸板[wiki](http://wiki.ubuntu.org.cn/%E8%A7%A6%E6%91%B8%E
 
 ### 用户管理
 
+#### Add user and add to sudoers group
+
+From [How can I add a new user as sudoer using the command line?](http://askubuntu.com/questions/7477/how-can-i-add-a-new-user-as-sudoer-using-the-command-line), ændrük's answer.
+From [RootSudo#Allowing_other_users_to_run_sudo](https://help.ubuntu.com/community/RootSudo#Allowing_other_users_to_run_sudo):
+
+> Allowing other users to run sudo
+> 
+> To add a new user to sudo, open the **Users and Groups** tool from **System->Administration** menu. First click **Unlock**, then you can select a user from the list and hit **Properties**. Choose the **User Privileges** tab and check **Administer the system**.
+> 
+> In the terminal (for Precise Pangolin, 12.04), this would be:
+> 
+> `sudo adduser <username> sudo`
+> 
+> where you replace <username> with the name of the user (without the <>).
+> 
+> In previous version of Ubuntu
+> 
+> `sudo adduser <username> admin`
+> 
+> would have been appropriate, but the admin group has been deprecated and no longer exists in Ubuntu 12.04.
+> 
+
+
 #### 添加用户
 命令：
 
 * `useradd`
 * `usermod`
 * `userdel`
+* `adduser`, user adduser can default add a /home/username directory.
 
 #### 修改密码
 命令：`passwd username`
