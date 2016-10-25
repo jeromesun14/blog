@@ -35,6 +35,6 @@ int func(void)
 ```
 
 原因：交叉编译 target 为 arm 32 bit，host 为 x64。
-解决：[来自 stackoverflow]（http://stackoverflow.com/questions/21256866/libz-so-1-cannot-open-shared-object-file），安装 zlib1g:386 版本，`sudo apt-get install zlib1g:i386`
+解决：[来自 stackoverflow](http://stackoverflow.com/questions/21256866/libz-so-1-cannot-open-shared-object-file)，安装 zlib1g:386 版本，`sudo apt-get install zlib1g:i386`
 
 
