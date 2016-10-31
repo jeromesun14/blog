@@ -21,3 +21,11 @@ CPP_FLAGS_64 := -D64_BIT
 
 CPP_FLAGS := $(CPP_FLAGS_$(ARCH))  ... all the other flags ...
 ```
+
+### 清除某个 CFLAGS 编译选项
+
+来自 [stackoverflow](http://stackoverflow.com/questions/17316426/make-override-a-flag) 的答案：
+
+```
+CFLAGS := $(filter-out -Werror,$(CFLAGS))
+```
