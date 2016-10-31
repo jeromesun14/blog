@@ -29,3 +29,23 @@ CPP_FLAGS := $(CPP_FLAGS_$(ARCH))  ... all the other flags ...
 ```
 CFLAGS := $(filter-out -Werror,$(CFLAGS))
 ```
+
+### 打印 64 bits
+
+http://stackoverflow.com/questions/9225567/how-to-print-a-int64-t-type-in-c
+
+```
+#include <stdio.h>
+#include <stdint.h>
+
+int main(int argc, char *argv[])
+{
+    int64_t  a = 1LL << 63;
+    uint64_t b = 1ULL << 63;
+
+    printf("a=%jd (0x%jx)\n", a, a);
+    printf("b=%ju (0x%jx)\n", b, b);
+
+    return 0;
+}
+```
