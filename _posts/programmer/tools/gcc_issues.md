@@ -37,4 +37,10 @@ int func(void)
 原因：交叉编译 target 为 arm 32 bit，host 为 x64。
 解决：[来自 stackoverflow](http://stackoverflow.com/questions/21256866/libz-so-1-cannot-open-shared-object-file)，安装 zlib1g:386 版本，`sudo apt-get install zlib1g:i386`
 
+### 快速解决 -Werror 选项出错
+带 `-Werror` 选项，一有 warning 就出错，有时不同架构间移值代码很容易出现。
+```
+cc1: warnings being treated as errors
+```
+快速解决的方法：添加选项 `-Wno-error`。
 
