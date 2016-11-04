@@ -1,9 +1,15 @@
-Coredump文件简易指南
-====================
+title: Coredump文件简易指南
+date: 2016-09-14 22:22:14
+toc: true
+tags: [Linux, coredump]
+categories: programmer
+keywords: [linux, c, gcc, coredump, gdb]
+description: linux core 文件配置与如何进行调试使用。
+---
 
 coredump简介
 ------------
-通常情况下，coredump（亦称为core文件）文件包含程序运行时的内存信息，含寄存器状态、堆栈指针、内存管理信息、操作系统flags及其他信息，可以理解为把程序工作的当前状态存储成一个文件。Coredump文件通常于程序异常终止（crashed）时自动生成，常用于辅助分析和解决bug。可简单地理解为，10.x RGOS跑飞的时候打印的一系列信息，都保存在这个coredump文件里面，可通过这个coredump文件进行栈回溯和反汇编。
+通常情况下，coredump（亦称为core文件）文件包含程序运行时的内存信息，含寄存器状态、堆栈指针、内存管理信息、操作系统flags及其他信息，可以理解为把程序工作的当前状态存储成一个文件。Coredump文件通常于程序异常终止（crashed）时自动生成，常用于辅助分析和解决bug，可通过 coredump 文件进行栈回溯和反汇编。
 
 Coredump文件在不同的操作系统上文件类型不一，在目前的Unix-like操作系统中，使用ELF类型保存coredump文件，如下所示。目前常见阅读coredump文件的工具有BFD（GNU Binutils Binary File Descriptor library），以及使用这个库的GDB（GNU Debugger）和objdump。下文使用GDB阅读coredump文件。
 ```
