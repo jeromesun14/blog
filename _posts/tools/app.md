@@ -18,10 +18,11 @@ description: 使用过的好软件备忘
 ## Windows
 
 * Launchy
+* Listray，类似 Launchy，但是感觉比 Launchy 好用
 
 ## web
 
-* [diigo](https://www.diigo.com/)，网页标注或网页上的 pdf 标注。
+* [diigo](https://www.diigo.com/)，网页标注或网页上的 pdf 标注
 
 ## 编程
 
