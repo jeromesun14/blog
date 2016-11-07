@@ -1,5 +1,11 @@
-一些常见的 git 命令备忘
-=======================
+title: 一些常见的 git 命令备忘
+date: 2016-04-27 20:33:18
+toc: true
+tags: [版本控制, git]
+categories: tools
+keywords: [git, command, version control]
+description: 本文描述常见 git 命令备忘。
+
 
 * stage
 
