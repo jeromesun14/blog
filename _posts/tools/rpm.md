@@ -1,5 +1,5 @@
 title: rpm使用记录
-date: 2016-03-16 09:48:18
+date: 2016-10-16 12:48:18
 toc: true
 tags: [Linux, rpm]
 categories: tools
