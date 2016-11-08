@@ -44,3 +44,43 @@ cc1: warnings being treated as errors
 ```
 快速解决的方法：添加选项 `-Wno-error`。
 
+### -Werror 选项不生效
+`-Wno-error` 一定要在 `-Werror` 之后，从实际运行看，放在后面的 option 生效。
+源代码：
+```
+sunyongfeng@openswitch-OptiPlex-380:~/workshop/test$ cat abc.c
+int main()
+{
+    printf("sv\n");
+}
+```
+正常编译：
+```
+sunyongfeng@openswitch-OptiPlex-380:~/workshop/test$ gcc -o abc abc.c
+abc.c: In function ‘main’:
+abc.c:3:5: warning: implicit declaration of function ‘printf’ [-Wimplicit-function-declaration]
+     printf("sv\n");
+     ^
+abc.c:3:5: warning: incompatible implicit declaration of built-in function ‘printf’
+abc.c:3:5: note: include ‘<stdio.h>’ or provide a declaration of ‘printf’
+```
+如果 `-Werror` 在 `-Wno-errno` 之后，则 warning 还是当 error。
+```
+sunyongfeng@openswitch-OptiPlex-380:~/workshop/test$ gcc -o abc abc.c -Wno-error  -Werror
+abc.c: In function ‘main’:
+abc.c:3:5: error: implicit declaration of function ‘printf’ [-Werror=implicit-function-declaration]
+     printf("sv\n");
+     ^
+abc.c:3:5: error: incompatible implicit declaration of built-in function ‘printf’ [-Werror]
+abc.c:3:5: note: include ‘<stdio.h>’ or provide a declaration of ‘printf’
+cc1: all warnings being treated as errors
+sunyongfeng@openswitch-OptiPlex-380:~/workshop/test$ gcc -o abc abc.c -Wno-error  -Werror -Wno-error
+abc.c: In function ‘main’:
+abc.c:3:5: warning: implicit declaration of function ‘printf’ [-Wimplicit-function-declaration]
+     printf("sv\n");
+     ^
+abc.c:3:5: warning: incompatible implicit declaration of built-in function ‘printf’
+abc.c:3:5: note: include ‘<stdio.h>’ or provide a declaration of ‘printf’
+sunyongfeng@openswitch-OptiPlex-380:~/workshop/test$ 
+```
+
