@@ -1,5 +1,13 @@
-Linux Kernel 工具 perf 交叉编译
-===========================
+
+title: Linux Kernel 工具 perf 交叉编译
+date: 2016-08-24 20:13:24
+toc: true
+tags: [perf]
+categories: programmer
+keywords: [linux, kernel, perf]
+description: linux kernel perf 工具编译到 arm/mips 平台；ubuntu x86 平台使用 perf 工具的记录。
+---
+
 以下译自 [en.wikipedia](https://en.wikipedia.org/wiki/Perf_(Linux))
 > **perf** （有时亦称为 "Perf Events" 或 perf 工具，原始名称为 "Performance Counters for linux", PCL），是一个 Linux 性能分析工具，从 Linux 内核版本 2.6.31 导入。用户空间控制工具名为 perf，在命令行使用，提供一系列子命令，适用于整个系统（包含用户空间、内核空间代码）的 profiling 数据统计（即性能剖析数据统计）。
 > 
@@ -7,11 +15,14 @@ Linux Kernel 工具 perf 交叉编译
 
 内核选项
 --------
+
+```
 * General setup  ---> 
   + [*] Profiling support
   + Kernel Performance Events And Counters  --->
     -  [*] Kernel performance events and counters
     -  [*]   Debug: use vmalloc to back perf mmap() buffers
+```
 
 体现在配置文件上的配置项：
 
@@ -24,6 +35,7 @@ ARM Cortex a9：
 * CONFIG_PROFILING=y
 
 MIPS OCTEON II：
+
 * CONFIG_CAVIUM_OCTEON_PERF=y
 * CONFIG_HAVE_PERF_EVENTS=y
 * CONFIG_PERF_USE_VMALLOC=y
