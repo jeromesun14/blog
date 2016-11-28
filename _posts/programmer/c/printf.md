@@ -1,3 +1,11 @@
+title: linux c printf 相关记录
+date: 2016-11-01 13:03:24
+toc: true
+tags: [Linux, c]
+categories: c
+keywords: [Linux, c, printf, 64位]
+description: Linux c printf 函数相关记录。
+---
 
 打印 64 位 int
 --------------
