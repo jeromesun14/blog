@@ -1,5 +1,11 @@
-ARM 平台 abort 退出后堆栈打不全
-================================
+title: ARM 平台 abort 退出后堆栈打不全
+date: 2016-09-02 15:03:24
+toc: true
+tags: [Linux, arm]
+categories: c
+keywords: [Linux, c, arm, coredump, abort]
+description: ARM 平台 assert 退出后堆栈打不出来。
+---
 
 ARM 平台 assert 退出后堆栈打不出来的原因是：调用了abort()函数，abort是一个没有返回的函数，只会被调用一次，运行时不会去保存相关的寄存器值。
 
