@@ -273,6 +273,88 @@ root	ALL=(ALL:ALL) ALL
 usernamexxxx	ALL=(ALL:ALL) ALL
 ```
 
+#### 添加 sudo 用户的另一种简易方法
+详见：[How To Create a Sudo User on Ubuntu [Quickstart]](https://www.digitalocean.com/community/tutorials/how-to-create-a-sudo-user-on-ubuntu-quickstart)。
+
+* 以 root 用户登陆你的设备
+
+```
+ssh root@server_ip_address
+```
+
+* 使用 adduser 命令创建新用户。
+以下内容请替换 username 为你想创建的用户名。
+
+```
+adduser username
+```
+
+设置和确认新用户的密码。
+
+```
+Set password prompts:
+Enter new UNIX password:
+Retype new UNIX password:
+passwd: password updated successfully
+```
+
+接下来提示设置用户信息，可以全部不填，直接敲回车键。
+
+```
+User information prompts:
+Changing the user information for username
+Enter the new value, or press ENTER for the default
+    Full Name []:
+    Room Number []:
+    Work Phone []:
+    Home Phone []:
+    Other []:
+Is the information correct? [Y/n]
+```
+
+* 使用 usermod 命令添加用户到 sudo 组。
+
+```
+usermod -aG sudo username
+```
+
+Ubuntu 上 sudo 组的成员默认拥有 sudo 权限。
+
+* 测试新用户账号的 sudo 权限。
+使用 su 命令切换到新用户。
+
+```
+su - username
+```
+
+在你的命令前加 sudo 尝试新用户权限：
+
+```
+sudo command_to_run
+```
+
+例如，查看 /root 目录的内容：
+
+```
+sudo ls -la /root
+```
+
+如果是本会议中第一次使用 sudo，将系统会提示你输入密码。
+
+```
+sunyongfeng@ubuntu:~$ sudo ls -al /root
+[sudo] password for sunyongfeng: 
+total 3308
+drwx------  4 root root    4096 Nov 28 14:22 .
+drwxr-xr-x 22 root root    4096 Nov  4 14:52 ..
+-rw-------  1 root root      92 Nov 28 10:01 .bash_history
+-rw-r--r--  1 root root    3106 Feb 20  2014 .bashrc
+drwx------  2 root root    4096 Nov  4 15:25 .cache
+-rw-r--r--  1 root root     140 Feb 20  2014 .profile
+-rw-------  1 root root    2024 Nov 28 14:22 .viminfo
+
+```
+
 ### 配置字体
 * 拷贝字体
 * 配置字体
