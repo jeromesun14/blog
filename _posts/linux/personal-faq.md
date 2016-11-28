@@ -339,7 +339,7 @@ sudo command_to_run
 sudo ls -la /root
 ```
 
-如果是本会议中第一次使用 sudo，将系统会提示你输入密码。
+如果是本会话中第一次使用 sudo，将系统会提示你输入密码。
 
 ```
 sunyongfeng@ubuntu:~$ sudo ls -al /root
