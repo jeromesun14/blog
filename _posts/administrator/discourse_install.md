@@ -1,7 +1,7 @@
 title: 安装 discourse
 date: 2016-11-20 11:57:18
 toc: true
-tags: [discourse]
+tags: [discourse, administrator]
 categories: administrator
 keywords: [administrator, bbs, discourse, markdown, smtp, email]
 description: 记录 discourse 安装过程。

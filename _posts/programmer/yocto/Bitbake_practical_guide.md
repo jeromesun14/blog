@@ -5,6 +5,7 @@ tags: [Linux, yocto]
 categories: yocto
 keywords: [Linux, yocto, bitbake, openswitch, openembedded, oe]
 description: Bitbake 简明教程、实用指南。
+------------
 
 [TOC]
 
