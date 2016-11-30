@@ -78,6 +78,8 @@ root@ubuntu:~#
 下载 `text_markdown.py` 到 `data/plugin/parser`。
 修改 text_markdown.py，把 `output_html = markdown(self.raw)` 改为 `markdown(self.raw, extensions=['extra', 'abbr', 'attr_list', 'def_list', 'fenced_code', 'footnotes', 'tables', 'smart_strong', 'admonition', 'codehilite', 'headerid', 'meta', 'nl2br', 'sane_lists', 'smarty', 'toc', 'wikilinks', 'del_ins'])`，把你需要的 extra 往里加。
 
+这里的 del_ins 是通过 ` pip install git+git://github.com/aleray/mdx_del_ins.git` 安装支持的。
+
 ```
 """
     MoinMoin - Parser for Markdown
@@ -125,3 +127,20 @@ class Parser:
             self.request.write(formatter.escapedText(output_html))
 
 ```
+
+## 中文语言支持配置
+
+安装语言包，使用你配置的超级用户如 WikiAdmin 登陆。
+访问wiki语言设置页面，根据自己的域名而修改，`http://localhost/LanguageSetup?action=language_setup`。
+选择安装简体中文语言包，会看到提示：`附件'Simplified_Chinese--all_pages.zip'已安装`。
+
+修改默认语言为中文
+```
+[root@syswiki moin]# vim /opt/syswiki/share/moin/wikiconfig.py 
+…………略………… 
+# The main wiki language, set the direction of the wiki pages
+    language_default = 'zh'
+…………略…………
+```
+
+重启 moinmoin 就可以看到页面换成中文。
