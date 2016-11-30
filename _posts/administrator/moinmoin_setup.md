@@ -17,7 +17,9 @@ screenshot：
 
 ## markdown 语法支持
 
-安装使用 python markdown，`pip install markdown`。
+* 安装使用 python markdown
+
+命令：`pip install markdown`。
 
 ```
 root@ubuntu:~# pip install markdown
@@ -74,6 +76,7 @@ root@ubuntu:~#
 ```
 
 * moinmoin markdown 插件
+
 详见 [ParserMarket/Markdown](https://moinmo.in/ParserMarket/Markdown)。
 下载 `text_markdown.py` 到 `data/plugin/parser`。
 修改 text_markdown.py，把 `output_html = markdown(self.raw)` 改为 `markdown(self.raw, extensions=['extra', 'abbr', 'attr_list', 'def_list', 'fenced_code', 'footnotes', 'tables', 'smart_strong', 'admonition', 'codehilite', 'headerid', 'meta', 'nl2br', 'sane_lists', 'smarty', 'toc', 'wikilinks', 'del_ins'])`，把你需要的 extra 往里加。
