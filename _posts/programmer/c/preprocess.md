@@ -1,5 +1,5 @@
 title: linux c 预处理使用记录
-date: 2012-12-18 13:03:24
+date: 2016-12-15 01:03:24
 toc: true
 tags: [linux, c]
 categories: c
