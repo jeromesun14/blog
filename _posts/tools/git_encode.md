@@ -11,7 +11,7 @@ description: git中文编码问题及其配置
 解决前：
 
 ```
-sunyongfeng@openswitch-OptiPlex-380:~/workshop/ne/ne-doc$ git status
+sunyongfeng@openswitch-OptiPlex-380:~/workshop/xx/xx-doc$ git status
 On branch master
 
 Initial commit
@@ -33,16 +33,16 @@ nothing added to commit but untracked files present (use "git add" to track)
 解决：
 
 ```
-sunyongfeng@openswitch-OptiPlex-380:~/workshop/ne/ne-doc$ git config --global core.quotepath false
-sunyongfeng@openswitch-OptiPlex-380:~/workshop/ne/ne-doc$ git config --global gui.encoding utf-8
-sunyongfeng@openswitch-OptiPlex-380:~/workshop/ne/ne-doc$ git config --global i18n.commit.encoding utf-8
-sunyongfeng@openswitch-OptiPlex-380:~/workshop/ne/ne-doc$ git config --global i18n.logoutputencoding utf-8
-sunyongfeng@openswitch-OptiPlex-380:~/workshop/ne/ne-doc$ export LESSCHARSET=utf-8
+sunyongfeng@openswitch-OptiPlex-380:~/workshop/xx/xx-doc$ git config --global core.quotepath false
+sunyongfeng@openswitch-OptiPlex-380:~/workshop/xx/xx-doc$ git config --global gui.encoding utf-8
+sunyongfeng@openswitch-OptiPlex-380:~/workshop/xx/xx-doc$ git config --global i18n.commit.encoding utf-8
+sunyongfeng@openswitch-OptiPlex-380:~/workshop/xx/xx-doc$ git config --global i18n.logoutputencoding utf-8
+sunyongfeng@openswitch-OptiPlex-380:~/workshop/xx/xx-doc$ export LESSCHARSET=utf-8
 ```
 
 解决后：
 ```
-sunyongfeng@openswitch-OptiPlex-380:~/workshop/ne/ne-doc$ git status
+sunyongfeng@openswitch-OptiPlex-380:~/workshop/xx/xx-doc$ git status
 On branch master
 
 Initial commit
@@ -59,6 +59,6 @@ Untracked files:
         项目管理/
 
 nothing added to commit but untracked files present (use "git add" to track)
-sunyongfeng@openswitch-OptiPlex-380:~/workshop/ne/ne-doc$ 
-sunyongfeng@openswitch-OptiPlex-380:~/workshop/ne/ne-doc$ 
+sunyongfeng@openswitch-OptiPlex-380:~/workshop/xx/xx-doc$ 
+sunyongfeng@openswitch-OptiPlex-380:~/workshop/xx/xx-doc$ 
 ```
