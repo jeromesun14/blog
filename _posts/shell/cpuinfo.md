@@ -2,12 +2,14 @@ title: Linux 查看 CPU 信息
 date: 2017-02-09 12:01:18
 tags: [Linux, CPU]
 categories: shell
-keywords: [linux, cpu, frequency]
+keywords: [linux, cpu, cpuinfo, frequency, 频率, 核]
 toc: true
 description: Linux命令行查看 CPU 信息。
 ---
 
-* `cat /proc/cpuinfo`
+[TOC]
+
+## `cat /proc/cpuinfo`
 
 ```
 sunyongfeng@openswitch-OptiPlex-380:~$ cat /proc/cpuinfo 
@@ -66,7 +68,7 @@ address sizes   : 36 bits physical, 48 bits virtual
 power management:
 ```
 
-* `dmesg | grep Hz`
+## `dmesg | grep Hz`
 
 ```
 sunyongfeng@openswitch-OptiPlex-380:~$ dmesg | grep Hz
@@ -76,7 +78,7 @@ sunyongfeng@openswitch-OptiPlex-380:~$ dmesg | grep Hz
 [    1.840016] tsc: Refined TSC clocksource calibration: 2925.999 MHz
 ```
 
-* `lscpu`
+## `lscpu`
 
 ```
 sunyongfeng@openswitch-OptiPlex-380:~$ lscpu
@@ -107,7 +109,7 @@ Flags:                 fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca 
 sunyongfeng@openswitch-OptiPlex-380:~$ 
 ```
 
-* lshw -c cpu
+## lshw -c cpu
 
 ```
 sunyongfeng@openswitch-OptiPlex-380:~$ sudo lshw -c cpu
@@ -123,7 +125,7 @@ sunyongfeng@openswitch-OptiPlex-380:~$ sudo lshw -c cpu
        capabilities: fpu fpu_exception wp vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx x86-64 constant_tsc arch_perfmon pebs bts rep_good nopl aperfmperf pni dtes64 monitor ds_cpl vmx est tm2 ssse3 cx16 xtpr pdcm sse4_1 xsave lahf_lm tpr_shadow vnmi flexpriority dtherm cpufreq
 ```
 
-* `sudo dmidecode -t processor`
+## `sudo dmidecode -t processor`
 
 ```
 sunyongfeng@openswitch-OptiPlex-380:~$ sudo dmidecode -t processor
@@ -188,7 +190,9 @@ Processor Information
                 64-bit capable
 ```
 
-* `sudo watch -n 1  cat /sys/devices/system/cpu/cpu*/cpufreq/cpuinfo_cur_freq`
+## `sudo watch -n 1  cat /sys/devices/system/cpu/cpu*/cpufreq/cpuinfo_cur_freq`
+
+监控 CPU 频率变化。
 
 ```
 sunyongfeng@openswitch-OptiPlex-380:~$ sudo watch -n 1  cat /sys/devices/system/cpu/cpu*/cpufreq/cpuinfo_cur_freq
