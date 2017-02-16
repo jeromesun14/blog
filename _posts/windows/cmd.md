@@ -7,6 +7,15 @@ keywords: [windows, dos, command, 命令]
 desciption: 
 ---
 
+网卡设置
+------
+`netsh` 命令
+
+```
+netsh interface ip set address "本地连接" static your_ip your_ipmask gateway metric
+netsh interface ip set dns "本地连接" static DNS_ADDRESS primary
+```
+
 输出目录树（tree）
 ---------
 
@@ -79,4 +88,6 @@ C:.
             d4335387d80d96e64933e71a284d0ea466b2e4a95afe1e54a9244efd20caff8e.jpg
             e37f97eb49a3459589815c0543648a737904e4d91397da43c3618bcaa1a4f75a.jpg
 ```
+
+
 
