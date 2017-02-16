@@ -18,7 +18,7 @@ description: wireshark 可以抓到小于 64 字节报文的原因。
 * User Data, 46 - 1500B
 * Frame Check Sequence (FCS), 4B
 
-前导码一般被物理层处理掉，且通常底层一般在驱动层剥除 FCS，因此一般情况下，Wireshark 抓到的最小包为 6B + 6B + 2B + 46B = 60B。
+前导码一般被物理层处理掉，且底层一般在驱动层剥除 FCS，因此一般情况下，Wireshark 抓到的最小包为 6B + 6B + 2B + 46B = 60B。
 
 > [链接](https://wiki.wireshark.org/Ethernet)：
 >
