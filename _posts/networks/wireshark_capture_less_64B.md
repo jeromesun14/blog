@@ -31,7 +31,7 @@ description: wireshark 可以抓到小于 64 字节报文的原因。
 
 wireshark 抓到小于 60 字节的报文？
 ------------------
-首先 wireshark 抓到小于 60 字节报文都是本机发出的。
-其次 wireshark 能抓到本机小于 60 字节报文的原因是：填充报文到 60 字节的行为在 wireshark 抓包前。
+* 首先 wireshark 抓到小于 60 字节报文都是本机发出的。
+* 其次 wireshark 能抓到本机小于 60 字节报文的原因：填充报文到 60 字节的行为在 wireshark 抓包后。
 
 > [链接](https://ask.wireshark.org/questions/1846/wireshark-capture-of-ethernet-frame-size-shows-as-43-bytes)，What you see is 14 bytes ethernet header, 20 bytes IP header, 8 bytes ICMP header, 1 byte payload, equals 43. The NIC will later add padding bytes to get it up to 60 bytes and adds the FCS. Voila, 64 bytes - but Wireshark grabs the packet too early as Jaap already explained, so you see 43 bytes on the sender side.
