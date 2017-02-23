@@ -84,3 +84,17 @@ abc.c:3:5: note: include ‘<stdio.h>’ or provide a declaration of ‘printf�
 sunyongfeng@openswitch-OptiPlex-380:~/workshop/test$ 
 ```
 
+### 库可以被找到，但是编译时还是提示 `undefined reference to 'Py_Initialize'`
+
+[stackoverflow 链接](http://stackoverflow.com/questions/13951166/undefined-reference-despite-lib-being-found-by-linker)。
+
+* 问题：编译 `gcc -lpython2.7 $(BUILD_CFLAGS) -o $(ELF) $^ -lxxx`，libxxx.a 使用 libpython2.7.so，编译时提示找不到 python 的 symbol。
+* 原因：-lxxx 写在 -lpython2.7 之后。
+
+> the linker doesn't yet know that Py_Initialize is a required symbol when it loads libpython2.7.a, so it tosses it away. And then it gets to p.o and throws a fit about the missing symbol. Ordering it this way will let the linker look for the missing symbol in subsequent inputs.
+> 
+> See: http://gcc.gnu.org/onlinedocs/gcc/Link-Options.html
+> 
+> It makes a difference where in the command you write this option; the linker searches and processes libraries and object files in the order they are specified. Thus, foo.o -lz bar.o' searches libraryz' after file foo.o but before bar.o. If bar.o refers to functions in `z', those functions may not be loaded.
+
+* 解决：把 -lpython2.7 写在 -lxxx 之后。像这种库中依赖库的地方需要注意。
