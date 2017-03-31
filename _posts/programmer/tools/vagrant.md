@@ -168,3 +168,33 @@ I managed to make the 1.9.3 version working by rewritten all my Vagrantfile(s) a
 E.g.:
 config.vm.network "forwarded_port", guest: 22, host: 1022, host_ip: "127.0.0.1", id: 'ssh'
 ```
+
+# ubuntu 16.04 32-bit box 用户名密码反人类
+一般情况下，vagrant box 用户名密码都为 vagrant，但是使用的第一个 box 却违反这个规则。[xenial32](https://atlas.hashicorp.com/ubuntu/boxes/xenial32) 的默认用户名为 `ubuntu`，密码为`7ea1ebda4a3d566ade4dd808`。
+
+具体的 Box 内部 Vagrantfile 内容为：
+
+```
+# Front load the includes
+include_vagrantfile = File.expand_path("../include/_Vagrantfile", __FILE__)
+load include_vagrantfile if File.exist?(include_vagrantfile)
+
+Vagrant.configure("2") do |config|
+  config.vm.base_mac = "026A71DA1D13"
+  config.ssh.username = "ubuntu"
+  config.ssh.password = "7ea1ebda4a3d566ade4dd808"
+
+  config.vm.provider "virtualbox" do |vb|
+     vb.customize [ "modifyvm", :id, "--uart1", "0x3F8", "4" ]
+     vb.customize [ "modifyvm", :id, "--uartmode1", "file", File.join(Dir.pwd, "ubuntu-xenial-16.04-cloudimg-console.log") ]
+  end
+end
+```
+
+# vagrant box add base ubuntu/xenial32  具体的下载位置
+
+windows 下具体下载位置为 `C:\Users\yourName\.vagrant.d\boxes\base\`。
+
+# vagrant 如何打包？
+vagrant 打包事实上使用 tar + gzip 进行打包，后缀命名为 `.box`。
+`vagrant package` 命令的打包结果据说不好使，没有实测。
