@@ -104,3 +104,67 @@ C:\Users\R0>
 ### public network
 利用 provider 提供的 bridge （桥接功能）。
 
+# vagrant halt 无法关机
+失败 log：
+
+```
+E:\vagrant>Vagrant halt
+==> default: Attempting graceful shutdown of VM...
+The following SSH command responded with a non-zero exit status.
+Vagrant assumes that this means the command failed!
+
+shutdown -h now
+
+Stdout from the command:
+
+
+
+Stderr from the command:
+
+
+E:\vagrant>
+```
+
+解决方法，见 [issue 1659](https://github.com/mitchellh/vagrant/issues/1659) @rfay 的回答。即将默认用户配置为 sudoers 后，还要在 /etc/sudoers 中添加 `vagrant ALL=(ALL) NOPASSWD:ALL`。
+
+```
+@dengzhp I've done this to myself any number of times by messing up the /etc/sudoers or /etc/sudoers.d. I did it today, which is why I landed here. Somewhere in /etc/sudoers (or /etc/sudoers.d if it's included) you have to have
+
+vagrant ALL=(ALL) NOPASSWD:ALL
+Defaults:vagrant !requiretty
+without that, the vagrant ssh (without tty) fails mysteriously. I once again had built a machine without my puppet vagrant module, which adds this in.
+
+@mitchellh if there's not already an FAQ on this, it's a good topic for one. I seem to do it over and over again :-)
+```
+
+不过我的环境中，/etc/sudoers 默认权限为只读，因此，直接将 `vagrant ALL=(ALL) NOPASSWD:ALL` 添加在 /etc/sudoers.d/username 中。
+
+```
+vagrant@ubuntu-xenial:~$ ls -al /etc/sudoers
+-r--r----- 1 root root 755 Jan 20 16:01 /etc/sudoers
+vagrant@ubuntu-xenial:~$ sudo cat /etc/sudoers.d/vagrant
+vagrant ALL=(ALL) NOPASSWD:ALL
+vagrant@ubuntu-xenial:~$ 
+```
+
+# vagrantfile 添加端口映射后 vagrant up 失败
+
+添加一个新的端口映射到 Vagrantfile，`config.vm.network "forwarded_port", guest: 16385, host: 26385`。
+之后执行 `vagrant up` 失败，log：
+
+```
+E:\vagrant>Vagrant reload
+==> default: Attempting graceful shutdown of VM...
+==> default: Clearing any previously set forwarded ports...
+C:/HashiCorp/Vagrant/embedded/gems/gems/vagrant-1.9.3/lib/vagrant/util/is_port_open.rb:21:in `initialize': The requested address is not valid in its context. - connect(2) for "0.0.0.0" port 16385 (Errno::EADDRNOTAVAIL)
+```
+
+解决方法详见 [issue 8395](https://github.com/mitchellh/vagrant/issues/8395)，配置中加上 host_id，最终端口映射的配置为 `config.vm.network "forwarded_port", guest: 16385, host: 26385, host_ip: "127.0.0.1"`
+```
+Had the same problem on Windows 7.
+This problem seems to be caused by the new host_ip parameter for the port forwarding feature.
+I suggest that for compatibility reason, the default host_ip parameter should be set to 127.0.0.1 instead of 0.0.0.0
+I managed to make the 1.9.3 version working by rewritten all my Vagrantfile(s) and adding the host_id: "127.0.0.1" parameter for each of the "forwarded_port" network configuration.
+E.g.:
+config.vm.network "forwarded_port", guest: 22, host: 1022, host_ip: "127.0.0.1", id: 'ssh'
+```
