@@ -1,5 +1,5 @@
 title: 软件版本号
-date: 2017-03-31 11:39:24
+date: 2017-04-05 11:35:20
 toc: true
 tags: [software]
 categories: programmer
@@ -43,6 +43,35 @@ RTM（Release To Manufacturing）之简称，意思是：发放给生产商。�
 
 ## Stable
 稳定版本来自预览版本释出使用与改善而修正完成。为目前所使用的软件在匹配需求规格的硬件与操作系统中运行不会造成严重的不兼容或是硬件冲突，其已受过某定量的测试无误后所释出者。
+
+# windows 版本
+
+## MSDN
+MSDN（Microsoft Developer Network）软件是微软公司面向软件开发者的一种版本。MSDN 涵盖了所有可以被开发扩充的平台和应用程序，如微软公司的百科全书 Encarta，或者是各种游戏，是不包括在 MSDN 之内的，因为这些产品直接面向最终用户，没有进行程序开发的必要。
+
+MSDN 在 Operating System 以上的等级都有附微软的软件授权，根据 MSDN 的使用者授权合约(EULA)，软件只授权给使用 MSDN 的那一位开发人员，专供开发与测试之用，其他人不可使用 MSDN 所附软件。包含企业不能用 MSDN附的 SQL Server Enterprise Edition 做为生产环境中的数据库服务器；秘书不能使用 MSDN 所附的 Office2007 等等。
+
+## OEM
+
+OEM（Original Equipment Manufacturer）软件只能随机器出货，不能零售，所以也叫做随机版。OEM软件只能全新安装，不能从旧有作系统升级。
+
+如果买笔记型计算机或品牌计算机就会有随机版软件。包装不像零售版精美，通常只有一片cd和说明书(授权书)。这种系统通常会少一些驱动，而且目前的OEM软件很少放在光盘里能给你安装，要么就是恢复盘，要么就是硬盘镜像。
+
+## RTL
+RTL版 Retail 正式零售版，供市面上架零售。
+
+## VOL
+Volume OR Volume Licensing for Organizations，即团体批量许可证，根据这个许可，当企业或者政府需要大量购买一软件时可以获得优惠。这种产品的光盘的卷标都带有"VOL"字样，就取"Volume"前3个字母，以表明是批量。这种版本根据购买数量等又细分为“开放式许可证”(Open License)、“选择式许可证(Select  License)”、“企业协议(Enterprise Agreement)”、“学术教育许可证(Academic Volume Licensing)”等5种版本，上海政府 VOL版XP就是这种批量购买的版本。根据 VOL 计划规定， VOL 产品是不需要激活的(无论升级到SP1还是SP2)。
+
+## EVAL
+评估版
+
+## CTP
+Community Test Preview
+
+## FPP
+FPP就是零售版（盒装软件），这种产品的光盘的卷标都带有"FPP"字样，比如英文WXPPro的FPP版本的光盘卷标就是WXPFPP_EN，其中WX表示是Windows XP，P是Professional（H是Home），FPP表明是零售版本，EN是表明是英语。获得途径除了在商店购买之外，（H是Home），FPP表明是零售版本，EN是表明是英语。获得途径除了在商店购买之外，某些MSDN用户也可以得到。
+
 
 # 参考文献
 1. SLMT's Blog, [版本編號的命名規則](http://www.slmt.tw/2015/07/20/version-number-naming-convention/)
