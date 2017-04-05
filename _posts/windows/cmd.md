@@ -4,7 +4,7 @@ toc: true
 tags: [windows, dos]
 categories: windows
 keywords: [windows, dos, command, 命令]
-desciption: 
+desciption: windows dos 常用命令记录
 ---
 
 网卡设置
