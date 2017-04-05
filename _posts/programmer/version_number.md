@@ -78,3 +78,5 @@ FPP就是零售版（盒装软件），这种产品的光盘的卷标都带有"F
 2. zh.wikipedia, [软件版本号](https://zh.wikipedia.org/wiki/%E8%BB%9F%E4%BB%B6%E7%89%88%E6%9C%AC%E8%99%9F)
 3. en.wikipedia, [software versioning](https://en.wikipedia.org/wiki/Software_versioning)
 4. zh.wikipedia，[软件版本周期](https://zh.wikipedia.org/wiki/%E8%BB%9F%E4%BB%B6%E7%89%88%E6%9C%AC%E9%80%B1%E6%9C%9F)
+5. gdaily，[查看你的完整 Windows 版本 Retail、VOL、OEM、RTM](https://www.gdaily.org/4275/windows-edition)
+6. web duper，[Windows MSDN、OEM、RTM、VOL等各版本的区别](http://materliu.github.io/all/web/ideas/2014/04/23/windows-msdn-oem-rtm-vol.html)
