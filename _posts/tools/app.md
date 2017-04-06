@@ -16,9 +16,15 @@ description: 使用过的好软件备忘
 * KingRoot，预装卸载
 
 ## Windows
+### 文件查找
 
 * Launchy
+* everything
 * Listray，类似 Launchy，但是感觉比 Launchy 好用
+
+### 录屏
+* [apowersoft](https://www.apowersoft.cn/free-online-screen-recorder)
+* [Open Boradcaster Software](https://obsproject.com/)
 
 ## web
 
