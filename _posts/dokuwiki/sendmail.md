@@ -24,10 +24,12 @@ description: dokuwiki 解决无法发送邮件通知。
 * plugin»smtp»smtp_ssl，您的 SMTP 服务器所用的加密类型？有 ssl/tls/无，比如 `无`
 * plugin»smtp»auth_user，如果需要认证，在这里输入您的用户名。比如 `xxx@163.com`
 * plugin»smtp»auth_pass，对应 auth_user 用户名的密码。**注意**，每次进行 `配置设置`，都要重新输入密码。
+* plugin»smtp»debug，在发送失败时显示完整的错误信息？在一切正常时请关闭！调试时勾选。
 
 # smtp 调试与553问题解决
 
 使用 plugin:smtp 自带的测试工具，在 `管理` -> `附加插件`，点击 `@检查 SMTP 配置`，进入 SMTP 测试界面。写目标邮箱地址到 `to` 框中，点 `sendmail` 按钮。
+
 出现错误 Log：
 
 ```
@@ -67,7 +69,7 @@ Above may contain passwords - do not post online!
   * 请核实客户端中设置的电子邮箱地址是否填写正确，确认是输入完整的正确的邮箱地址。
   * 设置的回复地址是否和邮箱地址是一致的，并且是完整的邮箱地址。 
 
-回到 `管理` -> `配置管理`界面，发现 `通知设置` 中的 `mailfrom 自动发送邮件时使用的邮件地址`，填为 `noreply@163.com`，与授权的邮箱不一致。将此配置改为授权的 xxx@163.com 即可。修改后，重新测试，可正常发送邮件
+回到 `管理` -> `配置管理`界面，发现 `通知设置` 中的 `mailfrom 自动发送邮件时使用的邮件地址`，填为 `noreply@163.com`，与授权的邮箱不一致。将此配置改为授权的 xxx@163.com 即可。修改后，重新测试，可正常发送邮件。
 
 log: 
 
@@ -75,7 +77,7 @@ log:
  Message was sent. SMTP seems to work.
 ```
 
-邮件：
+发送的邮件：
 
 ```
 发件人: sunnogo@163.com [mailto:sunnogo@163.com] 
