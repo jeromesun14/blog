@@ -26,6 +26,12 @@ description: 使用过的好软件备忘
 * [apowersoft](https://www.apowersoft.cn/free-online-screen-recorder)
 * [Open Boradcaster Software](https://obsproject.com/)
 
+### 终端类工具
+* ConEmu，轻量级，超好用！
+* putty
+* Mobaxterm
+* SecureCRT，商用。
+
 ## web
 
 * [diigo](https://www.diigo.com/)，网页标注或网页上的 pdf 标注
