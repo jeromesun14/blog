@@ -45,14 +45,14 @@ Got: 250-mail
 Got: 250-PIPELINING
 Got: 250-AUTH LOGIN PLAIN
 Got: 250-AUTH=LOGIN PLAIN
-Got: 250-coremail 1Uxr2xKj7kG0xkI17xGrU7I0s8FY2U3Uj8Cz28x1UUUUU7Ic2I0Y2UFdFM3xUCa0xDrUUUUj
+Got: 250-coremail 1Uxr2xKj7kG0xkI17xGrU7I0s8sdfsf808Cz28x1UUUUU7Ic2I0Y2UFdFM3xUCa0xDrUUUUj
 Got: 250-STARTTLS
 Got: 250 8BITMIME
 Sent: AUTH LOGIN
-Got: 334 dXNlcm5hbWU6
-Sent: c3Vubm9nb0AxNjMuY29t
-Got: 334 UGFzc3dvcmQ6
-Sent: QVJzYW5iYnNxbDYwNTk1
+Got: 334 dXdsDFD806
+Sent: c3Vu80FSKerjMuY29t
+Got: 334 UGFz32380cmQ6
+Sent: QVJzYW5iSDF8989bDYwNTk1
 Got: 235 Authentication successful
 Sent: MAIL FROM:<noreply@163.com>
 Got: 553 Mail from must equal authorized user
