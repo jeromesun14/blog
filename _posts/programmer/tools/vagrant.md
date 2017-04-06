@@ -198,3 +198,45 @@ windows 下具体下载位置为 `C:\Users\yourName\.vagrant.d\boxes\base\`。
 # vagrant 如何打包？
 vagrant 打包事实上使用 tar + gzip 进行打包，后缀命名为 `.box`。
 `vagrant package` 命令的打包结果据说不好使，没有实测。
+
+# 外网如何使用 vagrant 服务
+端口映射时，ip 填 `host IP`，而不是 `127.0.0.1` 本地地址。
+
+如下配置，实测可在 172.x.x.x 网段 ssh 远程登陆虚机。
+
+```
+  config.vm.network "forwarded_port", guest: 16385, host: 26385, host_ip: "192.168.1.2"
+  config.vm.network "forwarded_port", guest: 22, host: 2222, host_ip: "192.168.1.2"
+```
+
+ssh 远程登陆 log：
+
+```
+root@ubuntu:~# ssh vagrant@192.168.1.2 -p 2222
+vagrant@192.168.1.2's password: 
+Welcome to Ubuntu 14.04.5 LTS (GNU/Linux 3.13.0-115-generic i686)
+
+ * Documentation:  https://help.ubuntu.com/
+
+  System information as of Thu Apr  6 09:03:15 UTC 2017
+
+  System load:  0.26              Processes:           78
+  Usage of /:   4.2% of 39.34GB   Users logged in:     0
+  Memory usage: 16%               IP address for eth0: 10.0.2.15
+  Swap usage:   0%                IP address for eth1: 192.168.56.10
+
+  Graph this data and manage this system at:
+    https://landscape.canonical.com/
+
+  Get cloud support with Ubuntu Advantage Cloud Guest:
+    http://www.ubuntu.com/business/services/cloud
+
+New release '16.04.2 LTS' available.
+Run 'do-release-upgrade' to upgrade to it.
+
+
+Last login: Thu Apr  6 09:03:16 2017 from 10.0.2.2
+vagrant@vagrant-ubuntu-trusty-32:~$ 
+```
+
+未决问题：bridge 模式下，跨网段 ping，内网可以 ping 通外网，外网 ping 不通内网。
