@@ -80,7 +80,7 @@ log:
 发送的邮件：
 
 ```
-发件人: sunnogo@163.com [mailto:sunnogo@163.com] 
+发件人: xxx@163.com [mailto:xxx@163.com] 
 发送时间: 2017年4月6日 14:08
 收件人: 孙勇峰 <sunyongfeng@xxx.com>
 主题: [Administrator] DokuWiki says hello
