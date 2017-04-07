@@ -26,11 +26,15 @@ description: 使用过的好软件备忘
 * [apowersoft](https://www.apowersoft.cn/free-online-screen-recorder)
 * [Open Boradcaster Software](https://obsproject.com/)
 
-### 终端类工具
-* ConEmu，轻量级，超好用！
-* putty
-* Mobaxterm
-* SecureCRT，商用。
+## terminal 终端类工具
+* windows 平台
+  * ConEmu，轻量级，超好用！
+  * putty
+  * Mobaxterm
+* linux 平台
+  * guake
+* 跨平台
+  * secureCRT, 商用
 
 ## web
 
