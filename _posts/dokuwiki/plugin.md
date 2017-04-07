@@ -21,3 +21,8 @@ description: dokuwiki 插件使用记录
   + 通知版主有新评论
   + 允许未注册用户评论
   + 可通过 wiki 语法评论
+
+# 导航
+## indexmenu
+
+`{{indexmenu>..#2|navbar nocookie}}`
