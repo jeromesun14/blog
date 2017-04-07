@@ -32,9 +32,9 @@ description: 使用过的好软件备忘
  + putty
  + Mobaxterm
 * linux 平台
- + guake
+  + guake
 * 跨平台
- + secureCRT, 商用
+  + secureCRT, 商用
 
 ## web
 
