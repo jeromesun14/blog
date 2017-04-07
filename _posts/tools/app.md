@@ -28,13 +28,13 @@ description: 使用过的好软件备忘
 
 ## terminal 终端类工具
 * windows 平台
-  * ConEmu，轻量级，超好用！
-  * putty
-  * Mobaxterm
+  + ConEmu，轻量级，超好用！
+  + putty
+  + Mobaxterm
 * linux 平台
-  * guake
+  + guake
 * 跨平台
-  * secureCRT, 商用
+  + secureCRT, 商用
 
 ## web
 
