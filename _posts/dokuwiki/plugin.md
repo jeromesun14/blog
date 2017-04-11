@@ -25,4 +25,4 @@ description: dokuwiki 插件使用记录
 # 导航
 ## indexmenu
 
-`{{indexmenu>..#2|navbar nocookie}}`
+默认在侧表栏显示2级目录，其他层级点击显示，`{{indexmenu>..#2|navbar nocookie}}`
