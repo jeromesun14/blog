@@ -1,10 +1,10 @@
 title: 一个灰常灰常简单的 HTTP server
 date: 2017-04-11 11:34:20
-toc: true
+toc: false
 tags: [tools, server]
 categories: tools
 keywords: [http server, python, simpleHTTPServer]
-description: 一个灰常灰常简单的 HTTP server，一键部署
+description: 一个灰常灰常简单的 HTTP server，一个命令部署
 ---
 
 目标 release 一个版本，该版本含一个 800MB 左右的 vagrant box。思前想后都觉得不方便，因此想搭个 http server，仅供公司内部使用，类似 hfs。然后在[这里](https://superuser.com/questions/43618/which-lightweight-http-or-ftp-server-is-good-for-simple-file-transfer)看到了最佳解决方案 Python SimpleHTTPServer。
@@ -28,9 +28,10 @@ sunyongfeng@ubuntu:~/pyhttpfs$ tree
 
 sunyongfeng@ubuntu:~/pyhttpfs$ python -m SimpleHTTPServer 20090
 Serving HTTP on 0.0.0.0 port 20090 ...
-192.168.204.167 - - [11/Apr/2017 10:04:43] "GET / HTTP/1.1" 200 -
-192.168.204.167 - - [11/Apr/2017 10:04:45] "GET /msim/ HTTP/1.1" 200 -
-192.168.204.167 - - [11/Apr/2017 10:04:47] "GET /msim/0.9.0/ HTTP/1.1" 200 -
 ```
 
+在浏览器上：
 
+![SimpleHTTPServer](/images/tools/SimpleHTTPServer.png)
+
+coolshell 也写过一篇类似的文章：[非常简单的PYTHON HTTP服务](http://coolshell.cn/articles/1480.html)
