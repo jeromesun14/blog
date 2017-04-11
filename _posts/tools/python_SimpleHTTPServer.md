@@ -14,7 +14,8 @@ description: 一个灰常灰常简单的 HTTP server，一个命令部署
 * 选择一个目录做为根目录，在该目录下执行 `python -m SimpleHTTPServer [端口号]`，端口号默认为 8000。
 * 在浏览器上输入 `http://192.168.204.167:8000`（将 8000 替换为所使用的端口号），就可以在网页上进行操作了。
 
-如果你的目录下有一个叫 index.html 的文件名的文件，那么这个文件就会成为一个默认页，如果没有这个文件，那么，目录列表就会显示出来。
+> 引自 coolshell [非常简单的PYTHON HTTP服务](http://coolshell.cn/articles/1480.html)
+> 如果你的目录下有一个叫 index.html 的文件名的文件，那么这个文件就会成为一个默认页，如果没有这个文件，那么，目录列表就会显示出来。
 
 这里以目录列表为例：
 
@@ -33,5 +34,3 @@ Serving HTTP on 0.0.0.0 port 20090 ...
 在浏览器上：
 
 ![SimpleHTTPServer](/images/tools/SimpleHTTPServer.png)
-
-coolshell 也写过一篇类似的文章：[非常简单的PYTHON HTTP服务](http://coolshell.cn/articles/1480.html)
