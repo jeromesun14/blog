@@ -3,7 +3,7 @@ date: 2017-04-06 17:39:00
 toc: true
 tags: [dokuwiki]
 categories: dokuwiki
-keywords: [dokuwiki, plugin, 插件]
+keywords: [dokuwiki, plugin, 插件, markdown, discussion, 评论, 导航, 侧边栏, indexmenu]
 description: dokuwiki 插件使用记录
 ---
 
@@ -31,3 +31,10 @@ description: dokuwiki 插件使用记录
 ```
 {{indexmenu>..#2|navbar nocookie}}
 ```
+
+# pdf 阅读器
+
+* 插件，[plugin:pdfjs](https://www.dokuwiki.org/plugin:pdfjs)
+* 用法，`{{pdfjs>:ns:document.pdf}}`
+
+亦有 google docs 插件[gview](https://www.dokuwiki.org/plugin:gview)，不过用的 google docs 服务，天朝目前应该用不了。
