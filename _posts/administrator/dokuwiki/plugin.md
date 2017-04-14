@@ -38,7 +38,11 @@ description: dokuwiki 插件使用记录
 # pdf 阅读器
 
 * 插件，[plugin:pdfjs](https://www.dokuwiki.org/plugin:pdfjs)
-* 用法，`{{pdfjs>:ns:document.pdf}}`
+* 用法：
+
+```
+{{pdfjs>:ns:document.pdf}}
+```
 
 亦有 google docs 插件[gview](https://www.dokuwiki.org/plugin:gview)，不过用的 google docs 服务，天朝目前应该用不了。
 
