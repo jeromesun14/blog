@@ -1,9 +1,9 @@
 title: dokuwiki 邮件发送
 date: 2017-04-06 13:51:00
 toc: true
-tags: [dokuwiki]
+tags: [dokuwiki, administrator]
 categories: dokuwiki
-keywords: [dokuwiki, plugin, 插件, 发送邮件, sendmail, 失败]
+keywords: [administrator, dokuwiki, plugin, 插件, 发送邮件, sendmail, 失败, fail, smtp]
 description: dokuwiki 解决无法发送邮件通知。
 ---
 
