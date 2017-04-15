@@ -1,9 +1,9 @@
 title: 使用的 dokuwiki plugin
 date: 2017-04-06 17:39:00
 toc: true
-tags: [dokuwiki]
+tags: [dokuwiki, administrator]
 categories: dokuwiki
-keywords: [dokuwiki, plugin, 插件, markdown, discussion, 评论, 导航, 侧边栏, indexmenu]
+keywords: [administrator, dokuwiki, plugin, 插件, markdown, discussion, 评论, 导航, 侧边栏, indexmenu]
 description: dokuwiki 插件使用记录
 ---
 
