@@ -2,7 +2,7 @@ title: dokuwiki 中文支持
 date: 2017-04-01 22:25:30
 toc: true
 tags: [dokuwiki, administrator]
-categories: administrator
+categories: dokuwiki
 keywords: [administrator, dokuwiki, 中文乱码, Url rewrite, URL 重写]
 description: 记录 dokuwiki 中文相关支持
 ---
