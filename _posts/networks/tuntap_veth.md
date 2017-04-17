@@ -23,7 +23,7 @@ TUN/TAP 设备
 
 ## veth pair
 
-必须以对的形式出现，用于 namespace 之间的通信，例如 docker 间。
+必须以对的形式出现，用于 namespace 之间的通信，例如 docker 间。一个配置样例，[链接](http://www.cnblogs.com/hustcat/p/3928261.html)
 
 > [链接](http://stackoverflow.com/questions/25641630/virtual-networking-devices-in-linux): 
 > VETH: Typically used when you are trying to connect two entities which would want to "get hold of" (for lack of better phrase) an interface to forward/receive frames. These entities could be containers/bridges/ovs-switch etc. Say you want to connect a docker/lxc container to OVS. You can create a veth pair and push the first interface to the docker/lxc (say, as a phys interface) and push the other interface to OVS. You cannot do this with TAP.
