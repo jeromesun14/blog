@@ -23,3 +23,46 @@ Failed to recurse into submodule path 'submodules/p4ofagent/submodules/indigo/su
 Failed to recurse into submodule path 'submodules/p4ofagent/submodules/indigo'
 Failed to recurse into submodule path 'submodules/p4ofagent'
 ```
+
+
+## 安装 ptf
+
+`python setup --install --prefix=$P4HOME/install`
+
+```
+You are attempting to install a package to a directory that is not
+on PYTHONPATH and which Python does not read ".pth" files from.  The
+installation directory you specified (via --install-dir, --prefix, or
+the distutils default setting) was:
+
+    /usr/local/lib/python2.7/site-packages/
+
+and your PYTHONPATH environment variable currently contains:
+
+    ''
+
+Here are some of your options for correcting the problem:
+
+* You can choose a different installation directory, i.e., one that is
+  on PYTHONPATH or supports .pth files
+
+* You can add the installation directory to the PYTHONPATH environment
+  variable.  (It must then also be on PYTHONPATH whenever you run
+  Python and want to use the package(s) you are installing.)
+
+* You can set up the installation directory to support ".pth" files by
+  using one of the approaches described here:
+
+  http://packages.python.org/distribute/easy_install.html#custom-installation-locations
+
+Please make the appropriate changes for your system and try again.
+```
+
+解决：export 
+
+## switch configure 失败
+
+pdfixed 头文件找不到
+
+bmv2 configure 时要加上 pdfixed
+
