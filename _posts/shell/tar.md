@@ -7,12 +7,10 @@ keywords: [linux, command, tar, gzip, bzip2, unzip, unrar, rar, zip]
 description: Linux命令行浏览文件内容。
 ---
 
-tar — The GNU version of the tar archiving utility
+tar 为 GNU 打包工具，目前在标准 Linux 发行版上已经整合进压缩/解压缩工具 gzip、bzip2 和 xz。
 
 * 打包，后缀为 `.tar`，称为 tarfile
 * 打包 + 压缩，后缀为 `.tar.gz`、`.tar.bz2`、`.tar.xz`，称为 tarball。此为 linux 最常用的压缩、解压缩方式。
-
-tar 打包命令目前在标准 Linux 发行版上已经整合进压缩/解压缩工具 gzip、bzip2 和 xz。
 
 windows 中常见的压缩包有 `.zip` 和 `.rar`，可通过 `unzip` 和 `unrar` 两个工具进行解压。通过 apt-get install 安装即可。
 
