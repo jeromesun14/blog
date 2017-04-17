@@ -2,8 +2,8 @@
 title: shadowsocks 记录
 date: 2016-02-28 20:48:18
 toc: true
-tags: [外面的世界]
-categories: tools
+tags: [外面的世界, administrator]
+categories: tools, administrator
 keywords: [shadowsocks, linux, chrome, switchyOmega, proxychains]
 description: 到外面的世界看看。
 ---

@@ -1,8 +1,8 @@
 title: 一个灰常灰常简单的 HTTP server
 date: 2017-04-11 11:34:20
 toc: false
-tags: [server]
-categories: tools
+tags: [server, administrator]
+categories: administrator
 keywords: [http server, python, simpleHTTPServer]
 description: 一个灰常灰常简单的 HTTP server，一个命令部署
 ---
