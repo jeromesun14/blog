@@ -50,7 +50,9 @@ Docker version 1.12.3, build 6b644ec
 见 [prior storage driver “aufs” failed: driver not supported Error starting daemon: error initializing graphdriver: driver not supported](http://stackoverflow.com/questions/33357824/prior-storage-driver-aufs-failed-driver-not-supported-error-starting-daemon) 中 Sergey Podobry 的答复：
 
 > Try removing all downloaded images
+> 
 > `sudo rm -rf /var/lib/docker/aufs`
+> 
 > That helped me to recover docker after a kernel update.
 > 
 > Related issues on the github:
