@@ -210,3 +210,39 @@ Job for docker.service failed because the control process exited with error code
 sunyongfeng@openswitch-OptiPlex-380:~/workshop/p4factory/makefiles$ docker --version
 Docker version 1.12.3, build 6b644ec
 ```
+
+执行 mininet 起 docker 起不来。[解决](http://stackoverflow.com/questions/28006027/valueerror-invalid-literal-for-int-with-base-10-n):
+
+> replace :
+> 
+> `start = int(line)` 
+> 
+> to
+> 
+> `start = int(line.strip())   # strip will chop the '\n' `
+> 
+```
+sunyongfeng@openswitch-OptiPlex-380:~/workshop/p4factory/mininet$ sudo ./int_ref_topology.py --model-dir=$P4HOME/install               
+Adding switch spine1
+Traceback (most recent call last):
+  File "./int_ref_topology.py", line 131, in <module>
+    run_cfg(model_dir)
+  File "./int_ref_topology.py", line 91, in run_cfg
+    net = mgr.setupAndStartNetwork()
+  File "/home/sunyongfeng/workshop/p4factory/mininet/int_cfg.py", line 140, in setupAndStartNetwork
+    self.addSwitches()
+  File "/home/sunyongfeng/workshop/p4factory/mininet/int_cfg.py", line 177, in addSwitches
+    pps = s.pps, qdepth = s.qdepth )
+  File "/usr/lib/python2.7/dist-packages/mininet/net.py", line 240, in addSwitch
+    sw = cls( name, **defaults )
+  File "/home/sunyongfeng/workshop/p4factory/mininet/docker/p4model.py", line 55, in __init__
+    DockerSwitch.__init__( self, name, **kwargs )
+  File "/home/sunyongfeng/workshop/p4factory/mininet/docker/docker_node.py", line 30, in __init__
+    Node.__init__( self, name, **kwargs )
+  File "/usr/lib/python2.7/dist-packages/mininet/node.py", line 106, in __init__
+    self.startShell()
+  File "/home/sunyongfeng/workshop/p4factory/mininet/docker/docker_node.py", line 119, in startShell
+    self.pid = int(ps_out[0])
+ValueError: invalid literal for int() with base 10: "'21431'\n"
+sunyongfeng@openswitch-OptiPlex-380:~/workshop/p4factory/mininet$
+```
