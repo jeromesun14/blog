@@ -246,3 +246,49 @@ Traceback (most recent call last):
 ValueError: invalid literal for int() with base 10: "'21431'\n"
 sunyongfeng@openswitch-OptiPlex-380:~/workshop/p4factory/mininet$
 ```
+
+ps_out 的结果 `["'22326'\n"]`，因此 L119 应改为：
+
+```
+self.pid = int((ps_out[0].strip()).strip('\''))
+```
+
+> [链接](http://www.runoob.com/python/att-string-strip.html)：Python strip() 方法用于移除字符串头尾指定的字符（默认为空格）。
+
+```
+sunyongfeng@openswitch-OptiPlex-380:~/workshop/p4factory/mininet$ sudo ./int_ref_topology.py --model-dir=$P4HOME/install               
+Adding switch spine1
+Adding switch spine2
+Adding switch leaf1
+Adding switch leaf2
+
+Waiting 10 seconds for switches to intialize...
+INT Config  spine1
+Traceback (most recent call last):
+  File "./int_ref_topology.py", line 131, in <module>
+    run_cfg(model_dir)
+  File "./int_ref_topology.py", line 91, in run_cfg
+    net = mgr.setupAndStartNetwork()
+  File "/home/sunyongfeng/workshop/p4factory/mininet/int_cfg.py", line 147, in setupAndStartNetwork
+    self.configSwitches()
+  File "/home/sunyongfeng/workshop/p4factory/mininet/int_cfg.py", line 237, in configSwitches
+    self.configSwitch(s)
+  File "/home/sunyongfeng/workshop/p4factory/mininet/int_cfg.py", line 251, in configSwitch
+    client.switcht_api_init( device )
+  File "/home/sunyongfeng/workshop/p4factory/submodules/switch/switchapi/switch_api_thrift/switch_api_rpc.py", line 1565, in switcht_api_init
+    return self.recv_switcht_api_init()
+  File "/home/sunyongfeng/workshop/p4factory/submodules/switch/switchapi/switch_api_thrift/switch_api_rpc.py", line 1577, in recv_switcht_api_init
+    (fname, mtype, rseqid) = iprot.readMessageBegin()
+  File "/usr/local/lib/python2.7/dist-packages/thrift/protocol/TBinaryProtocol.py", line 134, in readMessageBegin
+    sz = self.readI32()
+  File "/usr/local/lib/python2.7/dist-packages/thrift/protocol/TBinaryProtocol.py", line 217, in readI32
+    buff = self.trans.readAll(4)
+  File "/usr/local/lib/python2.7/dist-packages/thrift/transport/TTransport.py", line 60, in readAll
+    chunk = self.read(sz - have)
+  File "/usr/local/lib/python2.7/dist-packages/thrift/transport/TTransport.py", line 161, in read
+    self.__rbuf = BufferIO(self.__trans.read(max(sz, self.__rbuf_size)))
+  File "/usr/local/lib/python2.7/dist-packages/thrift/transport/TSocket.py", line 117, in read
+    buff = self.handle.recv(sz)
+socket.error: [Errno 104] Connection reset by peer
+sunyongfeng@openswitch-OptiPlex-380:~/workshop/p4factory/mininet$ 
+```
