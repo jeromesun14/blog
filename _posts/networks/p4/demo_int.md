@@ -322,3 +322,7 @@ configs  home  media  nanomsg-1.0.0.tar.gz  p4factory  run   sys   thrift-0.9.2.
 /home/sunyongfeng/workshop/p4/install/bin/bmswitchp4_drivers: /usr/lib/x86_64-linux-gnu/libstdc++.so.6: version `GLIBCXX_3.4.21' not found (required by /home/sunyongfeng/workshop/p4/install/lib/libsimpleswitch_thrift.so.0)
 /home/sunyongfeng/workshop/p4/install/bin/simple_switch: error while loading shared libraries: libboost_system.so.1.58.0: cannot open shared object file: No such file or directory
 ```
+
+https://itbilu.com/linux/management/NymXRUieg.html
+
+
