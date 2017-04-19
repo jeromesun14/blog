@@ -25,6 +25,10 @@ description: Linux装机后的常用配置、软件说明，及使用问题记�
 ### 网卡相关
 以Ubuntu server 14.04为例。
 
+#### 没有 ifconfig 命令
+
+`sudo apt-get install net-tools`
+
 #### 静态IP配置
 配置文件：`/etc/network/interfaces`，如eth0的配置。
 
