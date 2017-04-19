@@ -292,3 +292,33 @@ Traceback (most recent call last):
 socket.error: [Errno 104] Connection reset by peer
 sunyongfeng@openswitch-OptiPlex-380:~/workshop/p4factory/mininet$ 
 ```
+
+根本原因：
+
+```
+sunyongfeng@openswitch-OptiPlex-380:~/workshop/p4factory/mininet$ docker ps
+CONTAINER ID        IMAGE                 COMMAND                  CREATED             STATUS              PORTS                                               NAMES
+50b20ec98aac        p4dockerswitch_bmv2   "/bin/sh -c /bin/bash"   47 seconds ago      Up 45 seconds       0.0.0.0:26001->9091/tcp, 0.0.0.0:27001->10001/tcp   leaf2
+d04a024c559e        p4dockerswitch_bmv2   "/bin/sh -c /bin/bash"   48 seconds ago      Up 46 seconds       0.0.0.0:26000->9091/tcp, 0.0.0.0:27000->10001/tcp   leaf1
+4678cbfe6b2b        p4dockerswitch_bmv2   "/bin/sh -c /bin/bash"   49 seconds ago      Up 47 seconds       0.0.0.0:26003->9091/tcp, 0.0.0.0:27003->10001/tcp   spine2
+701da5748dc9        p4dockerswitch_bmv2   "/bin/sh -c /bin/bash"   50 seconds ago      Up 48 seconds       0.0.0.0:26002->9091/tcp, 0.0.0.0:27002->10001/tcp   spine1
+sunyongfeng@openswitch-OptiPlex-380:~/workshop/p4factory/mininet$ docker attach 701da5748dc9
+bin      dev   lib    mnt                   nnpy       proc  sbin  third-party          tmp
+boot     etc   lib64  nanomsg-1.0.0         opt        root  srv   thrift-0.9.2         usr
+configs  home  media  nanomsg-1.0.0.tar.gz  p4factory  run   sys   thrift-0.9.2.tar.gz  var
+bmv2_driver.log  bmv2_model.log  start.sh
+cat: /tmp/dmvdr: No such file or directory
+bin      dev   lib    mnt                   nnpy       proc  sbin  third-party          tmp
+boot     etc   lib64  nanomsg-1.0.0         opt        root  srv   thrift-0.9.2         usr
+configs  home  media  nanomsg-1.0.0.tar.gz  p4factory  run   sys   thrift-0.9.2.tar.gz  var
+bmv2_driver.log  bmv2_model.log  start.sh
+/home/sunyongfeng/workshop/p4/install/bin/bmswitchp4_drivers: /usr/lib/x86_64-linux-gnu/libstdc++.so.6: version `GLIBCXX_3.4.20' not found (required by /home/sunyongfeng/workshop/p4/install/lib/bmpd/switch/libpd.so.0)
+/home/sunyongfeng/workshop/p4/install/bin/bmswitchp4_drivers: /usr/lib/x86_64-linux-gnu/libstdc++.so.6: version `CXXABI_1.3.8' not found (required by /home/sunyongfeng/workshop/p4/install/lib/bmpd/switch/libpd.so.0)
+/home/sunyongfeng/workshop/p4/install/bin/bmswitchp4_drivers: /usr/lib/x86_64-linux-gnu/libstdc++.so.6: version `GLIBCXX_3.4.21' not found (required by /home/sunyongfeng/workshop/p4/install/lib/bmpd/switch/libpd.so.0)
+/home/sunyongfeng/workshop/p4/install/bin/bmswitchp4_drivers: /usr/lib/x86_64-linux-gnu/libstdc++.so.6: version `GLIBCXX_3.4.21' not found (required by /home/sunyongfeng/workshop/p4/install/lib/bmpd/switch/libpdthrift.so.0)
+/home/sunyongfeng/workshop/p4/install/bin/bmswitchp4_drivers: /usr/lib/x86_64-linux-gnu/libstdc++.so.6: version `GLIBCXX_3.4.21' not found (required by /home/sunyongfeng/workshop/p4/install/lib/libbmpdfixed.so.0)
+/home/sunyongfeng/workshop/p4/install/bin/bmswitchp4_drivers: /usr/lib/x86_64-linux-gnu/libstdc++.so.6: version `GLIBCXX_3.4.21' not found (required by /home/sunyongfeng/workshop/p4/install/lib/libbmpdfixedthrift.so.0)
+/home/sunyongfeng/workshop/p4/install/bin/bmswitchp4_drivers: /usr/lib/x86_64-linux-gnu/libstdc++.so.6: version `GLIBCXX_3.4.21' not found (required by /home/sunyongfeng/workshop/p4/install/lib/libruntimestubs.so.0)
+/home/sunyongfeng/workshop/p4/install/bin/bmswitchp4_drivers: /usr/lib/x86_64-linux-gnu/libstdc++.so.6: version `GLIBCXX_3.4.21' not found (required by /home/sunyongfeng/workshop/p4/install/lib/libsimpleswitch_thrift.so.0)
+/home/sunyongfeng/workshop/p4/install/bin/simple_switch: error while loading shared libraries: libboost_system.so.1.58.0: cannot open shared object file: No such file or directory
+```
