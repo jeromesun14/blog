@@ -11,8 +11,8 @@ HP ops 目前已过时，现在主导 openswitch 项目的是 DELL 和 SnapRoute
 
 本文 openswitch 指 HP ops。记录以前移植 openswtich 到 arm CPU 的过程。
 
-1. BSP 适配
--------------
+## 1. BSP 适配
+
 ### 1.1. 新增一个新产品
 在目录 `yocto/openswitch/` 下新建 `meta-platform-openswitch-[product]`，其中 product 对应新增的产品名字，可以从已有的产品目录拷贝。以 xxx 为例子：
 * 使用 cp 命令，拷贝其他产品目录为 `meta-platform-openswitch-xxx`：
@@ -283,8 +283,7 @@ index a61c606..06a5f0e 100755
  CONFIG_HAS_DMA=y
 ```
 
-2. gcc tune
----------------
+## 2. gcc tune
 ### 2.1.rootfs 不可用
 xxx cpu 为 arm cortex-a9 芯片。`DEFAULTTUNE` 置为 `cortexa9` 或 `cortexa9-neon` 时，编译出来的 rootfs 不可用：
 启机运行时，会出现 `undefined instruction`，内核 kill init 退出：
@@ -471,8 +470,7 @@ Serial          : 0000000000000000
 **TODO** 后续再做验证。
 FPU 基本只应用于图像处理、音视频处理，与我们无关，因此可以放心不用。
 
-3. 编译问题及修订记录
--------------------------------
+## 3. 编译问题及修订记录
 ### 3.1. python xattr 在 x86 平台上直接使用交叉编译结果
 问题 log：
 
@@ -817,8 +815,7 @@ index 996503c..5e1e9e8 100644
           useradd -N -P admin admin; \
 ```
 
-4. 编译太慢？
-------------------
+## 4. 编译太慢？
 ### 4.1. 下载源码慢的问题
 编译的时候，会实时下载要编译的源代码包，由于 GFW 的缘故，代码下载得很慢，导致整个工程编译时间超长。因此可一次下载，多次使用，改 `DL_DIR`。
 
@@ -980,8 +977,7 @@ index 8d622bd..d74cd9e 100644
     for plugin in $(find ${S}/opsplugins -name "*.py"); do \
 ```
 
-5. 其他配置
-----------------
+## 5. 其他配置
 ### 5.1. 如何新增 CFLAG、LDFLAG 选项？
 在 local.conf 中添加对应 FLAG，以 -Wno-error 为例。
 
@@ -1010,8 +1006,7 @@ PREFERRED_PROVIDER_virtual/ops-switchd-switch-api-plugin ?= "ops-switchd-p4switc
 > The P4 plugin is activated adding the following line in /build/conf/local.conf EXTRA_IMAGE_FEATURES = "ops-p4" (use += if other image features are defined)
 > https://github.com/open-switch/ops-switchd-p4switch-plugin
 
-6. 运行问题记录与解决
--------------------------------
+## 6. 运行问题记录与解决
 ### 6.1. ops-switchd-p4switch-plugin 没有打包到 rootfs
 
 ### 6.2. 运行时出现 rsyslog、ops-init.servic 等业务起不来
@@ -1157,8 +1152,7 @@ done
 * https://github.com/open-switch/ops-build/blob/55c9f56fd3fc7a87cd5c7273374b910998630203/yocto/openswitch/meta-distro-openswitch/recipes-ops/openvswitch/ops-openvswitch.bb
 * IMAGE_FEATURES[validitems] += "ops-p4"
 
-7. 其他问题
-----------------
+## 7. 其他问题
 ### x86_64 上的一个 QA 问题
 编译时提示：
 
