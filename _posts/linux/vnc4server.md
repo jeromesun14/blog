@@ -9,6 +9,8 @@ description: windows 通过 vnc4server 远程 ubuntu 记录。
 
 ## 程序安装与配置运行
 
+linode 有一篇详尽的文章：[Install VNC on Ubuntu 16.04](https://www.linode.com/docs/applications/remote-desktop/install-vnc-on-ubuntu-16-04)。
+
 * ubuntu
   + 安装 vnc4server，`sudo apt-get install vnc4server`
   + 运行 `vncpasswd`，配置密码，密码至少6个字符，至多8个字符
