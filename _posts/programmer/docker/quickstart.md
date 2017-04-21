@@ -19,7 +19,7 @@ docker ps -a
 
 docker run -it xxx /bin/bash
 
-类似 ssh 进入 docker，直接起一个 bash 即可，docker exec -i -t $DID bash
+类似 ssh 进入 docker，直接起一个 bash 即可，docker exec -i -t $DID bash。不会像 docker attach 进去退出后，直接将在跑的 docker 实例退出来。
 
 ```
 sunyongfeng@openswitch-OptiPlex-380:~$ docker ps
