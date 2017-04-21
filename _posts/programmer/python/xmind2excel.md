@@ -116,16 +116,16 @@ wb.save('freemind2excel.xls')
 * list 判空，`if not a`。
 * 全局变量，在函数前定义，在函数内要定义为 global
 * etree.ElementTree
-  + 获取 elementTree 树对象，parse(source)
-  + 获取 element 对象，getroot
-  + 获取 tag 的值，elem.tag
-  + 获取首个标签为 node 的 element，elem.find('node')
-  + 获取属性 TEXT 的值，elem.get('TEXT')
+ + 获取 elementTree 树对象，parse(source)
+ + 获取 element 对象，getroot
+ + 获取 tag 的值，elem.tag
+ + 获取首个标签为 node 的 element，elem.find('node')
+ + 获取属性 TEXT 的值，elem.get('TEXT')
 * xlwt
-  + 实例化，xlwt.workbook()
-  + 添加 sheet，add_sheet
-  + 保存 xls 文件，save
-  + 写数据，write
+ + 实例化，xlwt.workbook()
+ + 添加 sheet，add_sheet
+ + 保存 xls 文件，save
+ + 写数据，write
 
 下一步计划：
 
