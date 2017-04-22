@@ -41,7 +41,82 @@ perf_func(root.getroot(), print_level)
 freemind 文件格式分析，xml 源码及 xmind mindmap 如下所示。
 
 ```
-
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="0.8.1">
+    <node TEXT="项目计划" MODIFIED="1492867311576" ID="0hai9mmspjp2s786pcir50olb1" CREATED="1492867311576">
+        <node TEXT="相关信息" MODIFIED="1492867311576" ID="3a979etehnf0scej54cpf5ha4j" CREATED="1492867311576" POSITION="right">
+            <icon BUILTIN="bookmark"/>
+            <node TEXT="项目经理" MODIFIED="1492867311576" ID="734nep595s7klig55tfn46h3tr" CREATED="1492867311576">
+                <hook NAME="accessories/plugins/NodeNote.properties">
+                    <text>乔老爷子</text>
+                </hook>
+            </node>
+            <node TEXT="团队成员" MODIFIED="1492867311576" ID="1omqdu3bt7s4he6ckksd7e3isl" CREATED="1492867311576"/>
+            <node TEXT="项目介绍" MODIFIED="1492867311576" ID="7ftss79m00ap1okqk0eb0r49el" CREATED="1492867311576"/>
+            <node TEXT="关键利益者" MODIFIED="1492867311576" ID="0p7adcg16k0gescfg56c6hpijo" CREATED="1492867311576"/>
+            <node TEXT="背景介绍" MODIFIED="1492867311577" ID="4jjtr2fckvmmbb4hv05oe87b0u" CREATED="1492867311577">
+                <node TEXT="example.xls" MODIFIED="1492867311579" ID="3b36u0f56pme6e577sbu69q04j" CREATED="1492867311577" LINK="images/3rjca88od8011qer034ihv0oan.xls"/></node>
+        </node>
+        <node TEXT="目标" MODIFIED="1492867311579" ID="2qouef1qf60nlp0gu85hvtpnle" CREATED="1492867311579" POSITION="right">
+            <icon BUILTIN="bookmark"/>
+        </node>
+        <node TEXT="必要条件" MODIFIED="1492867311579" ID="3o4g7q484m4dn2prpn0t63fb9o" CREATED="1492867311579" POSITION="right">
+            <icon BUILTIN="bookmark"/>
+            <node TEXT="预算" MODIFIED="1492867311579" ID="1n8to0eqqbl7qpenj65m6rd5jq" CREATED="1492867311579"/>
+            <node TEXT="人员" MODIFIED="1492867311579" ID="4886f7qdnnur0h33l4bjeuqjvr" CREATED="1492867311579"/>
+            <node TEXT="资产" MODIFIED="1492867311579" ID="3hqhdaf3v3gr2bh7ttkq89ue06" CREATED="1492867311579"/>
+            <node TEXT="2017.04.22 确认" MODIFIED="1492867311580" ID="3i0vobk9ovfplks8s78drjktki" CREATED="1492867311580"/>
+	    </node>
+        <node TEXT="<html><img src="images/57hi95enuhcl1c15525mg15r1o.png">" MODIFIED="1492867311580" ID="0ed31t5hvpa6hfevf213pollgh" CREATED="1492867311580" POSITION="right">
+            <arrowlink ID="401c8v21ebt0buq4evf77ct7o0" STARTARROW="None" ENDARROW="Default" DESTINATION="6b0sc8ub8t8ji82o37j15j7pnt"/>
+            <node TEXT="第一阶段" MODIFIED="1492867311582" ID="2uhjdmrfb533f2n1d8cd9rt1r2" CREATED="1492867311582">
+                <node TEXT="高优先级" MODIFIED="1492867311582" ID="68on3d5udtcv2gb00qsl6drm5c" CREATED="1492867311582"/>
+				<node TEXT="中等优先级" MODIFIED="1492867311582" ID="48ls3s61qj2vdstu7jsc51etb3" CREATED="1492867311582"/>
+				<node TEXT="较低优先级" MODIFIED="1492867311582" ID="5c4rujcj281sorpd6l5fv6e712" CREATED="1492867311582"/>
+			</node>
+			<node TEXT="标志" MODIFIED="1492867311582" ID="2mnset6sop3p30ahgpgu0rasvp" CREATED="1492867311582"/>
+			<node TEXT="第二阶段" MODIFIED="1492867311582" ID="4vvd2ij06hopllstsafc42qg7m" CREATED="1492867311582">
+				<node TEXT="高优先级" MODIFIED="1492867311582" ID="5nhhs8090vqf9bsqqdf2be575d" CREATED="1492867311582"/>
+				<node TEXT="中等优先级" MODIFIED="1492867311582" ID="2g0bvlskuq04gmetl0r5om4hsq" CREATED="1492867311582"/>
+				<node TEXT="较低优先级" MODIFIED="1492867311582" ID="1shjdng4ufjvj2drsk2gc2ldrf" CREATED="1492867311582"/>
+			</node>
+			<node TEXT="标志" MODIFIED="1492867311582" ID="2km9h415v1c64th1ma9hpjovsa" CREATED="1492867311582"/>
+			<node TEXT="第三阶段" MODIFIED="1492867311582" ID="4s4rf2536vmh7j1o7clh64be21" CREATED="1492867311582">
+				<node TEXT="高优先级" MODIFIED="1492867311582" ID="542m4dbcci533bgs3b83vfu95m" CREATED="1492867311582"/>
+				<node TEXT="中等优先级" MODIFIED="1492867311582" ID="1gj5005bf8s0q1brmv5lltbab8" CREATED="1492867311582"/>
+				<node TEXT="较低优先级" MODIFIED="1492867311582" ID="0r65aga724a778tionvopubipd" CREATED="1492867311582"/>
+			</node>
+			<node TEXT="标志" MODIFIED="1492867311582" ID="3ncr651qia6e4cv2vposgusuhu" CREATED="1492867311582"/>
+		</node>
+		<node TEXT="<html><img src="images/701at6fa712kqn6r5nb6ri83ud.png">" MODIFIED="1492867311582" ID="6b0sc8ub8t8ji82o37j15j7pnt" CREATED="1492867311582" POSITION="left">
+			<node TEXT="已完成的任务" MODIFIED="1492867311611" ID="071u3nqfdiic6sau5f7fdg3ctr" CREATED="1492867311611"/>
+			<node TEXT="取消的任务" MODIFIED="1492867311611" ID="6tj8kg88oumtel0ki8lu0jjncp" CREATED="1492867311611"/>
+			<node TEXT="被延迟的任务" MODIFIED="1492867311611" ID="2nl2npf0774uu7374uhsv640ad" CREATED="1492867311611"/>
+			<node TEXT="暂停的任务" MODIFIED="1492867311611" ID="1ab39j3upshgvgsja654na18lr" CREATED="1492867311611"/>
+			<node TEXT="进行中的任务" MODIFIED="1492867311611" ID="3duu8bv3jol9htep4brrhj27tp" CREATED="1492867311611"/>
+		</node>
+		<node TEXT="风险" MODIFIED="1492867311611" ID="3r7div183nssfcspufbed5gsut" CREATED="1492867311611" POSITION="left">
+			<node TEXT="风险1" MODIFIED="1492867311611" ID="79qem186f8retr8h2m6p94fh9s" CREATED="1492867311611">
+				<node TEXT="描述" MODIFIED="1492867311611" ID="747p6vp33fp925p1rsc5tpdvhh" CREATED="1492867311611"/>
+				<node TEXT="可能的影响" MODIFIED="1492867311611" ID="3e5tj66vk777rmmuck8sd9hf4s" CREATED="1492867311611"/>
+				<node TEXT="严重程度" MODIFIED="1492867311611" ID="2v578nqjtjmc0us7qpiq9mfg67" CREATED="1492867311611"/>
+				<node TEXT="可能性" MODIFIED="1492867311611" ID="3caf7q4vrsjbh9tutrslkv1ceg" CREATED="1492867311611"/>
+				<node TEXT="事前检测出来的可能性" MODIFIED="1492867311611" ID="6f3rjgd0pbahphscurp4s0b6b6" CREATED="1492867311611"/>
+				<node TEXT="相应的缓解方法" MODIFIED="1492867311611" ID="178k163mtpbfn817dp7nk72n5t" CREATED="1492867311611"/>
+				<node TEXT="推荐的解决方案" MODIFIED="1492867311611" ID="4s839q2p2hikk0qs8e60fnropd" CREATED="1492867311611"/>
+			</node>
+			<node TEXT="风险2" MODIFIED="1492867311611" ID="26k9binqncjakkb6kq2jrooibj" CREATED="1492867311611">
+				<node TEXT="描述" MODIFIED="1492867311611" ID="6ftav360fer4ei9vud0rou4mn0" CREATED="1492867311611"/>
+				<node TEXT="可能的影响" MODIFIED="1492867311611" ID="2mp59ni55sicoqccj7ioka737g" CREATED="1492867311611"/>
+				<node TEXT="严重程度" MODIFIED="1492867311611" ID="4mshvotfm0c3t8qn2sr34pk4as" CREATED="1492867311611"/>
+				<node TEXT="可能性" MODIFIED="1492867311611" ID="27ibg9mm2lurv62m84sr17jk1a" CREATED="1492867311611"/>
+				<node TEXT="事前检测出来的可能性" MODIFIED="1492867311611" ID="6443iv9kjlsn7rglj3tqsn65vd" CREATED="1492867311611"/>
+				<node TEXT="相应的缓解方法" MODIFIED="1492867311611" ID="7dirapfhic24srerve84vnod1u" CREATED="1492867311611"/>
+				<node TEXT="推荐的解决方案" MODIFIED="1492867311611" ID="2e1qlidincv7jtg3aeuh2p5m3j" CREATED="1492867311611"/>
+			</node>
+		</node>
+	</node>
+</map>
 ```
 
 * 根节点
