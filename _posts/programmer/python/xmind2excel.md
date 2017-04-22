@@ -14,29 +14,7 @@ description: 实现 xmind pro 才有的功能 —— 转换 xmind 为 excel。
 1. 转换 xmind 文件为 freemind `.mm` 后缀文件。
 2. freemind 文件实为 xml 格式，通过解析 xml 文件，按格式导出为 excel。
 
-## 第一版 —— xml 递归解析
-### 参考代码
-参考代码，[Python - How to determine hierarchy level of parsed XML elements?](http://stackoverflow.com/questions/15748528/python-how-to-determine-hierarchy-level-of-parsed-xml-elements) 中 pradyunsg 的回答，通过递归的获取子节点的形式达到获取 xml 等级的目的。
-
-原代码：
-
-```python
-import xml.etree.ElementTree as ET
-
-def perf_func(elem, func, level=0):
-    func(elem,level)
-    for child in elem.getchildren():
-        perf_func(child, func, level+1)
-
-def print_level(elem,level):
-    print '-'*level+elem.tag
-
-root = ET.parse('XML_file.xml')
-perf_func(root.getroot(), print_level)
-```
-
-### 适配到 freemind 的解析
-实现获取属性 'TEXT'，参考 [xml.etree.ElementTree — The ElementTree XML API](https://docs.python.org/2/library/xml.etree.elementtree.html#finding-interesting-elements)。
+## freemind 格式分析
 
 freemind 文件格式分析，xml 源码及 xmind mindmap 如下所示。
 
@@ -162,6 +140,35 @@ freemind 文件格式分析，xml 源码及 xmind mindmap 如下所示。
 
 * 问题：xmind bug，图片所在节点的文字不会导出到 freemind 中。
 
+```
+<node TEXT="<html><img src="images/57hi95enuhcl1c15525mg15r1o.png">" MODIFIED="1492867311580" ID="0ed31t5hvpa6hfevf213pollgh" CREATED="1492867311580" POSITION="right">
+```
+
+综上，需归递解析出 freemind 的每个 node 标签，并分析是否为叶子节点，根据是否叶子节点判断excel row 是否加一，将 node 标签的 TEXT 属性值写入 excel 第 row 行，第 level 列。
+
+## 第一版 —— xml 递归解析
+### 参考代码
+参考代码，[Python - How to determine hierarchy level of parsed XML elements?](http://stackoverflow.com/questions/15748528/python-how-to-determine-hierarchy-level-of-parsed-xml-elements) 中 pradyunsg 的回答，通过递归的获取子节点的形式达到获取 xml 等级的目的。
+
+原代码：
+
+```python
+import xml.etree.ElementTree as ET
+
+def perf_func(elem, func, level=0):
+    func(elem,level)
+    for child in elem.getchildren():
+        perf_func(child, func, level+1)
+
+def print_level(elem,level):
+    print '-'*level+elem.tag
+
+root = ET.parse('XML_file.xml')
+perf_func(root.getroot(), print_level)
+```
+
+### 适配到 freemind 的解析
+实现获取属性 'TEXT'，参考 [xml.etree.ElementTree — The ElementTree XML API](https://docs.python.org/2/library/xml.etree.elementtree.html#finding-interesting-elements)。
 
 ```python
 #!/usr/bin/python
@@ -181,6 +188,10 @@ def print_level(elem,level):
 root = ET.parse('test.xml')
 perf_func(root.getroot(), print_level)
 ```
+
+使用到的 python 语法：
+
+* if 语句，通过 `is not None` 判断非空。
 
 ## 第二版 —— 导出为 excel
 
@@ -255,8 +266,4 @@ wb.save('freemind2excel.xls')
   + 保存 xls 文件，save
   + 写数据，write
 
-下一步计划：
-
-* 使用类封装
-* 参数解析，带参数
-
+## 第三版 —— 带参数解析
