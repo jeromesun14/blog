@@ -55,7 +55,8 @@ freemind 文件格式分析，xml 源码及 xmind mindmap 如下所示。
             <node TEXT="项目介绍" MODIFIED="1492867311576" ID="7ftss79m00ap1okqk0eb0r49el" CREATED="1492867311576"/>
             <node TEXT="关键利益者" MODIFIED="1492867311576" ID="0p7adcg16k0gescfg56c6hpijo" CREATED="1492867311576"/>
             <node TEXT="背景介绍" MODIFIED="1492867311577" ID="4jjtr2fckvmmbb4hv05oe87b0u" CREATED="1492867311577">
-                <node TEXT="example.xls" MODIFIED="1492867311579" ID="3b36u0f56pme6e577sbu69q04j" CREATED="1492867311577" LINK="images/3rjca88od8011qer034ihv0oan.xls"/></node>
+                <node TEXT="example.xls" MODIFIED="1492867311579" ID="3b36u0f56pme6e577sbu69q04j" CREATED="1492867311577" LINK="images/3rjca88od8011qer034ihv0oan.xls"/>
+	    </node>
         </node>
         <node TEXT="目标" MODIFIED="1492867311579" ID="2qouef1qf60nlp0gu85hvtpnle" CREATED="1492867311579" POSITION="right">
             <icon BUILTIN="bookmark"/>
