@@ -160,6 +160,7 @@ freemind 文件格式分析，xml 源码及 xmind mindmap 如下所示。
 <icon BUILTIN="bookmark"/>
 ```
 
+* 问题：xmind bug，图片所在节点的文字不会导出到 freemind 中。
 
 
 ```python
