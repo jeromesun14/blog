@@ -16,7 +16,7 @@ description: 通过 cron 定时执行备份任务。
 
 ## 前期工作
 
-见本博客另一篇文章 `scp 命令不需要密码`。
+见本博客另一篇文章 [如何让 scp / ssh 不需要密码](sunyongfeng.com/201704/linux/scp_ssh_without_password.html)。
 
 ## 实现备份的脚本
 
