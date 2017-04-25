@@ -332,6 +332,22 @@ leaf/spine docker 内无法使用 simple_switch_CLI：
 * 在 docker 内通过 pip 安装 thrift，`pip install --upgrade thrift`
 * 通过命令访问 simple_switch_CLI，`/home/sunyongfeng/workshop/p4/install/bin/simple_switch_CLI --json /home/sunyongfeng/workshop/p4/install/share/bmpd/switch/switch.json --thrift-port 10001`
 
+没有安装好 thrift 的问题：
+
+```
+root@leaf1:/home/sunyongfeng# /home/sunyongfeng/workshop/p4/install/bin/simple_switch_CLI
+Traceback (most recent call last):
+  File "/home/sunyongfeng/workshop/p4/install/bin/simple_switch_CLI", line 30, in <module>
+    import sswitch_CLI
+  File "/home/sunyongfeng/workshop/p4/install/lib/python2.7/site-packages/sswitch_CLI.py", line 23, in <module>
+    import runtime_CLI
+  File "/home/sunyongfeng/workshop/p4/install/lib/python2.7/site-packages/runtime_CLI.py", line 30, in <module>
+    import bmpy_utils as utils
+  File "/home/sunyongfeng/workshop/p4/install/lib/python2.7/site-packages/bmpy_utils.py", line 30, in <module>
+    from thrift.protocol import TMultiplexedProtocol
+ImportError: cannot import name TMultiplexedProtocol
+```
+
 一开始不知道 simple_switch 开放的端口是多少，通过 netstat -anp 确认。
 
 ```
