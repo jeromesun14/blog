@@ -325,4 +325,298 @@ configs  home  media  nanomsg-1.0.0.tar.gz  p4factory  run   sys   thrift-0.9.2.
 
 https://itbilu.com/linux/management/NymXRUieg.html
 
+DockerFile 的改造，tshark 无法直接配置通过，卡在 yes/no。
 
+leaf/spine docker 内无法使用 simple_switch_CLI：
+
+* 在 docker 内通过 pip 安装 thrift，`pip install --upgrade thrift`
+* 通过命令访问 simple_switch_CLI，`/home/sunyongfeng/workshop/p4/install/bin/simple_switch_CLI --json /home/sunyongfeng/workshop/p4/install/share/bmpd/switch/switch.json --thrift-port 10001`
+
+一开始不知道 simple_switch 开放的端口是多少，通过 netstat -anp 确认。
+
+```
+root@leaf1:/# /home/sunyongfeng/workshop/p4/install/bin/simple_switch_CLI --json /home/sunyongfeng/workshop/p4/install/share/bmpd/switch/switch.json 
+Error when requesting config md5 sum from switch
+root@leaf1:/# netstat -anp                                                  
+Active Internet connections (servers and established)
+Proto Recv-Q Send-Q Local Address           Foreign Address         State       PID/Program name
+tcp        0      0 0.0.0.0:9090            0.0.0.0:*               LISTEN      81/bmswitchp4_drive
+tcp        0      0 0.0.0.0:9091            0.0.0.0:*               LISTEN      81/bmswitchp4_drive
+tcp        0      0 0.0.0.0:9092            0.0.0.0:*               LISTEN      81/bmswitchp4_drive
+tcp        0      0 127.0.0.1:2601          0.0.0.0:*               LISTEN      114/zebra       
+tcp        0      0 127.0.0.1:2605          0.0.0.0:*               LISTEN      118/bgpd        
+tcp        0      0 0.0.0.0:10001           0.0.0.0:*               LISTEN      67/simple_switch
+tcp        0      0 0.0.0.0:179             0.0.0.0:*               LISTEN      118/bgpd        
+tcp        0      0 127.0.0.1:10001         127.0.0.1:40983         ESTABLISHED 67/simple_switch
+tcp        0      0 127.0.0.1:40984         127.0.0.1:10001         ESTABLISHED 81/bmswitchp4_drive
+tcp        0      0 127.0.0.1:10001         127.0.0.1:40985         ESTABLISHED 67/simple_switch
+tcp        0      0 127.0.0.1:10001         127.0.0.1:40984         ESTABLISHED 67/simple_switch
+tcp        0      0 127.0.0.1:40983         127.0.0.1:10001         ESTABLISHED 81/bmswitchp4_drive
+tcp        0      0 127.0.0.1:9090          127.0.0.1:46833         TIME_WAIT   -               
+tcp        0      0 127.0.0.1:40985         127.0.0.1:10001         ESTABLISHED 81/bmswitchp4_drive
+tcp        0      0 127.0.0.1:9090          127.0.0.1:46829         TIME_WAIT   -               
+tcp6       0      0 :::179                  :::*                    LISTEN      118/bgpd        
+raw6       0      0 :::58                   :::*                    7           114/zebra       
+Active UNIX domain sockets (servers and established)
+Proto RefCnt Flags       Type       State         I-Node   PID/Program name    Path
+unix  2      [ ACC ]     STREAM     LISTENING     576586   118/bgpd            /var/run/quagga/bgpd.vty
+unix  2      [ ACC ]     STREAM     LISTENING     575606   114/zebra           /var/run/quagga/zserv.api
+unix  2      [ ACC ]     STREAM     LISTENING     575609   114/zebra           /var/run/quagga/zebra.vty
+unix  2      [ ACC ]     STREAM     LISTENING     574079   67/simple_switch    /tmp/bmv2-0-notifications.ipc
+unix  3      [ ]         STREAM     CONNECTED     574211   81/bmswitchp4_drive 
+unix  3      [ ]         STREAM     CONNECTED     575248   67/simple_switch    
+unix  3      [ ]         STREAM     CONNECTED     576590   118/bgpd            
+unix  3      [ ]         STREAM     CONNECTED     574212   81/bmswitchp4_drive 
+unix  3      [ ]         STREAM     CONNECTED     574218   67/simple_switch    /tmp/bmv2-0-notifications.ipc
+unix  3      [ ]         STREAM     CONNECTED     575295   81/bmswitchp4_drive 
+unix  3      [ ]         STREAM     CONNECTED     575841   123/watchquagga     
+unix  3      [ ]         STREAM     CONNECTED     575271   81/bmswitchp4_drive 
+unix  3      [ ]         STREAM     CONNECTED     576591   114/zebra           /var/run/quagga/zserv.api
+unix  3      [ ]         STREAM     CONNECTED     576807   118/bgpd            /var/run/quagga/bgpd.vty
+unix  3      [ ]         STREAM     CONNECTED     578621   114/zebra           /var/run/quagga/zebra.vty
+unix  3      [ ]         STREAM     CONNECTED     575296   81/bmswitchp4_drive 
+unix  3      [ ]         STREAM     CONNECTED     576589   114/zebra           /var/run/quagga/zserv.api
+unix  3      [ ]         STREAM     CONNECTED     576588   118/bgpd            
+unix  3      [ ]         STREAM     CONNECTED     575247   67/simple_switch    
+unix  3      [ ]         STREAM     CONNECTED     574344   81/bmswitchp4_drive 
+unix  3      [ ]         STREAM     CONNECTED     574345   81/bmswitchp4_drive 
+unix  3      [ ]         STREAM     CONNECTED     578620   123/watchquagga     
+root@leaf1:/# /home/sunyongfeng/workshop/p4/install/bin/simple_switch_CLI --json /home/sunyongfeng/workshop/p4/install/share/bmpd/switch/switch.json --thrift-port 10001
+Control utility for runtime P4 table manipulation
+RuntimeCmd:
+```
+
+查看 `ipv4_fib` 和 `ipv4_fib_lpm` 表，确认表项安装 OK。
+
+```
+RuntimeCmd: show_tables
+acl_stats                      [implementation=None, mk=]
+adjust_lkp_fields              [implementation=None, mk=ipv4_valid(valid, 1),   ipv6_valid(valid, 1)]
+bd_flood                       [implementation=None, mk=ingress_metadata.bd(exact, 16), l2_metadata.lkp_pkt_type(exact, 3)]
+compute_ipv4_hashes            [implementation=None, mk=ingress_metadata.drop_flag(exact, 1)]
+compute_ipv6_hashes            [implementation=None, mk=ingress_metadata.drop_flag(exact, 1)]
+compute_non_ip_hashes          [implementation=None, mk=ingress_metadata.drop_flag(exact, 1)]
+compute_other_hashes           [implementation=None, mk=hash_metadata.hash1(exact, 16)]
+dmac                           [implementation=None, mk=ingress_metadata.bd(exact, 16), l2_metadata.lkp_mac_da(exact, 48)]
+drop_stats                     [implementation=None, mk=]
+ecmp_group                     [implementation=ecmp_action_profile, mk=l3_metadata.nexthop_index(exact, 16)]
+egress_bd_map                  [implementation=None, mk=egress_metadata.bd(exact, 16)]
+egress_bd_stats                [implementation=None, mk=egress_metadata.bd(exact, 16),  l2_metadata.lkp_pkt_type(exact, 3)]
+egress_filter                  [implementation=None, mk=]
+egress_filter_drop             [implementation=None, mk=]
+egress_ip_acl                  [implementation=None, mk=acl_metadata.egress_if_label(ternary, 16),      acl_metadata.egress_bd_label(ternary, 16),      ipv4.srcAddr(ternary, 32),   ipv4.dstAddr(ternary, 32),      ipv4.protocol(ternary, 8),      acl_metadata.egress_src_port_range_id(exact, 8),        acl_metadata.egress_dst_port_range_id(exact, 8)]
+egress_ipv6_acl                [implementation=None, mk=acl_metadata.egress_if_label(ternary, 16),      acl_metadata.egress_bd_label(ternary, 16),      ipv6.srcAddr(ternary, 128),  ipv6.dstAddr(ternary, 128),     ipv6.nextHdr(ternary, 8),       acl_metadata.egress_src_port_range_id(exact, 8),        acl_metadata.egress_dst_port_range_id(exact, 8)]
+egress_l4_dst_port             [implementation=None, mk=l3_metadata.egress_l4_dport(range, 16)]
+egress_l4_src_port             [implementation=None, mk=l3_metadata.egress_l4_sport(range, 16)]
+egress_l4port_fields           [implementation=None, mk=tcp_valid(valid, 1),    udp_valid(valid, 1),    icmp_valid(valid, 1)]
+egress_mac_acl                 [implementation=None, mk=acl_metadata.egress_if_label(ternary, 16),      acl_metadata.egress_bd_label(ternary, 16),      ethernet.srcAddr(ternary, 48),       ethernet.dstAddr(ternary, 48),  ethernet.etherType(ternary, 16)]
+egress_nat                     [implementation=None, mk=nat_metadata.nat_rewrite_index(exact, 14)]
+egress_port_mapping            [implementation=None, mk=standard_metadata.egress_port(exact, 9)]
+egress_qos_map                 [implementation=None, mk=qos_metadata.egress_qos_group(ternary, 5),      qos_metadata.lkp_tc(ternary, 8)]
+egress_system_acl              [implementation=None, mk=fabric_metadata.reason_code(ternary, 16),       standard_metadata.egress_port(ternary, 9),      intrinsic_metadata.deflection_flag(ternary, 1),      l3_metadata.l3_mtu_check(ternary, 16),  acl_metadata.acl_deny(ternary, 1)]
+egress_vlan_xlate              [implementation=None, mk=egress_metadata.ifindex(exact, 16),     egress_metadata.bd(exact, 16)]
+egress_vni                     [implementation=None, mk=egress_metadata.bd(exact, 16),  tunnel_metadata.egress_tunnel_type(exact, 5)]
+fabric_ingress_dst_lkp         [implementation=None, mk=fabric_header.dstDevice(exact, 8)]
+fabric_ingress_src_lkp         [implementation=None, mk=fabric_header_multicast.ingressIfindex(exact, 16)]
+fabric_lag                     [implementation=fabric_lag_action_profile, mk=fabric_metadata.dst_device(exact, 8)]
+fwd_result                     [implementation=None, mk=l2_metadata.l2_redirect(ternary, 1),    acl_metadata.acl_redirect(ternary, 1),  acl_metadata.racl_redirect(ternary, 1),      l3_metadata.rmac_hit(ternary, 1),       l3_metadata.fib_hit(ternary, 1),        nat_metadata.nat_hit(ternary, 1),       l2_metadata.lkp_pkt_type(ternary, 3),        l3_metadata.lkp_ip_type(ternary, 2),    multicast_metadata.igmp_snooping_enabled(ternary, 1),   multicast_metadata.mld_snooping_enabled(ternary, 1),multicast_metadata.mcast_route_hit(ternary, 1),  multicast_metadata.mcast_bridge_hit(ternary, 1),        multicast_metadata.mcast_rpf_group(ternary, 16),        multicast_metadata.mcast_mode(ternary, 2)]
+ingress_bd_stats               [implementation=None, mk=]
+ingress_l4_dst_port            [implementation=None, mk=l3_metadata.lkp_l4_dport(range, 16)]
+ingress_l4_src_port            [implementation=None, mk=l3_metadata.lkp_l4_sport(range, 16)]
+ingress_port_mapping           [implementation=None, mk=standard_metadata.ingress_port(exact, 9)]
+ingress_port_properties        [implementation=None, mk=standard_metadata.ingress_port(exact, 9)]
+ingress_qos_map_dscp           [implementation=None, mk=qos_metadata.ingress_qos_group(ternary, 5),     l3_metadata.lkp_dscp(ternary, 8)]
+ingress_qos_map_pcp            [implementation=None, mk=qos_metadata.ingress_qos_group(ternary, 5),     l2_metadata.lkp_pcp(ternary, 3)]
+int_bos                        [implementation=None, mk=int_header.total_hop_cnt(ternary, 8),   int_header.instruction_mask_0003(ternary, 4),   int_header.instruction_mask_0407(ternary, 4),        int_header.instruction_mask_0811(ternary, 4),   int_header.instruction_mask_1215(ternary, 4)]
+int_insert                     [implementation=None, mk=int_metadata_i2e.source(ternary, 1),    int_metadata_i2e.sink(ternary, 1),      int_header_valid(valid, 1)]
+int_inst_0003                  [implementation=None, mk=int_header.instruction_mask_0003(exact, 4)]
+int_inst_0407                  [implementation=None, mk=int_header.instruction_mask_0407(exact, 4)]
+int_inst_0811                  [implementation=None, mk=int_header.instruction_mask_0811(exact, 4)]
+int_inst_1215                  [implementation=None, mk=int_header.instruction_mask_1215(exact, 4)]
+int_meta_header_update         [implementation=None, mk=int_metadata.insert_cnt(ternary, 8)]
+int_outer_encap                [implementation=None, mk=ipv4_valid(valid, 1),   vxlan_gpe_valid(valid, 1),      int_metadata_i2e.source(exact, 1),      tunnel_metadata.egress_tunnel_type(ternary, 5)]
+int_sink_update_outer          [implementation=None, mk=vxlan_gpe_int_header_valid(valid, 1),   ipv4_valid(valid, 1),   int_metadata_i2e.sink(exact, 1)]
+int_source                     [implementation=None, mk=int_header_valid(valid, 1),     ipv4_valid(valid, 1),   ipv4_metadata.lkp_ipv4_da(ternary, 32), ipv4_metadata.lkp_ipv4_sa(ternary, 32),      inner_ipv4_valid(valid, 1),     inner_ipv4.dstAddr(ternary, 32),        inner_ipv4.srcAddr(ternary, 32)]
+int_terminate                  [implementation=None, mk=int_header_valid(valid, 1),     vxlan_gpe_int_header_valid(valid, 1),   ipv4_valid(valid, 1),   ipv4_metadata.lkp_ipv4_da(ternary, 32),      inner_ipv4_valid(valid, 1),     inner_ipv4.dstAddr(ternary, 32)]
+ip_acl                         [implementation=None, mk=acl_metadata.if_label(ternary, 16),     acl_metadata.bd_label(ternary, 16),     ipv4_metadata.lkp_ipv4_sa(ternary, 32),      ipv4_metadata.lkp_ipv4_da(ternary, 32), l3_metadata.lkp_ip_proto(ternary, 8),   acl_metadata.ingress_src_port_range_id(exact, 8),       acl_metadata.ingress_dst_port_range_id(exact, 8),    tcp.flags(ternary, 8),  l3_metadata.lkp_ip_ttl(ternary, 8)]
+ipsg                           [implementation=None, mk=ingress_metadata.ifindex(exact, 16),    ingress_metadata.bd(exact, 16), l2_metadata.lkp_mac_sa(exact, 48),  ipv4_metadata.lkp_ipv4_sa(exact, 32)]
+ipsg_permit_special            [implementation=None, mk=l3_metadata.lkp_ip_proto(ternary, 8),   l3_metadata.lkp_l4_dport(ternary, 16),  ipv4_metadata.lkp_ipv4_da(ternary, 32)]
+ipv4_dest_vtep                 [implementation=None, mk=l3_metadata.vrf(exact, 16),     ipv4.dstAddr(exact, 32),        tunnel_metadata.ingress_tunnel_type(exact, 5)]
+ipv4_fib                       [implementation=None, mk=l3_metadata.vrf(exact, 16),     ipv4_metadata.lkp_ipv4_da(exact, 32)]
+ipv4_fib_lpm                   [implementation=None, mk=l3_metadata.vrf(exact, 16),     ipv4_metadata.lkp_ipv4_da(lpm, 32)]
+ipv4_multicast_bridge          [implementation=None, mk=ingress_metadata.bd(exact, 16), ipv4_metadata.lkp_ipv4_sa(exact, 32),   ipv4_metadata.lkp_ipv4_da(exact, 32)]
+ipv4_multicast_bridge_star_g   [implementation=None, mk=ingress_metadata.bd(exact, 16), ipv4_metadata.lkp_ipv4_da(exact, 32)]
+ipv4_multicast_route           [implementation=None, mk=l3_metadata.vrf(exact, 16),     ipv4_metadata.lkp_ipv4_sa(exact, 32),   ipv4_metadata.lkp_ipv4_da(exact, 32)]
+ipv4_multicast_route_star_g    [implementation=None, mk=l3_metadata.vrf(exact, 16),     ipv4_metadata.lkp_ipv4_da(exact, 32)]
+ipv4_racl                      [implementation=None, mk=acl_metadata.bd_label(ternary, 16),     ipv4_metadata.lkp_ipv4_sa(ternary, 32), ipv4_metadata.lkp_ipv4_da(ternary, 32),      l3_metadata.lkp_ip_proto(ternary, 8),   acl_metadata.ingress_src_port_range_id(exact, 8),       acl_metadata.ingress_dst_port_range_id(exact, 8)]
+ipv4_src_vtep                  [implementation=None, mk=l3_metadata.vrf(exact, 16),     ipv4.srcAddr(exact, 32),        tunnel_metadata.ingress_tunnel_type(exact, 5)]
+ipv4_urpf                      [implementation=None, mk=l3_metadata.vrf(exact, 16),     ipv4_metadata.lkp_ipv4_sa(exact, 32)]
+ipv4_urpf_lpm                  [implementation=None, mk=l3_metadata.vrf(exact, 16),     ipv4_metadata.lkp_ipv4_sa(lpm, 32)]
+ipv6_acl                       [implementation=None, mk=acl_metadata.if_label(ternary, 16),     acl_metadata.bd_label(ternary, 16),     ipv6_metadata.lkp_ipv6_sa(ternary, 128),     ipv6_metadata.lkp_ipv6_da(ternary, 128),        l3_metadata.lkp_ip_proto(ternary, 8),   acl_metadata.ingress_src_port_range_id(exact, 8),       acl_metadata.ingress_dst_port_range_id(exact, 8),    tcp.flags(ternary, 8),  l3_metadata.lkp_ip_ttl(ternary, 8)]
+ipv6_dest_vtep                 [implementation=None, mk=l3_metadata.vrf(exact, 16),     ipv6.dstAddr(exact, 128),       tunnel_metadata.ingress_tunnel_type(exact, 5)]
+ipv6_fib                       [implementation=None, mk=l3_metadata.vrf(exact, 16),     ipv6_metadata.lkp_ipv6_da(exact, 128)]
+ipv6_fib_lpm                   [implementation=None, mk=l3_metadata.vrf(exact, 16),     ipv6_metadata.lkp_ipv6_da(lpm, 128)]
+ipv6_multicast_bridge          [implementation=None, mk=ingress_metadata.bd(exact, 16), ipv6_metadata.lkp_ipv6_sa(exact, 128),  ipv6_metadata.lkp_ipv6_da(exact, 128)]
+ipv6_multicast_bridge_star_g   [implementation=None, mk=ingress_metadata.bd(exact, 16), ipv6_metadata.lkp_ipv6_da(exact, 128)]
+ipv6_multicast_route           [implementation=None, mk=l3_metadata.vrf(exact, 16),     ipv6_metadata.lkp_ipv6_sa(exact, 128),  ipv6_metadata.lkp_ipv6_da(exact, 128)]
+ipv6_multicast_route_star_g    [implementation=None, mk=l3_metadata.vrf(exact, 16),     ipv6_metadata.lkp_ipv6_da(exact, 128)]
+ipv6_racl                      [implementation=None, mk=acl_metadata.bd_label(ternary, 16),     ipv6_metadata.lkp_ipv6_sa(ternary, 128),        ipv6_metadata.lkp_ipv6_da(ternary, 128),     l3_metadata.lkp_ip_proto(ternary, 8),   acl_metadata.ingress_src_port_range_id(exact, 8),       acl_metadata.ingress_dst_port_range_id(exact, 8)]
+ipv6_src_vtep                  [implementation=None, mk=l3_metadata.vrf(exact, 16),     ipv6.srcAddr(exact, 128),       tunnel_metadata.ingress_tunnel_type(exact, 5)]
+ipv6_urpf                      [implementation=None, mk=l3_metadata.vrf(exact, 16),     ipv6_metadata.lkp_ipv6_sa(exact, 128)]
+ipv6_urpf_lpm                  [implementation=None, mk=l3_metadata.vrf(exact, 16),     ipv6_metadata.lkp_ipv6_sa(lpm, 128)]
+l3_rewrite                     [implementation=None, mk=ipv4_valid(valid, 1),   ipv6_valid(valid, 1),   mpls[0]_valid(valid, 1),        ipv4.dstAddr(ternary, 32),  ipv6.dstAddr(ternary, 128)]
+lag_group                      [implementation=lag_action_profile, mk=ingress_metadata.egress_ifindex(exact, 16)]
+learn_notify                   [implementation=None, mk=l2_metadata.l2_src_miss(ternary, 1),    l2_metadata.l2_src_move(ternary, 16),   l2_metadata.stp_state(ternary, 3)]
+mac_acl                        [implementation=None, mk=acl_metadata.if_label(ternary, 16),     acl_metadata.bd_label(ternary, 16),     l2_metadata.lkp_mac_sa(ternary, 48), l2_metadata.lkp_mac_da(ternary, 48),    l2_metadata.lkp_mac_type(ternary, 16)]
+meter_action                   [implementation=None, mk=meter_metadata.packet_color(exact, 2),  meter_metadata.meter_index(exact, 16)]
+meter_index                    [implementation=None, mk=meter_metadata.meter_index(exact, 16)]
+mirror                         [implementation=None, mk=i2e_metadata.mirror_session_id(exact, 16)]
+mpls                           [implementation=None, mk=tunnel_metadata.mpls_label(exact, 20),  inner_ipv4_valid(valid, 1),     inner_ipv6_valid(valid, 1)]
+mtu                            [implementation=None, mk=l3_metadata.mtu_index(exact, 8),        ipv4_valid(valid, 1),   ipv6_valid(valid, 1)]
+nat_dst                        [implementation=None, mk=l3_metadata.vrf(exact, 16),     ipv4_metadata.lkp_ipv4_da(exact, 32),   l3_metadata.lkp_ip_proto(exact, 8), l3_metadata.lkp_l4_dport(exact, 16)]
+nat_flow                       [implementation=None, mk=l3_metadata.vrf(ternary, 16),   ipv4_metadata.lkp_ipv4_sa(ternary, 32), ipv4_metadata.lkp_ipv4_da(ternary, 32),      l3_metadata.lkp_ip_proto(ternary, 8),   l3_metadata.lkp_l4_sport(ternary, 16),  l3_metadata.lkp_l4_dport(ternary, 16)]
+nat_src                        [implementation=None, mk=l3_metadata.vrf(exact, 16),     ipv4_metadata.lkp_ipv4_sa(exact, 32),   l3_metadata.lkp_ip_proto(exact, 8), l3_metadata.lkp_l4_sport(exact, 16)]
+nat_twice                      [implementation=None, mk=l3_metadata.vrf(exact, 16),     ipv4_metadata.lkp_ipv4_sa(exact, 32),   ipv4_metadata.lkp_ipv4_da(exact, 32)l3_metadata.lkp_ip_proto(exact, 8),      l3_metadata.lkp_l4_sport(exact, 16),    l3_metadata.lkp_l4_dport(exact, 16)]
+native_packet_over_fabric      [implementation=None, mk=ipv4_valid(valid, 1),   ipv6_valid(valid, 1)]
+nexthop                        [implementation=None, mk=l3_metadata.nexthop_index(exact, 16)]
+outer_ipv4_multicast           [implementation=None, mk=multicast_metadata.ipv4_mcast_key_type(exact, 1),       multicast_metadata.ipv4_mcast_key(exact, 16),   ipv4.srcAddr(exact, 32),     ipv4.dstAddr(exact, 32)]
+outer_ipv4_multicast_star_g    [implementation=None, mk=multicast_metadata.ipv4_mcast_key_type(exact, 1),       multicast_metadata.ipv4_mcast_key(exact, 16),   ipv4.dstAddr(ternary, 32)]
+outer_ipv6_multicast           [implementation=None, mk=multicast_metadata.ipv6_mcast_key_type(exact, 1),       multicast_metadata.ipv6_mcast_key(exact, 16),   ipv6.srcAddr(exact, 128),    ipv6.dstAddr(exact, 128)]
+outer_ipv6_multicast_star_g    [implementation=None, mk=multicast_metadata.ipv6_mcast_key_type(exact, 1),       multicast_metadata.ipv6_mcast_key(exact, 16),   ipv6.dstAddr(ternary, 128)]
+outer_rmac                     [implementation=None, mk=l3_metadata.rmac_group(exact, 10),      ethernet.dstAddr(exact, 48)]
+port_vlan_mapping              [implementation=bd_action_profile, mk=ingress_metadata.ifindex(exact, 16),       vlan_tag_[0]_valid(valid, 1),   vlan_tag_[0].vid(exact, 12), vlan_tag_[1]_valid(valid, 1),   vlan_tag_[1].vid(exact, 12)]
+replica_type                   [implementation=None, mk=multicast_metadata.replica(exact, 1),   egress_metadata.same_bd_check(ternary, 16)]
+rewrite                        [implementation=None, mk=l3_metadata.nexthop_index(exact, 16)]
+rewrite_multicast              [implementation=None, mk=ipv4_valid(valid, 1),   ipv6_valid(valid, 1),   ipv4.dstAddr(ternary, 32),      ipv6.dstAddr(ternary, 128)]
+rid                            [implementation=None, mk=intrinsic_metadata.egress_rid(exact, 16)]
+rmac                           [implementation=None, mk=l3_metadata.rmac_group(exact, 10),      l2_metadata.lkp_mac_da(exact, 48)]
+sflow_ing_take_sample          [implementation=None, mk=ingress_metadata.sflow_take_sample(ternary, 32),        sflow_metadata.sflow_session_id(exact, 16)]
+sflow_ingress                  [implementation=None, mk=ingress_metadata.ifindex(ternary, 16),  ipv4_metadata.lkp_ipv4_sa(ternary, 32), ipv4_metadata.lkp_ipv4_da(ternary, 32),      sflow_valid(valid, 1)]
+smac                           [implementation=None, mk=ingress_metadata.bd(exact, 16), l2_metadata.lkp_mac_sa(exact, 48)]
+smac_rewrite                   [implementation=None, mk=egress_metadata.smac_idx(exact, 9)]
+spanning_tree                  [implementation=None, mk=ingress_metadata.ifindex(exact, 16),    l2_metadata.stp_group(exact, 10)]
+storm_control                  [implementation=None, mk=standard_metadata.ingress_port(exact, 9),       l2_metadata.lkp_pkt_type(ternary, 3)]
+storm_control_stats            [implementation=None, mk=meter_metadata.packet_color(exact, 2),  standard_metadata.ingress_port(exact, 9)]
+switch_config_params           [implementation=None, mk=]
+system_acl                     [implementation=None, mk=acl_metadata.if_label(ternary, 16),     acl_metadata.bd_label(ternary, 16),     ingress_metadata.ifindex(ternary, 16),       l2_metadata.lkp_mac_type(ternary, 16),  l2_metadata.port_vlan_mapping_miss(ternary, 1), security_metadata.ipsg_check_fail(ternary, 1),  acl_metadata.acl_deny(ternary, 1),   acl_metadata.racl_deny(ternary, 1),     l3_metadata.urpf_check_fail(ternary, 1),        ingress_metadata.drop_flag(ternary, 1), l3_metadata.l3_copy(ternary, 1),     l3_metadata.rmac_hit(ternary, 1),       l3_metadata.routed(ternary, 1), ipv6_metadata.ipv6_src_is_link_local(ternary, 1),       l2_metadata.same_if_check(ternary, 16),      tunnel_metadata.tunnel_if_check(ternary, 1),    l3_metadata.same_bd_check(ternary, 16), l3_metadata.lkp_ip_ttl(ternary, 8),     l2_metadata.stp_state(ternary, 3),   ingress_metadata.control_frame(ternary, 1),     ipv4_metadata.ipv4_unicast_enabled(ternary, 1), ipv6_metadata.ipv6_unicast_enabled(ternary, 1),      ingress_metadata.egress_ifindex(ternary, 16),   fabric_metadata.reason_code(ternary, 16)]
+traffic_class                  [implementation=None, mk=qos_metadata.tc_qos_group(ternary, 5),  qos_metadata.lkp_tc(ternary, 8)]
+tunnel                         [implementation=None, mk=tunnel_metadata.tunnel_vni(exact, 24),  tunnel_metadata.ingress_tunnel_type(exact, 5),  inner_ipv4_valid(valid, 1),  inner_ipv6_valid(valid, 1)]
+tunnel_decap_process_inner     [implementation=None, mk=inner_tcp_valid(valid, 1),      inner_udp_valid(valid, 1),      inner_icmp_valid(valid, 1)]
+tunnel_decap_process_outer     [implementation=None, mk=tunnel_metadata.ingress_tunnel_type(exact, 5),  inner_ipv4_valid(valid, 1),     inner_ipv6_valid(valid, 1)]
+tunnel_dmac_rewrite            [implementation=None, mk=tunnel_metadata.tunnel_dmac_index(exact, 14)]
+tunnel_dst_rewrite             [implementation=None, mk=tunnel_metadata.tunnel_dst_index(exact, 14)]
+tunnel_encap_process_inner     [implementation=None, mk=ipv4_valid(valid, 1),   ipv6_valid(valid, 1),   tcp_valid(valid, 1),    udp_valid(valid, 1),    icmp_valid(valid, 1)]
+tunnel_encap_process_outer     [implementation=None, mk=tunnel_metadata.egress_tunnel_type(exact, 5),   tunnel_metadata.egress_header_count(exact, 4),  multicast_metadata.replica(exact, 1)]
+tunnel_lookup_miss             [implementation=None, mk=ipv4_valid(valid, 1),   ipv6_valid(valid, 1)]
+tunnel_mtu                     [implementation=None, mk=tunnel_metadata.tunnel_index(exact, 14)]
+tunnel_rewrite                 [implementation=None, mk=tunnel_metadata.tunnel_index(exact, 14)]
+tunnel_smac_rewrite            [implementation=None, mk=tunnel_metadata.tunnel_smac_index(exact, 9)]
+tunnel_src_rewrite             [implementation=None, mk=tunnel_metadata.tunnel_src_index(exact, 9)]
+urpf_bd                        [implementation=None, mk=l3_metadata.urpf_bd_group(exact, 16),   ingress_metadata.bd(exact, 16)]
+validate_mpls_packet           [implementation=None, mk=mpls[0].label(ternary, 20),     mpls[0].bos(ternary, 1),        mpls[0]_valid(valid, 1),        mpls[1].label(ternary, 20),  mpls[1].bos(ternary, 1),        mpls[1]_valid(valid, 1),        mpls[2].label(ternary, 20),     mpls[2].bos(ternary, 1),        mpls[2]_valid(valid, 1)]
+validate_outer_ethernet        [implementation=None, mk=ethernet.srcAddr(ternary, 48),  ethernet.dstAddr(ternary, 48),  vlan_tag_[0]_valid(valid, 1),   vlan_tag_[1]_valid(valid, 1)]
+validate_outer_ipv4_packet     [implementation=None, mk=ipv4.version(ternary, 4),       ipv4.ttl(ternary, 8),   ipv4.srcAddr(ternary, 32)]
+validate_outer_ipv6_packet     [implementation=None, mk=ipv6.version(ternary, 4),       ipv6.hopLimit(ternary, 8),      ipv6.srcAddr(ternary, 128)]
+validate_packet                [implementation=None, mk=l2_metadata.lkp_mac_sa(ternary, 48),    l2_metadata.lkp_mac_da(ternary, 48),    l3_metadata.lkp_ip_type(ternary, 2), l3_metadata.lkp_ip_ttl(ternary, 8),     l3_metadata.lkp_ip_version(ternary, 4), ipv4_metadata.lkp_ipv4_sa(ternary, 32), ipv6_metadata.lkp_ipv6_sa(ternary, 128)]
+vlan_decap                     [implementation=None, mk=vlan_tag_[0]_valid(valid, 1),   vlan_tag_[1]_valid(valid, 1)]
+RuntimeCmd: table_dump ipv4_fib
+==========
+TABLE ENTRIES
+**********
+Dumping entry 0x0
+Match key:
+* l3_metadata.vrf          : EXACT     0001
+* ipv4_metadata.lkp_ipv4_da: EXACT     00000000
+Action entry: fib_hit_nexthop - 06
+**********
+Dumping entry 0x1
+Match key:
+* l3_metadata.vrf          : EXACT     0001
+* ipv4_metadata.lkp_ipv4_da: EXACT     0a000164
+Action entry: fib_hit_nexthop - 03
+**********
+Dumping entry 0x2
+Match key:
+* l3_metadata.vrf          : EXACT     0001
+* ipv4_metadata.lkp_ipv4_da: EXACT     0a000264
+Action entry: fib_hit_nexthop - 03
+**********
+Dumping entry 0x3
+Match key:
+* l3_metadata.vrf          : EXACT     0001
+* ipv4_metadata.lkp_ipv4_da: EXACT     0a010b01
+Action entry: fib_hit_nexthop - 03
+**********
+Dumping entry 0x4
+Match key:
+* l3_metadata.vrf          : EXACT     0001
+* ipv4_metadata.lkp_ipv4_da: EXACT     0a010c01
+Action entry: fib_hit_nexthop - 03
+**********
+Dumping entry 0x1000005
+Match key:
+* l3_metadata.vrf          : EXACT     0001
+* ipv4_metadata.lkp_ipv4_da: EXACT     0a000202
+Action entry: fib_hit_nexthop - 07
+**********
+Dumping entry 0x3000006
+Match key:
+* l3_metadata.vrf          : EXACT     0001
+* ipv4_metadata.lkp_ipv4_da: EXACT     0a010c02
+Action entry: fib_hit_nexthop - 08
+**********
+Dumping entry 0x7
+Match key:
+* l3_metadata.vrf          : EXACT     0001
+* ipv4_metadata.lkp_ipv4_da: EXACT     0a000101
+Action entry: fib_hit_nexthop - 09
+==========
+Dumping default entry
+Action entry: on_miss - 
+==========
+RuntimeCmd: table_dump ipv4_fib_lpm
+==========
+TABLE ENTRIES
+**********
+Dumping entry 0x0
+Match key:
+* l3_metadata.vrf          : EXACT     0001
+* ipv4_metadata.lkp_ipv4_da: LPM       7f000000/8
+Action entry: fib_hit_nexthop - 05
+**********
+Dumping entry 0x1
+Match key:
+* l3_metadata.vrf          : EXACT     0001
+* ipv4_metadata.lkp_ipv4_da: LPM       00000000/0
+Action entry: fib_hit_nexthop - 06
+**********
+Dumping entry 0x2
+Match key:
+* l3_metadata.vrf          : EXACT     0001
+* ipv4_metadata.lkp_ipv4_da: LPM       0a000164/24
+Action entry: fib_hit_nexthop - 03
+**********
+Dumping entry 0x3
+Match key:
+* l3_metadata.vrf          : EXACT     0001
+* ipv4_metadata.lkp_ipv4_da: LPM       0a000264/24
+Action entry: fib_hit_nexthop - 03
+**********
+Dumping entry 0x4
+Match key:
+* l3_metadata.vrf          : EXACT     0001
+* ipv4_metadata.lkp_ipv4_da: LPM       0a010b01/24
+Action entry: fib_hit_nexthop - 03
+**********
+Dumping entry 0x5
+Match key:
+* l3_metadata.vrf          : EXACT     0001
+* ipv4_metadata.lkp_ipv4_da: LPM       0a010c01/24
+Action entry: fib_hit_nexthop - 03
+==========
+Dumping default entry
+Action entry: on_miss - 
+==========
+RuntimeCmd: 
+root@leaf1:/# 
+```
