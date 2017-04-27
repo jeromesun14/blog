@@ -18,7 +18,7 @@ description: 实现 xmind pro 才有的功能 —— 转换 xmind 为 excel。
 
 freemind 文件格式分析，xml 源码及 xmind mindmap 如下所示。
 
-```
+```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="0.8.1">
     <node TEXT="项目计划" MODIFIED="1492867311576" ID="0hai9mmspjp2s786pcir50olb1" CREATED="1492867311576">
@@ -100,25 +100,25 @@ freemind 文件格式分析，xml 源码及 xmind mindmap 如下所示。
 
 * 根节点
 
-```
+```xml
 <map version="0.8.1">`
 ```
 
 * mindmap 节点
 
-```
+```xml
 <node TEXT="项目计划" MODIFIED="1492867311576" ID="0hai9mmspjp2s786pcir50olb1" CREATED="1492867311576">
 ```
 
 * 联系节点，即 xmind 中的箭头，ctrl + l
 
-```
+```xml
 <arrowlink ID="221s6rn1ft46fc6207057chd1k" STARTINCLINATION="43;180" STARTARROW="None" ENDARROW="Default" DESTINATION="61q31b1bilu0mpim374q7hn048"/>
 ```
 
 * 备注节点，node 节点的子节点。
 
-```
+```xml
 <node TEXT="项目经理" MODIFIED="1492867311576" ID="734nep595s7klig55tfn46h3tr" CREATED="1492867311576">
   <hook NAME="accessories/plugins/NodeNote.properties">
     <text>乔老爷子</text>
@@ -128,19 +128,19 @@ freemind 文件格式分析，xml 源码及 xmind mindmap 如下所示。
 
 * 概要节点，同 mindmap 节点
 
-```
+```xml
 <node TEXT="2017.04.22 确认" MODIFIED="1492867311580" ID="3i0vobk9ovfplks8s78drjktki" CREATED="1492867311580"/>
 ```
 
 * 特殊标签 —— 图标
 
-```
+```xml
 <icon BUILTIN="bookmark"/>
 ```
 
 * 问题：xmind bug，图片所在节点的文字不会导出到 freemind 中。
 
-```
+```xml
 <node TEXT="<html><img src="images/57hi95enuhcl1c15525mg15r1o.png">" MODIFIED="1492867311580" ID="0ed31t5hvpa6hfevf213pollgh" CREATED="1492867311580" POSITION="right">
 ```
 
@@ -197,7 +197,7 @@ perf_func(root.getroot(), print_level)
 
 缺点：使用全局变量
 
-```
+```python
 #!/usr/bin/python
 
 import xml.etree.ElementTree as ET
@@ -272,11 +272,11 @@ wb.save('freemind2excel.xls')
 * python 参数解析方法汇总，[Python中的命令行解析工具介绍](http://lingxiankong.github.io/blog/2014/01/14/command-line-parser/)
 * python argparse 使用详解，[argparse - 命令行选项与参数解析（译）](http://blog.xiayf.cn/2013/03/30/argparse/)
 
-本文只需要带个参数，一是输入文件，二是输出文件，其中输入文件为必选选项，输出文件为可选。
+本文只需要带个参数，一是输入文件，二是输出文件，其中输入文件为必选选项，输出文件为可选，输出文件默认为 freemind2excel.xls。
 
 源码：
 
-```
+```python
 #!/usr/bin/python
 
 import xml.etree.ElementTree as ET
