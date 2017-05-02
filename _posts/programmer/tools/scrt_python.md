@@ -1,7 +1,7 @@
 title: SecureCRT python 脚本记录
 date: 2013-11-21 13:13:24
 toc: true
-tags: [python]
+tags: [python, SecureCRT]
 categories: programmer
 keywords: [python, secure CRT, ctrl c, ^c]
 description: Secure CRT python 脚本记录
