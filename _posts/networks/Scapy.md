@@ -54,5 +54,6 @@ sendp(x, inter=0, loop=0, iface=None, iface_hint=None, count=None, verbose=None,
 from scapy.all import *
 buffer=rdpcap("/home/sunyongfeng/test/1029.pcap")
 sendp(buffer, iface="eth2",inter=0.001, loop=1, count=1000000000000)
+sendp(ETHER()/IP(dst="1.1.1.1")/TCP()/"You are offline.", iface="eth2",inter=0.001, loop=1, count=1000000000000)
 ```
 
