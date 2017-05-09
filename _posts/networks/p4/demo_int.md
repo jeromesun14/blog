@@ -691,6 +691,8 @@ root@leaf1:/#
 
 原因：docker 的物理端口配置问题，实际拓扑使用 leaf1-eth1，但是配置却配到 swp1。
 
+详见 [p4factory issue 194](https://github.com/p4lang/p4factory/issues/194)
+
 patch 如下：
 
 ```patch
