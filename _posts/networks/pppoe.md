@@ -40,3 +40,4 @@ PPPoE协议的提出解决了用户上网收费等实际应用问题，得到了
 * [RFC 2516](https://tools.ietf.org/html/rfc2516), A Method for Transmitting PPP Over Ethernet (PPPoE)
 * [H3C PPPoE 技术白皮书](http://www.h3c.com.hk/Products___Technology/Technology/WAN/Technology_White_Paper/200911/654415_57_0.htm)
 * [wikipedia Point to Point Protocol](https://en.wikipedia.org/wiki/Point-to-Point_Protocol)
+* [PPPoE Interface](http://wiki.treck.com/PPP_over_Ethernet_(PPPoE)_Interface)
