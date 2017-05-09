@@ -33,6 +33,8 @@ description: 使用过的好软件备忘
   + Mobaxterm
 * linux 平台
   + guake
+  + tmux
+  + powerline-shell，装逼利器
 * 跨平台
   + secureCRT, 商用
 
