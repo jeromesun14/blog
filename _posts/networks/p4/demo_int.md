@@ -9,7 +9,8 @@ description: p4factory 样例 app int 跑通的过程记录。
 
 ## 内核版本切换为 3.19
 
-用于支持内核版本 3.19
+详见 [p4factory issue 136](https://github.com/p4lang/p4factory/issues/136)
+用于支持内核版本 3.19。详见另一篇文章 [ubuntu 用回旧版内核](http://sunyongfeng.com/201704/linux/startup_with_old_kernel.html)
 
 ```
 sunyongfeng@openswitch-OptiPlex-380:~/workshop/p4factory/apps/int/vxlan-gpe$ make
@@ -185,6 +186,8 @@ sunyongfeng@openswitch-OptiPlex-380:~/workshop/p4factory/apps/int/vxlan-gpe$
 
 ## 解决 Linux 内核到 3.19 后，docker 无法运行
 
+详见另一篇文章 [Linux升级内核后 docker 不可用](http://sunyongfeng.com/201704/linux/docker_failed_after_update_kernel.html)
+
 ```
 sunyongfeng@openswitch-OptiPlex-380:~/workshop/p4factory/makefiles$ sudo service docker start
 Job for docker.service failed because the control process exited with error code. See "systemctl status docker.service" and "journalctl -xe" for details.
@@ -213,6 +216,9 @@ Docker version 1.12.3, build 6b644ec
 ```
 
 ## 解决 int_ref_topology.py 失败问题
+
+### docker_node.py 运行失败
+详见 [p4factory issue 193](https://github.com/p4lang/p4factory/issues/193)
 
 执行 mininet 起 docker 起不来。[解决](http://stackoverflow.com/questions/28006027/valueerror-invalid-literal-for-int-with-base-10-n):
 
@@ -259,6 +265,8 @@ self.pid = int((ps_out[0].strip()).strip('\''))
 > [链接](http://www.runoob.com/python/att-string-strip.html)：Python strip() 方法用于移除字符串头尾指定的字符（默认为空格）。
 
 ## 解决 docker 内 bmv2 无法运行的问题
+
+原因：ubuntu 16.04 默认 gcc 版为 5.4.0，而 bmv2 docker ubuntu 版本为 14.04，其默认 gcc 为 4.8。因此升级 docker 中的 ubuntu 版本为 16.04
 
 ```
 sunyongfeng@openswitch-OptiPlex-380:~/workshop/p4factory/mininet$ sudo ./int_ref_topology.py --model-dir=$P4HOME/install               
@@ -328,16 +336,49 @@ configs  home  media  nanomsg-1.0.0.tar.gz  p4factory  run   sys   thrift-0.9.2.
 /home/sunyongfeng/workshop/p4/install/bin/simple_switch: error while loading shared libraries: libboost_system.so.1.58.0: cannot open shared object file: No such file or directory
 ```
 
-https://itbilu.com/linux/management/NymXRUieg.html
+更新后的 Dockerfile patch:
+
+```patch
+diff --git a/docker/Dockerfile b/docker/Dockerfile
+old mode 100644
+new mode 100755
+index 42c87af..e9003fc
+--- a/docker/Dockerfile
++++ b/docker/Dockerfile
+@@ -1,4 +1,4 @@
+-FROM      ubuntu:14.04
++FROM      ubuntu:16.04
+ MAINTAINER Antonin Bas <antonin@barefootnetworks.com>
+ 
+ RUN apt-get update
+@@ -41,7 +41,6 @@ RUN apt-get install -y \
+     redis-server \
+     redis-tools \
+     subversion \
+-    tshark \
+     xterm
+ 
+ RUN pip install tenjin
+@@ -84,7 +83,7 @@ RUN mkdir -p /tmp/install_tmp ; \
+     wget -c http://archive.apache.org/dist/thrift/0.9.2/thrift-0.9.2.tar.gz ; \
+     tar zxvf thrift-0.9.2.tar.gz ; \
+     cd thrift-0.9.2 ; \
+-    ./configure --with-cpp=yes --with-c_glib=no --with-java=no --with-ruby=no --with-erlang=no --with-go=no --with-nodejs=no ; \
++    ./configure ; \
+     make -j4 ; \
+     make install ; \
+     ldconfig ; \
+```
 
 ## DockerFile 解决 tshark 卡在 yes/no
 
-DockerFile 的改造，tshark 无法直接配置通过，卡在 yes/no。
+DockerFile 的改造，tshark 无法直接配置通过，卡在 yes/no。详见上一小节 Dockerfile，先不安装 tshark，等 bmv2 docker image 打好后，再进去安装、重新 commit docker image。
 
 ## 在 docker 内使用 simple_switch_CLI
 
 leaf/spine docker 内无法使用 simple_switch_CLI：
 
+* 改 Dockerfile 的 thrift 配置为默认配置，不简化 docker 内的 thrift
 * 在 docker 内通过 pip 安装 thrift，`pip install --upgrade thrift`
 * 通过命令访问 simple_switch_CLI，`/home/sunyongfeng/workshop/p4/install/bin/simple_switch_CLI --json /home/sunyongfeng/workshop/p4/install/share/bmpd/switch/switch.json --thrift-port 10001`
 
