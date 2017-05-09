@@ -7,8 +7,9 @@ keywords: [p4, int, in band telemetry, factory, demo]
 description: p4factory 样例 app int 跑通的过程记录。
 ---
 
+## 内核版本切换为 3.19
 
-vxlan 内核模块依赖内核 3.19
+用于支持内核版本 3.19
 
 ```
 sunyongfeng@openswitch-OptiPlex-380:~/workshop/p4factory/apps/int/vxlan-gpe$ make
@@ -182,7 +183,7 @@ sunyongfeng@openswitch-OptiPlex-380:~/workshop/p4factory/apps/int/vxlan-gpe$
 
 ```
 
-升级 Linux 内核到 3.19 后，docker 无法运行。
+## 解决 Linux 内核到 3.19 后，docker 无法运行
 
 ```
 sunyongfeng@openswitch-OptiPlex-380:~/workshop/p4factory/makefiles$ sudo service docker start
@@ -210,6 +211,8 @@ Job for docker.service failed because the control process exited with error code
 sunyongfeng@openswitch-OptiPlex-380:~/workshop/p4factory/makefiles$ docker --version
 Docker version 1.12.3, build 6b644ec
 ```
+
+## 解决 int_ref_topology.py 失败问题
 
 执行 mininet 起 docker 起不来。[解决](http://stackoverflow.com/questions/28006027/valueerror-invalid-literal-for-int-with-base-10-n):
 
@@ -254,6 +257,8 @@ self.pid = int((ps_out[0].strip()).strip('\''))
 ```
 
 > [链接](http://www.runoob.com/python/att-string-strip.html)：Python strip() 方法用于移除字符串头尾指定的字符（默认为空格）。
+
+## 解决 docker 内 bmv2 无法运行的问题
 
 ```
 sunyongfeng@openswitch-OptiPlex-380:~/workshop/p4factory/mininet$ sudo ./int_ref_topology.py --model-dir=$P4HOME/install               
@@ -325,7 +330,11 @@ configs  home  media  nanomsg-1.0.0.tar.gz  p4factory  run   sys   thrift-0.9.2.
 
 https://itbilu.com/linux/management/NymXRUieg.html
 
+## DockerFile 解决 tshark 卡在 yes/no
+
 DockerFile 的改造，tshark 无法直接配置通过，卡在 yes/no。
+
+## 在 docker 内使用 simple_switch_CLI
 
 leaf/spine docker 内无法使用 simple_switch_CLI：
 
@@ -636,3 +645,292 @@ Action entry: on_miss -
 RuntimeCmd: 
 root@leaf1:/# 
 ```
+
+## 解决 mininet 起来后 host 间无法互 Ping
+
+原因：docker 的物理端口配置问题，实际拓扑使用 leaf1-eth1，但是配置却配到 swp1。
+
+patch 如下：
+
+```patch
+diff --git a/mininet/configs/leaf1/l3_int_ref_topo/startup_config.sh b/mininet/configs/leaf1/l3_int_ref_topo/startup_config.sh
+index 6432a4c..5d34e05 100755
+--- a/mininet/configs/leaf1/l3_int_ref_topo/startup_config.sh
++++ b/mininet/configs/leaf1/l3_int_ref_topo/startup_config.sh
+@@ -2,15 +2,15 @@
+ 
+ stty -echo; set +m
+ 
+-ip link set dev swp1 address 00:01:00:00:00:01
+-ip link set dev swp2 address 00:01:00:00:00:02
+-ip link set dev swp3 address 00:01:00:00:00:03
+-ip link set dev swp4 address 00:01:00:00:00:04
++ip link set dev leaf1-eth1 address 00:01:00:00:00:01
++ip link set dev leaf1-eth2 address 00:01:00:00:00:02
++ip link set dev leaf1-eth3 address 00:01:00:00:00:03
++ip link set dev leaf1-eth4 address 00:01:00:00:00:04
+ 
+-ip address add 10.0.1.100/24 broadcast + dev swp1
+-ip address add 10.0.2.100/24 broadcast + dev swp2
+-ip address add 10.1.11.1/24 broadcast + dev swp3
+-ip address add 10.1.12.1/24 broadcast + dev swp4
++ip address add 10.0.1.100/24 broadcast + dev leaf1-eth1
++ip address add 10.0.2.100/24 broadcast + dev leaf1-eth2
++ip address add 10.1.11.1/24 broadcast + dev leaf1-eth3
++ip address add 10.1.12.1/24 broadcast + dev leaf1-eth4
+ 
+ cp /configs/quagga/* /etc/quagga/
+ chown quagga.quagga /etc/quagga/*
+diff --git a/mininet/configs/leaf2/l3_int_ref_topo/startup_config.sh b/mininet/configs/leaf2/l3_int_ref_topo/startup_config.sh
+index 0a5637f..7562c72 100755
+--- a/mininet/configs/leaf2/l3_int_ref_topo/startup_config.sh
++++ b/mininet/configs/leaf2/l3_int_ref_topo/startup_config.sh
+@@ -2,15 +2,15 @@
+ 
+ stty -echo; set +m
+ 
+-ip link set dev swp1 address 00:02:00:00:00:01
+-ip link set dev swp2 address 00:02:00:00:00:02
+-ip link set dev swp3 address 00:02:00:00:00:03
+-ip link set dev swp4 address 00:02:00:00:00:04
++ip link set dev leaf2-eth1 address 00:02:00:00:00:01
++ip link set dev leaf2-eth2 address 00:02:00:00:00:02
++ip link set dev leaf2-eth3 address 00:02:00:00:00:03
++ip link set dev leaf2-eth4 address 00:02:00:00:00:04
+ 
+-ip address add 10.0.3.100/24 broadcast + dev swp1
+-ip address add 10.0.4.100/24 broadcast + dev swp2
+-ip address add 10.1.21.1/24 broadcast + dev swp3
+-ip address add 10.1.22.1/24 broadcast + dev swp4
++ip address add 10.0.3.100/24 broadcast + dev leaf2-eth1
++ip address add 10.0.4.100/24 broadcast + dev leaf2-eth2
++ip address add 10.1.21.1/24 broadcast + dev leaf2-eth3
++ip address add 10.1.22.1/24 broadcast + dev leaf2-eth4
+ 
+ cp /configs/quagga/* /etc/quagga/
+ chown quagga.quagga /etc/quagga/*
+diff --git a/mininet/configs/spine1/l3_int_ref_topo/startup_config.sh b/mininet/configs/spine1/l3_int_ref_topo/startup_config.sh
+index f2ecfc0..33f4878 100755
+--- a/mininet/configs/spine1/l3_int_ref_topo/startup_config.sh
++++ b/mininet/configs/spine1/l3_int_ref_topo/startup_config.sh
+@@ -2,11 +2,11 @@
+ 
+ stty -echo; set +m
+ 
+-ip link set dev swp1 address 00:03:00:00:00:01
+-ip link set dev swp2 address 00:03:00:00:00:02
++ip link set dev spine1-eth1 address 00:03:00:00:00:01
++ip link set dev spine1-eth2 address 00:03:00:00:00:02
+ 
+-ip address add 10.1.11.2/24 broadcast + dev swp1
+-ip address add 10.1.21.2/24 broadcast + dev swp2
++ip address add 10.1.11.2/24 broadcast + dev spine1-eth1
++ip address add 10.1.21.2/24 broadcast + dev spine2-eth2
+ 
+ cp /configs/quagga/* /etc/quagga/
+ chown quagga.quagga /etc/quagga/*
+diff --git a/mininet/configs/spine2/l3_int_ref_topo/startup_config.sh b/mininet/configs/spine2/l3_int_ref_topo/startup_config.sh
+index 7a28663..be95656 100755
+--- a/mininet/configs/spine2/l3_int_ref_topo/startup_config.sh
++++ b/mininet/configs/spine2/l3_int_ref_topo/startup_config.sh
+@@ -2,11 +2,11 @@
+ 
+ stty -echo; set +m
+ 
+-ip link set dev swp1 address 00:04:00:00:00:01
+-ip link set dev swp2 address 00:04:00:00:00:02
++ip link set dev spine2-eth1 address 00:04:00:00:00:01
++ip link set dev spine2-eth2 address 00:04:00:00:00:02
+ 
+-ip address add 10.1.12.2/24 broadcast + dev swp1
+-ip address add 10.1.22.2/24 broadcast + dev swp2
++ip address add 10.1.12.2/24 broadcast + dev spine2-eth1
++ip address add 10.1.22.2/24 broadcast + dev spine2-eth2
+ 
+ cp /configs/quagga/* /etc/quagga/
+ chown quagga.quagga /etc/quagga/*
+```
+
+## iperf 样例
+h3 iperf 似乎默认没有启动。
+
+```
+ root  ~  workshop  p4factory  mininet  iperf -c 10.2.1.3 -t 60
+connect failed: Connection refused
+```
+
+在 h3 中启动：
+
+```
+ root  ~  workshop  p4factory  mininet  iperf -s
+------------------------------------------------------------
+Server listening on TCP port 5001
+TCP window size: 85.3 KByte (default)
+------------------------------------------------------------
+[ 18] local 10.2.1.3 port 5001 connected with 10.2.1.1 port 45594
+```
+
+在 h1 中 运行 iperf 客户端：
+
+```
+ root  ~  workshop  p4factory  mininet  iperf -c 10.2.1.3 -t 6000000
+------------------------------------------------------------
+Client connecting to 10.2.1.3, TCP port 5001
+TCP window size: 85.3 KByte (default)
+------------------------------------------------------------
+[ 17] local 10.2.1.1 port 45594 connected with 10.2.1.3 port 5001
+^C[ ID] Interval       Transfer     Bandwidth
+[ 17]  0.0-639.1 sec   341 MBytes  4.47 Mbits/sec
+```
+
+## monitor 网页无法显示正在运行的流
+
+目前在 h1 iperf h3 的时候，可以通过在 leaf1 中 `tshark -i leaf1-eth1` 确认输入报文，`tshark -i leaf1-eth4` 确认输出报文。
+可看到报文是 vxlan-gpe 封装（UDP port 4790），但是目前 monitor client 网页上还无法看到 INT 汇总会的图表以及正在运行的流。
+
+```
+Frame 1197: 1376 bytes on wire (11008 bits), 1376 bytes captured (11008 bits) on interface 0
+    Interface id: 0 (leaf1-eth4)
+    Encapsulation type: Ethernet (1)
+    Arrival Time: May  9, 2017 10:14:05.967375947 UTC
+    [Time shift for this packet: 0.000000000 seconds]
+    Epoch Time: 1494324845.967375947 seconds
+    [Time delta from previous captured frame: 0.001337053 seconds]
+    [Time delta from previous displayed frame: 0.001337053 seconds]
+    [Time since reference or first frame: 1.740272097 seconds]
+    Frame Number: 1197
+    Frame Length: 1376 bytes (11008 bits)
+    Capture Length: 1376 bytes (11008 bits)
+    [Frame is marked: False]
+    [Frame is ignored: False]
+    [Protocols in frame: eth:ethertype:ip:udp:data]
+Ethernet II, Src: EquipTra_00:00:04 (00:01:00:00:00:04), Dst: LexmarkI_00:00:01 (00:04:00:00:00:01)
+    Destination: LexmarkI_00:00:01 (00:04:00:00:00:01)
+        Address: LexmarkI_00:00:01 (00:04:00:00:00:01)
+        .... ..0. .... .... .... .... = LG bit: Globally unique address (factory default)
+        .... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+    Source: EquipTra_00:00:04 (00:01:00:00:00:04)
+        Address: EquipTra_00:00:04 (00:01:00:00:00:04)
+        .... ..0. .... .... .... .... = LG bit: Globally unique address (factory default)
+        .... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+    Type: IPv4 (0x0800)
+Internet Protocol Version 4, Src: 10.0.1.1, Dst: 10.0.3.3
+    0100 .... = Version: 4
+    .... 0101 = Header Length: 20 bytes
+    Differentiated Services Field: 0x00 (DSCP: CS0, ECN: Not-ECT)
+        0000 00.. = Differentiated Services Codepoint: Default (0)
+        .... ..00 = Explicit Congestion Notification: Not ECN-Capable Transport (0)
+    Total Length: 1362
+    Identification: 0x2abf (10943)
+    Flags: 0x00
+        0... .... = Reserved bit: Not set
+        .0.. .... = Don't fragment: Not set
+        ..0. .... = More fragments: Not set
+    Fragment offset: 0
+    Time to live: 63
+    Protocol: UDP (17)
+    Header checksum: 0x33d9 [validation disabled]
+        [Good: False]
+        [Bad: False]
+    Source: 10.0.1.1
+    Destination: 10.0.3.3
+    [Source GeoIP: Unknown]
+    [Destination GeoIP: Unknown]
+User Datagram Protocol, Src Port: 54446 (54446), Dst Port: 4790 (4790)
+    Source Port: 54446
+    Destination Port: 4790
+    Length: 1342
+    Checksum: 0x0000 (none)
+        [Good Checksum: False]
+        [Bad Checksum: False]
+    [Stream index: 0]
+Data (1334 bytes)
+
+0000  0c 00 00 05 00 00 0a 00 00 00 03 03 00 03 20 00   .............. .
+0010  b0 00 00 00 00 11 22 33 44 53 00 11 22 33 44 51   ......"3DS.."3DQ
+0020  08 00 45 00 05 14 7a 8b 40 00 40 06 a5 51 0a 02   ..E...z.@.@..Q..
+0030  01 01 0a 02 01 03 b2 1a 13 89 93 30 1f d7 82 49   ...........0...I
+0040  4e 8b 80 10 00 32 74 27 00 00 01 01 08 0a 00 18   N....2t'........
+0050  af 0f 00 18 af 0f 38 39 30 31 32 33 34 35 36 37   ......8901234567
+0060  38 39 30 31 32 33 34 35 36 37 38 39 30 31 32 33   8901234567890123
+0070  34 35 36 37 38 39 30 31 32 33 34 35 36 37 38 39   4567890123456789
+0080  30 31 32 33 34 35 36 37 38 39 30 31 32 33 34 35   0123456789012345
+0090  36 37 38 39 30 31 32 33 34 35 36 37 38 39 30 31   6789012345678901
+00a0  32 33 34 35 36 37 38 39 30 31 32 33 34 35 36 37   2345678901234567
+00b0  38 39 30 31 32 33 34 35 36 37 38 39 30 31 32 33   8901234567890123
+00c0  34 35 36 37 38 39 30 31 32 33 34 35 36 37 38 39   4567890123456789
+00d0  30 31 32 33 34 35 36 37 38 39 30 31 32 33 34 35   0123456789012345
+00e0  36 37 38 39 30 31 32 33 34 35 36 37 38 39 30 31   6789012345678901
+00f0  32 33 34 35 36 37 38 39 30 31 32 33 34 35 36 37   2345678901234567
+0100  38 39 30 31 32 33 34 35 36 37 38 39 30 31 32 33   8901234567890123
+0110  34 35 36 37 38 39 30 31 32 33 34 35 36 37 38 39   4567890123456789
+0120  30 31 32 33 34 35 36 37 38 39 30 31 32 33 34 35   0123456789012345
+0130  36 37 38 39 30 31 32 33 34 35 36 37 38 39 30 31   6789012345678901
+0140  32 33 34 35 36 37 38 39 30 31 32 33 34 35 36 37   2345678901234567
+0150  38 39 30 31 32 33 34 35 36 37 38 39 30 31 32 33   8901234567890123
+0160  34 35 36 37 38 39 30 31 32 33 34 35 36 37 38 39   4567890123456789
+0170  30 31 32 33 34 35 36 37 38 39 30 31 32 33 34 35   0123456789012345
+0180  36 37 38 39 30 31 32 33 34 35 36 37 38 39 30 31   6789012345678901
+0190  32 33 34 35 36 37 38 39 30 31 32 33 34 35 36 37   2345678901234567
+01a0  38 39 30 31 32 33 34 35 36 37 38 39 30 31 32 33   8901234567890123
+01b0  34 35 36 37 38 39 30 31 32 33 34 35 36 37 38 39   4567890123456789
+01c0  30 31 32 33 34 35 36 37 38 39 30 31 32 33 34 35   0123456789012345
+01d0  36 37 38 39 30 31 32 33 34 35 36 37 38 39 30 31   6789012345678901
+01e0  32 33 34 35 36 37 38 39 30 31 32 33 34 35 36 37   2345678901234567
+01f0  38 39 30 31 32 33 34 35 36 37 38 39 30 31 32 33   8901234567890123
+0200  34 35 36 37 38 39 30 31 32 33 34 35 36 37 38 39   4567890123456789
+0210  30 31 32 33 34 35 36 37 38 39 30 31 32 33 34 35   0123456789012345
+0220  36 37 38 39 30 31 32 33 34 35 36 37 38 39 30 31   6789012345678901
+0230  32 33 34 35 36 37 38 39 30 31 32 33 34 35 36 37   2345678901234567
+0240  38 39 30 31 32 33 34 35 36 37 38 39 30 31 32 33   8901234567890123
+0250  34 35 36 37 38 39 30 31 32 33 34 35 36 37 38 39   4567890123456789
+0260  30 31 32 33 34 35 36 37 38 39 30 31 32 33 34 35   0123456789012345
+0270  36 37 38 39 30 31 32 33 34 35 36 37 38 39 30 31   6789012345678901
+0280  32 33 34 35 36 37 38 39 30 31 32 33 34 35 36 37   2345678901234567
+0290  38 39 30 31 32 33 34 35 36 37 38 39 30 31 32 33   8901234567890123
+02a0  34 35 36 37 38 39 30 31 32 33 34 35 36 37 38 39   4567890123456789
+02b0  30 31 32 33 34 35 36 37 38 39 30 31 32 33 34 35   0123456789012345
+02c0  36 37 38 39 30 31 32 33 34 35 36 37 38 39 30 31   6789012345678901
+02d0  32 33 34 35 36 37 38 39 30 31 32 33 34 35 36 37   2345678901234567
+02e0  38 39 30 31 32 33 34 35 36 37 38 39 30 31 32 33   8901234567890123
+02f0  34 35 36 37 38 39 30 31 32 33 34 35 36 37 38 39   4567890123456789
+0300  30 31 32 33 34 35 36 37 38 39 30 31 32 33 34 35   0123456789012345
+0310  36 37 38 39 30 31 32 33 34 35 36 37 38 39 30 31   6789012345678901
+0320  32 33 34 35 36 37 38 39 30 31 32 33 34 35 36 37   2345678901234567
+0330  38 39 30 31 32 33 34 35 36 37 38 39 30 31 32 33   8901234567890123
+0340  34 35 36 37 38 39 30 31 32 33 34 35 36 37 38 39   4567890123456789
+0350  30 31 32 33 34 35 36 37 38 39 30 31 32 33 34 35   0123456789012345
+0360  36 37 38 39 30 31 32 33 34 35 36 37 38 39 30 31   6789012345678901
+0370  32 33 34 35 36 37 38 39 30 31 32 33 34 35 36 37   2345678901234567
+0380  38 39 30 31 32 33 34 35 36 37 38 39 30 31 32 33   8901234567890123
+0390  34 35 36 37 38 39 30 31 32 33 34 35 36 37 38 39   4567890123456789
+03a0  30 31 32 33 34 35 36 37 38 39 30 31 32 33 34 35   0123456789012345
+03b0  36 37 38 39 30 31 32 33 34 35 36 37 38 39 30 31   6789012345678901
+03c0  32 33 34 35 36 37 38 39 30 31 32 33 34 35 36 37   2345678901234567
+03d0  38 39 30 31 32 33 34 35 36 37 38 39 30 31 32 33   8901234567890123
+03e0  34 35 36 37 38 39 30 31 32 33 34 35 36 37 38 39   4567890123456789
+03f0  30 31 32 33 34 35 36 37 38 39 30 31 32 33 34 35   0123456789012345
+0400  36 37 38 39 30 31 32 33 34 35 36 37 38 39 30 31   6789012345678901
+0410  32 33 34 35 36 37 38 39 30 31 32 33 34 35 36 37   2345678901234567
+0420  38 39 30 31 32 33 34 35 36 37 38 39 30 31 32 33   8901234567890123
+0430  34 35 36 37 38 39 30 31 32 33 34 35 36 37 38 39   4567890123456789
+0440  30 31 32 33 34 35 36 37 38 39 30 31 32 33 34 35   0123456789012345
+0450  36 37 38 39 30 31 32 33 34 35 36 37 38 39 30 31   6789012345678901
+0460  32 33 34 35 36 37 38 39 30 31 32 33 34 35 36 37   2345678901234567
+0470  38 39 30 31 32 33 34 35 36 37 38 39 30 31 32 33   8901234567890123
+0480  34 35 36 37 38 39 30 31 32 33 34 35 36 37 38 39   4567890123456789
+0490  30 31 32 33 34 35 36 37 38 39 30 31 32 33 34 35   0123456789012345
+04a0  36 37 38 39 30 31 32 33 34 35 36 37 38 39 30 31   6789012345678901
+04b0  32 33 34 35 36 37 38 39 30 31 32 33 34 35 36 37   2345678901234567
+04c0  38 39 30 31 32 33 34 35 36 37 38 39 30 31 32 33   8901234567890123
+04d0  34 35 36 37 38 39 30 31 32 33 34 35 36 37 38 39   4567890123456789
+04e0  30 31 32 33 34 35 36 37 38 39 30 31 32 33 34 35   0123456789012345
+04f0  36 37 38 39 30 31 32 33 34 35 36 37 38 39 30 31   6789012345678901
+0500  32 33 34 35 36 37 38 39 30 31 32 33 34 35 36 37   2345678901234567
+0510  38 39 30 31 32 33 34 35 36 37 38 39 30 31 32 33   8901234567890123
+0520  34 35 36 37 38 39 30 31 32 33 34 35 36 37 38 39   4567890123456789
+0530  30 31 32 33 34 35                                 012345
+    Data: 0c00000500000a000000030300032000b000000000112233...
+    [Length: 1334]
+```
+
