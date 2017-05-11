@@ -12,6 +12,6 @@ description: PPPoE 协议分析
 
 * NAT
 * NAPT
-* CGN / NAT444
+* CGN / NAT44
 
 TODO...
