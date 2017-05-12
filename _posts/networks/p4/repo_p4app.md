@@ -64,7 +64,7 @@ p4app run examples/simple_router.p4app
 3. 设置并启动一个容器做为软件交换机
 4. 设置并启动 mininet 模拟实验网络
 
-p4app 不仅支持 mininet，还支持一种名为 `stf` （simple testing framework）的模拟网络测试框架。本文称 Mininet 或 stf 为后端（backend），在 `p4app.json` 文件中称其为 target。下文统一称为 backend。
+p4app 不仅支持 mininet，还支持一种名为 `stf` （simple testing framework）的模拟网络测试框架。本文称 Mininet 或 stf 为后端（backend）， p4app 支持一个程序多个后端，在 `p4app.json` 文件中体现，并称其为 target，即 target 与 backend 实例的关系是 1:N。
 
 > "simple testing framework", which can help you test small P4 programs and ensure they behave the way you expect.
 
@@ -144,13 +144,8 @@ p4app 包的目录结构看起来像这样：
 
 这里定义一个名为 “debug” 的 Mininet backend，以及两个 STF backend，分别名为“test1”和“test2”。`"user":"mininet"` 用于指明每个 target 使用哪个 backend，如果不使用 user 字段，则 target 名同时被认定为 backend 名。这也是为什么，在之前的样例中，不需要指明`"use": "mininet"` ，因为 target 名就已经是 mininet，如果直接被用成 backend 名，p4app 也可以识别。
 
-That's really all there is to it. There's one final tip: if you want to share a
-p4app package with someone else, you can run `p4app pack my-program.p4app`, and
-p4app will compress the package into a single file. p4app can run compressed
-packages transparently, so the person you send it to won't even have to
-decompress it. If they want to take a look at the files it contains, though,
-they can just run `p4app unpack my-program.p4app`, and p4app will turn the
-package back into a directory.
+另外，如果想与他人分享 p4app 包，运行  `p4app pack my-program.p4app` 压缩 p4app 包为单独文件。p4app 可以直接运行这个包，无需解压。如果想看解压包中的文件，运行 `p4app unpack my-p4ogram.p4app` ，p4app 将该文件解压回目录。
+
 
 Backends
 ========
@@ -158,11 +153,9 @@ Backends
 mininet
 -------
 
-This backend compiles a P4 program, loads it into a BMV2
-[simple_switch](https://github.com/p4lang/behavioral-model/blob/master/docs/simple_switch.md),
-and creates a Mininet environment that lets you experiment with it.
+该后端编译 p4 程序，并加载到 BMv2 [simple_switch](https://github.com/p4lang/behavioral-model/blob/master/docs/simple_switch.md)，然后创建 Mininet 实验环境。
 
-The following configuration values are supported:
+支持以下配置值（皆为可选）：
 
 ```
 "mininet": {
@@ -171,31 +164,21 @@ The following configuration values are supported:
 }
 ```
 
-All are optional.
+Mininet 将通过星形拓扑创建网络，并创建 `num-hosts` 个数的 host，通过不同端口连接到模拟交换机。
 
-The Mininet network will use a star topology, with `num-hosts` hosts each
-connected to your switch via a separate interface.
+模拟交换机的启机默认配置可通过 `switch-config` 配置。配置的文件是一系列 BMV2 [simple_switch_CLI](https://github.com/p4lang/behavioral-model#using-the-cli-to-populate-tables) 命令。
 
-You can load a configuration into your switch at startup using `switch-config`;
-the file format is just a sequence of commands for the BMV2
-[simple_switch_CLI](https://github.com/p4lang/behavioral-model#using-the-cli-to-populate-tables).
+在启机过程中，有信息提示网络配置信息以及如何使用 logging 和 debugging 工具。
 
-During startup, messages will be displayed telling you information about the
-network configuration and about how to access logging and debugging facilities.
-The BMV2 debugger is especially handy; you can read up on how to use it
-[here](https://github.com/p4lang/behavioral-model/blob/master/docs/p4dbg_user_guide.md).
+BMV2 debugger 很方便，可在[这里](https://github.com/p4lang/behavioral-model/blob/master/docs/p4dbg_user_guide.md)阅读如何使用。
 
-This target also supports the configuration values for the `compile-bvm2` target.
+该 backend 还支持`compile-bmv2` 配置，详见下文相应章节。
 
 multiswitch
 -----------
+和 `mininet` 一样，这个 target 包含 P4 程序，并支行在 Mininet 环境。但是这个 backend 支持配置多个交换机、自定义拓扑并在 host 上执行自定义命令。其中这些交换机默认自动配置 l2/l3 规则，用于所有 host 之间的互通，即假设 P4 程序有 `ipv4_lpm`、`send_frame` 和 `forward` 表，详见 simple_router.p4。
 
-Like `mininet`, this target compiles a P4 program and runs it in a Mininet
-environment. Moreover, this target allows you to run multiple switches with a
-custom topology and execute arbitrary commands on the hosts. The switches are
-automatically configured with l2 and l3 rules for routing traffic to all hosts
-(this assumes that the P4 programs have the `ipv4_lpm`, `send_frame` and
-`forward` tables). For example:
+配置样例：
 
 ```
 "multiswitch": {
@@ -222,29 +205,26 @@ automatically configured with l2 and l3 rules for routing traffic to all hosts
 }
 ```
 
-This configuration will create a topology like this:
+该配置将创建这样的拓扑：
 
 ```
 h1 <---> s1 <---> s2 <---> h2
 ```
 
-where the `s2-h2` link has a 50ms artificial delay. The hosts can be configured
-with the following options:
+其中 `s2-h2` 链路人工配置 50ms 的延迟。host 配置选项：
 
- - `cmd` - the command to be executed on the host.
- - `wait` - wait for the command to complete before continuing. By setting it
-   to false, you can start a process on the host in the background, like a
-   daemon/server.
- - `startup_sleep` - the amount of time (in seconds) that should be waited
-   after starting the command.
- - `latency` - the latency between this host and the switch. This can either be a number (interpreted as seconds) or a string with time units (e.g. `50ms` or `1s`). This overrides the latency set in the `links` object.
+ - `cmd` - 在 host 上运行的命令
+ - `wait` - 等待命令执行结束。如果配置成 false，表示在后台运行此命令。
+ - `startup_sleep` - 启动命令后应等待的时间（以秒为单位）。
+ - `latency` - 主机与交换机之间的延迟。配置值是数字（解释为秒）或具有时间单位的字符串（例如`50ms`或`1s`）。该配置将覆盖“links”对象中设置的延迟。
+
+通过将主机名（例如“h1”）替换为相应的IP地址来格式化该命令。 目标中指定的参数将作为环境变量（即`$`后跟变量名称）可用于命令。例如：
+
+
 
 The command is formatted by replacing the hostnames (e.g. `h1`) with the
 corresponding IP address. The parameters specified in the target will be
-available to the command as environment variables (i.e. `$` followed by the
-variable name). For an example, have a look at the
-[manifest](examples/multiswitch.p4app/p4app.json) for the multiswitch example
-app.
+available to the command as environment variables (i.e. `$` followed by the variable name). For an example, have a look at the [manifest](examples/multiswitch.p4app/p4app.json) for the multiswitch example app.
 
 #### Limitations
 Currently, each host can be connected to at most one switch.
