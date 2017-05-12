@@ -64,7 +64,7 @@ p4app run examples/simple_router.p4app
 3. 设置并启动一个容器做为软件交换机
 4. 设置并启动 mininet 模拟实验网络
 
-p4app 不仅支持 mininet，还支持一种名为 `stf` （simple testing framework）的模拟网络测试框架。
+p4app 不仅支持 mininet，还支持一种名为 `stf` （simple testing framework）的模拟网络测试框架。本文称 Mininet 或 stf 为后端（backend），在 `p4app.json` 文件中称其为 target。下文统一称为 backend。
 
 > "simple testing framework", which can help you test small P4 programs and ensure they behave the way you expect.
 
@@ -83,28 +83,22 @@ p4app run examples/simple_counter.p4app
 
 和 mininet 不一样的是， stf 最终直接退出。
 
-A p4app package contains one program, but it can contain multiple "targets" -
-for example, a p4app might include several different network configurations for
-Mininet, an entire suite of STF tests, or a mix of the two. p4app runs the
-default target, well, by default, but you can specify a target by name this way:
+每个 p4app 包包含一个 P4 程序，但可以包含多个 backend。例如，一个 p4app 可能包含多个不同的 Mininet 网络不配置，一组完整的 STF 测试套件，或上述两种的混合化。p4app 运行默认 backend，若想运行非默认 backend，则在运行 p4app 时以该 backend 名为参数。
 
 ```
 p4app run examples/simple_router.p4app mininet
+
 ```
 
-That's pretty much it! There's one more useful command, though. p4app caches the
-P4 compiler and tools locally, so you don't have to redownload them every time,
-but from time to time you may want to update to the latest versions. When that
-time comes, run:
+差不多就这样了！但还有一个有用的命令，p4app在本地缓存P4编译器和工具，因此您不必每次都重新下载。如果需要更新到最新版本，运行：
 
 ```
 p4app update
 ```
 
-Creating a p4app package
+创建一个 p4app 包
 ------------------------
-
-A p4app package has a directory structure that looks like this:
+p4app 包的目录结构看起来像这样：
 
 ```
   my_program.p4app
@@ -116,8 +110,7 @@ A p4app package has a directory structure that looks like this:
     |- ...other files...
 ```
 
-The `p4app.json` file is a package manifest that tells p4app how to build and
-run a P4 program; it's comparable to a Makefile. Here's one looks:
+`p4app.json`  是这个包的 manifest，说明如何构建和运行 p4 程序，功能有点像 Markfile 文件。样例：
 
 ```
 {
@@ -132,19 +125,9 @@ run a P4 program; it's comparable to a Makefile. Here's one looks:
 }
 ```
 
-This manifest tells p4app that it should run `my_program.p4`, which is written
-in `p4-14` - that's the current version of the P4 language, though you can also
-use `p4-16` to use the P4-16 draft revision. It defines one target, `mininet`,
-and it provides some Mininet configuration options: there will be two hosts on
-the network, and the simulated switch will be configured using the file
-`my_program.config`. When you reference an external file in `p4app.json` like
-this, just place that file in the package, and p4app will make sure that the
-appropriate tools can find it.
+样例 manifest 告诉 p4app 应该运行  `my_program.p4`，该 p4 程序使用 `p4-14` 编写（你同样也可以用 `p4-16`，P4-16 草案版本）。该样例定义一个 backend `mininet`（在 `p4app.json` 中 backend 称为 target），同时提供一些 Mininet 配置选项：测试网络有两个 host，一个模拟交换机，该交换机启机默认加载 `my_program.config` 中的配置。如果你在 `p4app.json` 中引用像 `my_program.config` 时，则需要将 `my_program.config` 文件包在 p4app 包中，p4app 将确保相应工具可找到它。
 
-If there are multiple targets and the user doesn't specify one by name, p4app
-will run one of the targets, chosen arbitrarily. You can set the default target
-to be run using the `default-target` option. Here's an example with several
-targets:
+如果有多个 backend，且使用者没有通过名字指定默认 backend，则 p4app 随机运行其中一个。可使用 `default-target` 选项，设置默认 backend。例如：
 
 ```
 {
@@ -159,11 +142,7 @@ targets:
 }
 ```
 
-This defines one Mininet target, "debug", and two STF targets, "test1" and
-"test2". The `use` field specifies which backend a target uses; if you don't
-provide it, the target name is also used as the backend name. That's why, in
-the previous example, we didn't have to specify `"use": "mininet"` - the
-target's name is mininet, and that's enough for p4app to know what you mean.
+这里定义一个名为 “debug” 的 Mininet backend，以及两个 STF backend，分别名为“test1”和“test2”。`"user":"mininet"` 用于指明每个 target 使用哪个 backend，如果不使用 user 字段，则 target 名同时被认定为 backend 名。这也是为什么，在之前的样例中，不需要指明`"use": "mininet"` ，因为 target 名就已经是 mininet，如果直接被用成 backend 名，p4app 也可以识别。
 
 That's really all there is to it. There's one final tip: if you want to share a
 p4app package with someone else, you can run `p4app pack my-program.p4app`, and
@@ -750,7 +729,7 @@ WARNING: PcapReader: unknown LL type [0]/[0x0]. Using Raw packets
 SUCCESS
 ```
 
-### p4lang/p4app:latest docker 镜像大小
+### docker 镜像大小
 
 ```
 docker 镜像目前只有 908MB，已集成 tshark / scapy 等工具，不算大。
@@ -760,3 +739,4 @@ sunyongfeng@openswitch-OptiPlex-380:~/workshop/p4app$ docker images
 REPOSITORY            TAG                 IMAGE ID            CREATED             SIZE
 p4lang/p4app          latest              07024040be0e        6 hours ago         908MB
 ```
+
