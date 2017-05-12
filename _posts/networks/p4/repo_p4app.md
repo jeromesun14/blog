@@ -709,6 +709,201 @@ WARNING: PcapReader: unknown LL type [0]/[0x0]. Using Raw packets
 SUCCESS
 ```
 
+### compile-bmv2 backend 样例
+
+```
+sunyongfeng@openswitch-OptiPlex-380:~/workshop/p4app$ p4app run examples/compile_only.p4app/
+Entering build directory.
+Extracting package.
+Reading package manifest.
+> p4c-bm2-ss --p4v 14 -v --p4runtime-file out.bin --p4runtime-as-json "compile_only.p4" -o "compile_only.p4.json"
+error: Unknown option --p4runtime-as-json
+p4c-bm2-ss: Compile a P4 program
+--help                                  Print this help message
+--version                               Print compiler version
+-I path                                 Specify include path (passed to preprocessor)
+-D arg=value                            Define macro (passed to preprocessor)
+-U arg                                  Undefine macro (passed to preprocessor)
+-E                                      Preprocess only, do not compile (prints program on stdout)
+--nocpp                                 Skip preprocess, assume input file is already preprocessed.
+--p4v {14|16}                           Specify language version to compile
+--target target                         Compile for the specified target
+--pp file                               Pretty-print the program in the specified file.
+--toJSON file                           Dump IR to JSON in the specified file.
+--testJson                              Dump and undump the IR
+--p4runtime-file file                   Write a P4Runtime control plane API description to the specified file.
+--p4runtime-format {binary,json,text}   Choose output format for the P4Runtime API description (default is binary).
+-o outfile                              Write output to outfile
+--Werror                                Treat all warnings as errors
+-T loglevel                             [Compiler debugging] Adjust logging level per file (see below)
+-v                                      [Compiler debugging] Increase verbosity level (can be repeated)
+--top4 pass1[,pass2]                    [Compiler debugging] Dump the P4 representation after
+                                        passes whose name contains one of `passX' substrings.
+                                        When '-v' is used this will include the compiler IR.
+--dump folder                           [Compiler debugging] Folder where P4 programs are dumped
+loglevel format is:
+  sourceFile:level,...,sourceFile:level
+where 'sourceFile' is a compiler source file and
+'level' is the verbosity level for LOG messages in that file
+> cat out.bin
+cat: out.bin: No such file or directory
+Compile failed.
+sunyongfeng@openswitch-OptiPlex-380:~/workshop/p4app$ vi examples/compile_only.p4app/p4app.json
+sunyongfeng@openswitch-OptiPlex-380:~/workshop/p4app$ 
+sunyongfeng@openswitch-OptiPlex-380:~/workshop/p4app$ p4app run examples/compile_only.p4app/
+Entering build directory.
+Extracting package.
+Reading package manifest.
+> p4c-bm2-ss --p4v 14 -v --p4runtime-file out.bin --p4runtime-format json "compile_only.p4" -o "compile_only.p4.json"
+Invoking preprocessor 
+cpp -C -undef -nostdinc  -D__TARGET_BMV2__ -I/usr/local/share/p4c/p4_14include compile_only.p4
+Invoking preprocessor 
+cpp -C -undef -nostdinc  -I/usr/local/share/p4c/p4include /usr/local/share/p4c/p4include/v1model.p4
+Parsing P4-16 program /usr/local/share/p4c/p4include/v1model.p4
+Parsing P4-14 program compile_only.p4
+Converting to P4-16
+Converter_0_DoConstantFolding
+Converter_1_CheckHeaderTypes
+Converter_2_TypeCheck
+Converter_3_DiscoverStructure
+Converter_4_ComputeCallGraph
+Converter_5_Rewriter
+Converter_6_FixExtracts
+FrontEnd_0_PrettyPrint
+FrontEnd_1_ValidateParsedProgram
+FrontEnd_2_CreateBuiltins
+FrontEnd_3_ResolveReferences
+FrontEnd_4_ConstantFolding
+FrontEnd_5_InstantiateDirectCalls
+FrontEnd_6_ResolveReferences
+FrontEnd_7_TypeInference
+FrontEnd_8_BindTypeVariables
+FrontEnd_9_ClearTypeMap
+FrontEnd_10_TableKeyNames
+FrontEnd_11_ConstantFolding
+FrontEnd_12_StrengthReduction
+FrontEnd_13_UselessCasts
+FrontEnd_14_SimplifyControlFlow
+FrontEnd_15_FrontEndDump
+FrontEnd_16_RemoveAllUnusedDeclarations
+FrontEnd_17_SimplifyParsers
+FrontEnd_18_ResetHeaders
+FrontEnd_19_UniqueNames
+FrontEnd_20_MoveDeclarations
+FrontEnd_21_MoveInitializers
+FrontEnd_22_SideEffectOrdering
+FrontEnd_23_SetHeaders
+FrontEnd_24_SimplifyControlFlow
+FrontEnd_25_MoveDeclarations
+FrontEnd_26_SimplifyDefUse
+FrontEnd_27_UniqueParameters
+FrontEnd_28_SimplifyControlFlow
+FrontEnd_29_SpecializeAll
+FrontEnd_30_RemoveParserControlFlow
+FrontEnd_31_FrontEndLast
+MidEnd_0_ConvertEnums
+MidEnd_1_VisitFunctor
+MidEnd_2_RemoveReturns
+MidEnd_3_MoveConstructors
+MidEnd_4_RemoveAllUnusedDeclarations
+MidEnd_5_ClearTypeMap
+MidEnd_6_Evaluator
+MidEnd_7_VisitFunctor
+MidEnd_8_Inline
+MidEnd_9_InlineActions
+MidEnd_10_LocalizeAllActions
+MidEnd_11_UniqueNames
+MidEnd_12_UniqueParameters
+MidEnd_13_SimplifyControlFlow
+MidEnd_14_RemoveActionParameters
+MidEnd_15_SimplifyKey
+MidEnd_16_ConstantFolding
+MidEnd_17_StrengthReduction
+MidEnd_18_SimplifySelectCases
+MidEnd_19_ExpandLookahead
+MidEnd_20_SimplifyParsers
+MidEnd_21_StrengthReduction
+MidEnd_22_EliminateTuples
+MidEnd_23_CopyStructures
+MidEnd_24_NestedStructs
+MidEnd_25_SimplifySelectList
+MidEnd_26_RemoveSelectBooleans
+MidEnd_27_Predication
+MidEnd_28_MoveDeclarations
+MidEnd_29_ConstantFolding
+MidEnd_30_LocalCopyPropagation
+MidEnd_31_ConstantFolding
+MidEnd_32_MoveDeclarations
+MidEnd_33_ValidateTableProperties
+MidEnd_34_SimplifyControlFlow
+MidEnd_35_CompileTimeOperations
+MidEnd_36_TableHit
+MidEnd_37_SynthesizeActions
+MidEnd_38_MoveActionsToTables
+MidEnd_39_TypeChecking
+MidEnd_40_SimplifyControlFlow
+MidEnd_41_RemoveLeftSlices
+MidEnd_42_TypeChecking
+MidEnd_43_LowerExpressions
+MidEnd_44_ConstantFolding
+MidEnd_45_TypeChecking
+MidEnd_46_RemoveComplexExpressions
+MidEnd_47_FixupChecksum
+MidEnd_48_SimplifyControlFlow
+MidEnd_49_RemoveAllUnusedDeclarations
+MidEnd_50_Evaluator
+MidEnd_51_VisitFunctor
+MidEnd_52_MidEndLast
+> cat out.bin
+{
+ "tables": [
+  {
+   "preamble": {
+    "id": 33588198,
+    "name": "t1",
+    "alias": "t1"
+   },
+   "actionRefs": [
+    {
+     "id": 16792110
+    },
+    {
+     "id": 16800567,
+     "annotations": [
+      "@default_only()"
+     ]
+    }
+   ],
+   "size": "1024"
+  }
+ ],
+ "actions": [
+  {
+   "preamble": {
+    "id": 16800567,
+    "name": "NoAction",
+    "alias": "NoAction"
+   }
+  },
+  {
+   "preamble": {
+    "id": 16792110,
+    "name": "a1",
+    "alias": "a1"
+   },
+   "params": [
+    {
+     "id": 1,
+     "name": "port",
+     "bitwidth": 9
+    }
+   ]
+  }
+ ]
+}
+sunyongfeng@openswitch-OptiPlex-380:~/workshop/p4app$ 
+```
+
 ### docker 镜像大小
 
 ```
