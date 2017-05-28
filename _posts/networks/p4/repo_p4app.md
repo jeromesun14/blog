@@ -218,24 +218,13 @@ h1 <---> s1 <---> s2 <---> h2
  - `startup_sleep` - 启动命令后应等待的时间（以秒为单位）。
  - `latency` - 主机与交换机之间的延迟。配置值是数字（解释为秒）或具有时间单位的字符串（例如`50ms`或`1s`）。该配置将覆盖“links”对象中设置的延迟。
 
-通过将主机名（例如“h1”）替换为相应的IP地址来格式化该命令。 目标中指定的参数将作为环境变量（即`$`后跟变量名称）可用于命令。例如：
+通过将主机名（例如“h1”）替换为相应的IP地址来格式化该命令。 目标中指定的参数将作为环境变量（即`$`后跟变量名称）可用于命令，详见 multiswitch 样例。
 
+### 限制
+目前每个 host 最多只能连一个 switch。
 
-
-The command is formatted by replacing the hostnames (e.g. `h1`) with the
-corresponding IP address. The parameters specified in the target will be
-available to the command as environment variables (i.e. `$` followed by the variable name). For an example, have a look at the [manifest](examples/multiswitch.p4app/p4app.json) for the multiswitch example app.
-
-#### Limitations
-Currently, each host can be connected to at most one switch.
-
-
-#### Specifying entries for each switch
-The routing tables (`ipv4_lpm`, `send_frame` and `forward`) are automatically
-populated with this target. Additionally, you can specify custom entries to be
-added to each switch. You can either include a commands file, or an array of
-entries. These custom entries will have precedence over the automatically
-generated ones for the routing tables. For example:
+### 指定每个交换机表项
+路由表（`ipv4_lpm`，`send_frame` 和 `forward`）在本 target 中自动下发。使用者可根据自己的需要下发表项到每个交换机中，形式可以为包含一个命令文件或命令数组。这些自定义的表项优先级比路由表的自动生成的高。例如：
 
 ```
 "multiswitch": {
@@ -255,14 +244,11 @@ generated ones for the routing tables. For example:
 }
 ```
 
-If the entries for `s2` above overlap with the automatically generated entries
-(e.g. there is an automatic entry for `set_nhop 10.0.1.10/32`), these custom
-entries will have precedence and you will see a warning about a duplicate entry
-while the tables are being populated.
+如果上述 `s2` 表项与自动生成的表项一样（例如自动生成的表项 `set_nhop 10.0.1.10 / 32`），这些自定义表项将具有更高的优先权，在下发表项时将警告表项重复。
 
-#### Custom topology class
-Instead of letting this target create the mininet Topo class, you can use your
-own. Specify the name of your module with the `topo_module` option. For example:
+### 自定义拓扑类
+
+可通过 `topo_module` 选项指定自己的 mininet 拓扑类。例如：
 
 ```
 "multiswitch": {
@@ -272,10 +258,7 @@ own. Specify the name of your module with the `topo_module` option. For example:
 }
 ```
 
-This will import the `mytopo` module, `mytopo.py`, which should be in the same
-directory as the manifest file (`p4app.json`). The module should implement the
-class `CustomAppTopo`. It can extend the default topo class,
-[apptopo.AppTopo](docker/scripts/mininet/apptopo.py).  For example:
+这将 import `mytopo` 模块 `mytopo.py`，该文件应与 manifest 文件（`p4app.json`）放在同一目录下，同时应实现 `CustomAppTopo` 类。可 extend 默认的 topo 类 [apptopo.AppTopo](https://github.com/p4lang/p4app/blob/master/docker/scripts/mininet/apptopo.py)。例如：
 
 ```
 # mytopo.py
@@ -288,34 +271,23 @@ class CustomAppTopo(AppTopo):
         print self.links()
 ```
 
-See the [customtopo.p4app](examples/customtopo.p4app/mytopo.py) working example.
+详见样例 [customtopo.p4app](https://github.com/p4lang/p4app/blob/master/examples/customtopo.p4app/mytopo.py)。
 
-#### Custom controller
-Similarly to the `topo_module` option, you can specify a controller with the
-`controller_module` option. This module should implement the class
-`CustomAppController`. The default controller class is
-[appcontroller.AppController](docker/scripts/mininet/appcontroller.py). You can
-extend this class, as shown in the
-[customtopo.p4app](examples/customtopo.p4app/mycontroller.py) example.
+### 自定义控制器
+类似 `topo_module` 选项，可通过 `controller_module` 选项自定义控制器。该模块应实现 `CustomAppController` 类。默认的控制器类为 [appcontroller.AppController](https://github.com/p4lang/p4app/blob/master/docker/scripts/mininet/appcontroller.py)，可直接对该类进行扩展。
+例如，样例 [customtopo.p4app](https://github.com/p4lang/p4app/blob/master/examples/customtopo.p4app/mycontroller.py)。
 
+### Logging
 
-#### Logging
-When this target is run, a temporary directory on the host, `/tmp/p4app_log`,
-is mounted on the guest at `/tmp/p4app_log`. All data in this directory is
-persisted to the host after running the p4app. The stdout from the hosts'
-commands is stored in this location. If you need to save the output (e.g. logs)
-of a command, you can also put that in this directory.
+当本 target 运行时，host 上的临时目录 `/tmp/p4app_log` 将加载到 guest 的 `/tmp/p4app_log`。运行 p4app 后， host 上保存有所有的 log。 host 命令的标准输出 stdout 将保存在该目录，如果需要保存某个命令的 log，将可以将其输出到该目录。
 
-To save the debug logs from the P4 switches, set `"bmv2_log": true` in the
-target. To capture PCAPs from all switches, set `"pcap_dump": true`. These
-files will be saved to `/tmp/p4app_log`. For example usage, see the
-[manifest](examples/broadcast.p4app/p4app.json) for the broadcast example app.
+设置 `"bmv2_log":true`，保存 P4 交换机的调试 log。
+设置 `"pcap_dump":true`，抓取所有交换机的报文，交保存为 PCAP 格式。
 
-#### Cleanup commands
-If you need to execute commands in the docker container after running the
-target (and before mininet is stopped), you can use `after`. `after` should
-contain `cmd`, which can either be a command or a list of commands. For
-example:
+以上文件将被保存到 `/tmp/p4app_log`。详见样例 [broadcast.p4app](https://github.com/p4lang/p4app/blob/master/examples/broadcast.p4app/p4app.json) 
+
+### Cleanup commands
+运行 target 后（在 mininet stop 之前），如果需要在 docker 容器内执行命令，可使用 `after` 选项，其后必须包含 `cmd`，可以是一个或多个命令，例如：
 
 ```
 "multiswitch": {
@@ -331,12 +303,8 @@ example:
 ```
 
 custom
------------
-
-This is a third method for compiling a P4 program to run in a Mininet
-environment. This target allows you to specify a Python `program` that
-uses Mininet's Python API to specify the network topology and configuration.
-For example:
+------
+此为第三种方法。该 target 允许使用者指定 python `program`，该 `program` 使用 Mininet python API 指定网络拓扑和配置。例如：
 
 ```
 {
@@ -348,19 +316,17 @@ For example:
       }
   }
 }
-
 ```
 
-This target will invoke the python script `topo.py` to start Mininet.
-The `program` will be called with the following arguments:
+该 target 在启动 Mninet 时运行 `topy.py` 脚本。将使用以下参数调用 `program`
 
-| Argument         | Description |
+| 参数             | 说明 |
 | --------         | ----------- |
-| --behavioral-exe | Value will be the switch executable |
-| --json           | Value will be the P4 compiler output |
-| --cli            | Value will be the switch command line interface program |
+| --behavioral-exe | 值为 switch 可执行文件 |
+| --json           | 值为 P4 程序编译结果 |
+| --cli            | 值为 switch_CLI 命令|
 
-Example invocation:
+样例：
 
 ```
 PYTHONPATH=$PYTHONPATH:/scripts/mininet/ python2 topo.py \
@@ -369,8 +335,7 @@ PYTHONPATH=$PYTHONPATH:/scripts/mininet/ python2 topo.py \
                         --cli simple_switch_CLI
 ```
 
-You can specify additional arguments to pass to your custom topology program by
-including them in your `program` definition as follows:
+同时可以指定其他参数传递给自定义拓扑程序，方法是将它们包含在 `program` 定义中，如下所示：
 
 ```
 {
@@ -385,8 +350,7 @@ including them in your `program` definition as follows:
 
 ```
 
-The `program` can find the docker container ID in the `HOSTNAME` environment
-variable so that it can output useful commands for copy/paste:
+`program` 可通过 `HOSTNAME` 变量获取 docker 容器 ID。
 
 ```python
 import os
@@ -906,7 +870,6 @@ sunyongfeng@openswitch-OptiPlex-380:~/workshop/p4app$
 
 ### docker 镜像大小
 
-```
 docker 镜像目前只有 908MB，已集成 tshark / scapy 等工具，不算大。
 
 ```
