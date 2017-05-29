@@ -3,7 +3,7 @@ date: 2017-04-18 16:45:20
 toc: true
 tags: [p4, int]
 categories: p4
-keywords: [p4, int, in band telemetry, factory, demo, ubuntu, 16.04, 3.19, kernel, linux, webui, success, 成功]
+keywords: [p4, int, in band telemetry, p4factory, demo, ubuntu, 16.04, 3.19, kernel, linux, webui, success, 成功, docker, webui, iperf, failed]
 description: p4factory 样例 app int 跑通的过程记录。
 ---
 
@@ -45,7 +45,8 @@ ubuntu 16.04 + linux kernel 3.19
 
 ![notifcation](/images/networks/p4/int_demo/notification.png)
 
-## 内核版本切换为 3.19
+## 问题解决记录
+### 内核版本切换为 3.19
 
 目前 vxlan-gpe 的内核模块基于内核 3.19，而目前常用 Linux 发行版的内核版本都在 4.2 以上，不切换则编译不过。**更好的办法是，直接使用内核版本为 3.19 的 Linux 发行版**。
 
@@ -224,7 +225,7 @@ sunyongfeng@openswitch-OptiPlex-380:~/workshop/p4factory/apps/int/vxlan-gpe$
 
 ```
 
-## 解决 Linux 内核到 3.19 后，docker 无法运行
+### 解决 Linux 内核到 3.19 后，docker 无法运行
 
 详见另一篇文章 [Linux升级内核后 docker 不可用](http://sunyongfeng.com/201704/linux/docker_failed_after_update_kernel.html)
 
@@ -255,9 +256,9 @@ sunyongfeng@openswitch-OptiPlex-380:~/workshop/p4factory/makefiles$ docker --ver
 Docker version 1.12.3, build 6b644ec
 ```
 
-## 解决 int_ref_topology.py 失败问题
+### 解决 int_ref_topology.py 失败问题
 
-### docker_node.py 运行失败
+#### docker_node.py 运行失败
 详见 [p4factory issue 193](https://github.com/p4lang/p4factory/issues/193)
 
 执行 mininet 起 docker 起不来。[解决](http://stackoverflow.com/questions/28006027/valueerror-invalid-literal-for-int-with-base-10-n):
@@ -304,7 +305,7 @@ self.pid = int((ps_out[0].strip()).strip('\''))
 
 > [链接](http://www.runoob.com/python/att-string-strip.html)：Python strip() 方法用于移除字符串头尾指定的字符（默认为空格）。
 
-### 解决 docker 内 bmv2 无法运行的问题
+#### 解决 docker 内 bmv2 无法运行的问题
 非必需。
 
 原因：ubuntu 16.04 默认 gcc 版为 5.4.0，而 bmv2 docker ubuntu 版本为 14.04，其默认 gcc 为 4.8。因此升级 docker 中的 ubuntu 版本为 16.04
@@ -347,7 +348,7 @@ socket.error: [Errno 104] Connection reset by peer
 sunyongfeng@openswitch-OptiPlex-380:~/workshop/p4factory/mininet$ 
 ```
 
-根本原因：
+根本原因为工具链问题，gcc 版本不一致。
 
 ```
 sunyongfeng@openswitch-OptiPlex-380:~/workshop/p4factory/mininet$ docker ps
@@ -411,11 +412,11 @@ index 42c87af..e9003fc
      ldconfig ; \
 ```
 
-### DockerFile 解决 tshark 卡在 yes/no
+#### DockerFile 解决 tshark 卡在 yes/no
 
 DockerFile 的改造，tshark 无法直接配置通过，卡在 yes/no。详见上一小节 Dockerfile，先不安装 tshark，等 bmv2 docker image 打好后，再进去安装、重新 commit docker image。
 
-### 在 docker 内使用 simple_switch_CLI
+#### 在 docker 内使用 simple_switch_CLI
 
 非必需，仅用于确认表项是否正常下发。
 
@@ -730,7 +731,7 @@ RuntimeCmd:
 root@leaf1:/# 
 ```
 
-## 解决 mininet 起来后 host 间无法互 Ping
+### 解决 mininet 起来后 host 间无法互 Ping
 
 原因：docker 的物理端口配置问题，实际拓扑使用 leaf1-eth1，但是配置却配到 swp1。
 
@@ -837,7 +838,7 @@ index 7a28663..be95656 100755
  chown quagga.quagga /etc/quagga/*
 ```
 
-## iperf 样例
+### iperf 提示拒绝连接
 非必需，仅出现过一次，默认每个 host 的 iperf server 都会启动。
 h3 iperf 似乎默认没有启动。
 
@@ -870,7 +871,7 @@ TCP window size: 85.3 KByte (default)
 [ 17]  0.0-639.1 sec   341 MBytes  4.47 Mbits/sec
 ```
 
-## monitor 网页无法显示正在运行的流
+### monitor 网页无法显示正在运行的流
 
 目前在 h1 iperf h3 的时候，可以通过在 leaf1 中 `tshark -i leaf1-eth1` 确认输入报文，`tshark -i leaf1-eth4` 确认输出报文。
 可看到报文是 vxlan-gpe 封装（UDP port 4790），但是目前 monitor client 网页上还无法看到 INT 汇总会的图表以及正在运行的流。
