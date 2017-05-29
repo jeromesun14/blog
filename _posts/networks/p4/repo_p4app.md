@@ -394,37 +394,28 @@ compile-bmv2
 高级功能
 --------
 
-If you're hacking on the P4 toolchain or p4app itself, you may want to use a
-modified Docker image instead of the standard p4lang one. That's easy to do;
-just set the `P4APP_IMAGE` environment variable to the Docker image you'd like
-to use. For example:
+如果你想使用自己的 P4 工具链或 p4app，可通过 `P4APP_IMAGE` 环境变量配置 Docker image，替代标准 p4lang image。例如：
 
 ```
 P4APP_IMAGE=me/my_p4app_image:latest p4app run examples/simple_router.p4app
 ```
 
-#### Specify the name of the manifest file
-By default, p4app will use the manifest file called `p4app.json` in the app's
-directory. If your manifest file is not called `p4app.json`, you can use the
-`--manifest` option to specify the name of the manifest. For example:
+### 指定 manifest 文件名
+
+默认情况下，p4app 使用 app 目录下一个名为 `p4app.json` 的 manifest 文件。如果你的 manifest 文件名称不是 `p4app.json`，则可通过 `--manifest` 选项指定 manifest 文件。例如：
 
 ```
 p4app run myapp.p4app --manifest testing.p4app
 ```
 
-#### Specify location of log directory
-By default, p4app will mount the directory `/tmp/p4app_logs` on the host to
-`/tmp/p4app_logs` on the docker container guest. The output from bmv2, as well
-as any output from your programs, will be saved to this directory.  Instead of
-using the default directory (`/tmp/p4app_logs`), you can specify another
-directory with the `$P4APP_LOGDIR` environment variable. For example, if you
-run:
+### 指定 log 目录
+默认情况下，p4app 挂载 host 目录 `/tmp/p4app_logs` 到 docker 容器 guest 目录 `/tmp/p4app_logs`。bmv2 以及其他程序的输出将保存在此目录。可通过 `$P4APP_LOGDIR` 环境变量指定其他目录为 log 目录，例如：
 
 ```
 P4APP_LOGDIR=./out p4app run myapp.p4app
 ```
 
-all the log files will be stored to `./out`.**
+所有的 log 文件将被保存为 `./out`.**
 
 运行 log 汇总
 ----
