@@ -11,7 +11,7 @@ p4app
 =====
 
 ## 简介
-2017-02-23 p4lang 新建 [p4app](https://github.com/p4lang/p4app) 仓库，用于快速、简便地构建、运行、调试和测试 P4 程序。摆脱 [p4factory](https://github.com/p4lang/p4factory) / [switch](https://github.com/p4lang/switch) 依赖安装步骤复杂、编译时间长的问题。降低入门门槛。与预期的类似，p4app 将 bmv2 等基础组件打成 docker image。
+2017-02-23 p4lang 创建 [p4app](https://github.com/p4lang/p4app) 仓库，用于快速、简便地构建、运行、调试和测试 P4 程序。摆脱 [p4factory](https://github.com/p4lang/p4factory) / [switch](https://github.com/p4lang/switch) 依赖安装步骤复杂、编译时间长的问题。降低入门门槛。与预期的类似，p4app 将 bmv2 等基础组件打成 docker image。
 
 > p4app 是一种构建、运行、调试和测试 P4 程序的工具。其背后的哲学是“简单的东西应尽可能简单”。p4app 旨在使小而简单的 P4 程序易于编写、易于与他人分享。
 
@@ -362,10 +362,9 @@ print '  docker exec -t -i %s %s' % (container, args.cli)
 stf
 ---
 
-This target compiles the provided P4 program and run a test against it written
-for the STF testing framework.
+本 target 编译给定的 p4 程序，并运行 STF 测试用例。
 
-There is one configuration value, which is required:
+有一个必需的配置值：
 
 ```
 "stf": {
@@ -373,12 +372,9 @@ There is one configuration value, which is required:
 }
 ```
 
-You must write the file specified by `test` in the STF format, which is
-unfortunately currently undocumented. (If you'd like to reverse engineer it and
-provide some documentation, please submit a PR!) You can take a look at the
-example p4apps included in this repo to get a sense of the basics.
+必须使用 STF 格式编写 `test` 指定的文件，目前还没有该格式的说明文档。（如果您想反向工程并提供一些文档，请提交PR！）请参阅 p4app 样例，参考其中的基本用法。
 
-This target also supports the configuration values for the `compile-bvm2` target.
+此目标还支持`compile-bvm2`目标的配置值。
 
 compile-bmv2
 ------------
