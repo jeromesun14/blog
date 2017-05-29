@@ -3,14 +3,51 @@ date: 2017-04-18 16:45:20
 toc: true
 tags: [p4, int]
 categories: p4
-keywords: [p4, int, in band telemetry, factory, demo]
+keywords: [p4, int, in band telemetry, factory, demo, ubuntu, 16.04, 3.19, kernel, linux, webui, success, 成功]
 description: p4factory 样例 app int 跑通的过程记录。
 ---
 
+## 运行环境
+ubuntu 16.04 + linux kernel 3.19
+
+## 步骤
+详见：
+
+* [app/int/readme](https://github.com/p4lang/p4factory/tree/master/apps/int)
+* [p4factory readme](https://github.com/p4lang/p4factory)
+* [switch readme](https://github.com/p4lang/switch)
+
+问题 fix 见下文。
+
 ## 运行成功图示
 
+* 执行 `int_ref_topology.py`
+
+![执行命令](/images/networks/p4/int_demo/run.png)
+
+* iperf 打流
+
+![打流](/images/networks/p4/int_demo/traffic.png)
+
+* webui - 拓扑
+
+![拓扑](/images/networks/p4/int_demo/webui.png)
+
+* webui - flows
+
+![multi-flow](/images/networks/p4/int_demo/multi-flow.png)
+
+* webui - 时延
+
+![latency](/images/networks/p4/int_demo/latency.png)
+
+* webui - notification
+
+![notifcation](/images/networks/p4/int_demo/notification.png)
 
 ## 内核版本切换为 3.19
+
+目前 vxlan-gpe 的内核模块基于内核 3.19，而目前常用 Linux 发行版的内核版本都在 4.2 以上，不切换则编译不过。**更好的办法是，直接使用内核版本为 3.19 的 Linux 发行版**。
 
 详见 [p4factory issue 136](https://github.com/p4lang/p4factory/issues/136)
 用于支持内核版本 3.19。详见另一篇文章 [ubuntu 用回旧版内核](http://sunyongfeng.com/201704/linux/startup_with_old_kernel.html)
@@ -267,7 +304,8 @@ self.pid = int((ps_out[0].strip()).strip('\''))
 
 > [链接](http://www.runoob.com/python/att-string-strip.html)：Python strip() 方法用于移除字符串头尾指定的字符（默认为空格）。
 
-## 解决 docker 内 bmv2 无法运行的问题
+### 解决 docker 内 bmv2 无法运行的问题
+非必需。
 
 原因：ubuntu 16.04 默认 gcc 版为 5.4.0，而 bmv2 docker ubuntu 版本为 14.04，其默认 gcc 为 4.8。因此升级 docker 中的 ubuntu 版本为 16.04
 
@@ -373,11 +411,13 @@ index 42c87af..e9003fc
      ldconfig ; \
 ```
 
-## DockerFile 解决 tshark 卡在 yes/no
+### DockerFile 解决 tshark 卡在 yes/no
 
 DockerFile 的改造，tshark 无法直接配置通过，卡在 yes/no。详见上一小节 Dockerfile，先不安装 tshark，等 bmv2 docker image 打好后，再进去安装、重新 commit docker image。
 
-## 在 docker 内使用 simple_switch_CLI
+### 在 docker 内使用 simple_switch_CLI
+
+非必需，仅用于确认表项是否正常下发。
 
 leaf/spine docker 内无法使用 simple_switch_CLI：
 
@@ -401,7 +441,7 @@ Traceback (most recent call last):
 ImportError: cannot import name TMultiplexedProtocol
 ```
 
-一开始不知道 simple_switch 开放的端口是多少，通过 netstat -anp 确认。
+一开始不知道 simple_switch thrift 开放的端口是多少，通过 netstat -anp 确认为 10001。
 
 ```
 root@leaf1:/# /home/sunyongfeng/workshop/p4/install/bin/simple_switch_CLI --json /home/sunyongfeng/workshop/p4/install/share/bmpd/switch/switch.json 
@@ -798,6 +838,7 @@ index 7a28663..be95656 100755
 ```
 
 ## iperf 样例
+非必需，仅出现过一次，默认每个 host 的 iperf server 都会启动。
 h3 iperf 似乎默认没有启动。
 
 ```
