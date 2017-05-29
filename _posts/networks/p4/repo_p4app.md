@@ -7,6 +7,8 @@ keywords: [p4, p4app, 快速验证, p4lang, github, repo, topo, stf, bmv2, build
 description: p4app 仓库使用说明。
 ---
 
+本文译自 [p4app readme](https://github.com/p4lang/p4app/blob/master/README.md)，对内容结构进行少量调整，并附上运行 log。
+
 ## 简介
 p4lang 于 2017-02-23 创建 [p4app](https://github.com/p4lang/p4app) 仓库，用于快速、简便地构建、运行、调试和测试 P4 程序。
 
