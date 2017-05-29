@@ -98,6 +98,7 @@ p4app run examples/simple_couter.p4app debug
 
 * mininet
 * multiswitch
+* custom
 * stf
 * compile-bmv2
 
@@ -921,8 +922,8 @@ MidEnd_52_MidEndLast
 sunyongfeng@openswitch-OptiPlex-380:~/workshop/p4app$ 
 ```
 
-### 运行 log 样例
-运行样例 bcast_router.p4app，虽然运行后有提示错误，但是不影响输出 log。
+### logging 功能样例
+运行样例 bcast_router.p4app，虽然运行后有提示错误，但是不影响 logging 样例展示。
 
 ```
 sunyongfeng@openswitch-OptiPlex-380:~/workshop/p4app/examples$ p4app run broadcast.p4app/
