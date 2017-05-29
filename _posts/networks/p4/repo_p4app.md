@@ -379,10 +379,9 @@ stf
 compile-bmv2
 ------------
 
-This is a simple backend that just attempts to compile the provided P4 program
-for the BMV2 architecture.
+此为一个简单的 backend，将 p4 程序编译成 BMV2 目标。
 
-The following optional configuration values are supported:
+支持以下可选配置值：
 
 ```
 "compile-bmv2": {
@@ -392,8 +391,8 @@ The following optional configuration values are supported:
 }
 ```
 
-Advanced Features
-=================
+高级功能
+--------
 
 If you're hacking on the P4 toolchain or p4app itself, you may want to use a
 modified Docker image instead of the standard p4lang one. That's easy to do;
