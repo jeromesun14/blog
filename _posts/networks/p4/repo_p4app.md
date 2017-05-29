@@ -227,7 +227,7 @@ h1 <---> s1 <---> s2 <---> h2
 目前每个 host 最多只能连一个 switch。
 
 #### 指定每个交换机表项
-路由表（`ipv4_lpm`，`send_frame` 和 `forward`）在本 target 中自动下发。使用者可根据自己的需要下发表项到每个交换机中，形式可以为包含一个命令文件或命令数组。这些自定义的表项优先级比路由表的自动生成的高。例如：
+路由表（`ipv4_lpm`，`send_frame` 和 `forward`）在本 target 中自动下发。使用者可根据自己的需要下发表项到每个交换机中，形式为包含一个命令文件或命令数组。这些自定义的表项优先级比路由表的自动生成的高。例如：
 
 ```
 "multiswitch": {
@@ -251,7 +251,7 @@ h1 <---> s1 <---> s2 <---> h2
 
 #### 自定义拓扑类
 
-可通过 `topo_module` 选项指定自己的 mininet 拓扑类。例如：
+通过 `topo_module` 选项指定自己的 mininet 拓扑类。例如：
 
 ```
 "multiswitch": {
@@ -277,8 +277,7 @@ class CustomAppTopo(AppTopo):
 详见样例 [customtopo.p4app](https://github.com/p4lang/p4app/blob/master/examples/customtopo.p4app/mytopo.py)。
 
 #### 自定义控制器
-类似 `topo_module` 选项，可通过 `controller_module` 选项自定义控制器。该模块应实现 `CustomAppController` 类。默认的控制器类为 [appcontroller.AppController](https://github.com/p4lang/p4app/blob/master/docker/scripts/mininet/appcontroller.py)，可直接对该类进行扩展。
-例如，样例 [customtopo.p4app](https://github.com/p4lang/p4app/blob/master/examples/customtopo.p4app/mycontroller.py)。
+类似 `topo_module` 选项，通过 `controller_module` 选项自定义控制器。该模块应实现 `CustomAppController` 类。默认的控制器类为 [appcontroller.AppController](https://github.com/p4lang/p4app/blob/master/docker/scripts/mininet/appcontroller.py)，可直接对该类进行扩展。详见样例 [customtopo.p4app](https://github.com/p4lang/p4app/blob/master/examples/customtopo.p4app/mycontroller.py)。
 
 #### Logging
 
@@ -306,7 +305,7 @@ class CustomAppTopo(AppTopo):
 ```
 
 ### custom
-此为第三种 backend，允许使用者指定 python `program`，该 `program` 使用 Mininet python API 指定网络拓扑和配置。例如：
+该 backend 允许使用者指定 python `program`，该 `program` 使用 Mininet python API 指定网络拓扑和配置。例如：
 
 ```
 {
@@ -320,7 +319,7 @@ class CustomAppTopo(AppTopo):
 }
 ```
 
-该 target 在启动 Mninet 时运行 `topy.py` 脚本。将使用以下参数调用 `program`
+该 target 在启动 Mninet 时运行 `topy.py` 脚本。将使用以下参数调用 `program`：
 
 | 参数             | 说明 |
 | --------         | ----------- |
@@ -363,7 +362,7 @@ print '  docker exec -t -i %s %s' % (container, args.cli)
 
 ### stf
 
-stf 后端编译给定的 p4 程序，并运行 STF 测试用例。
+stf 后端编译给定的 p4 程序，并运行 stf 测试用例。
 
 stf，simple testing framework，一种模拟网络测试框架。
 
@@ -424,13 +423,13 @@ expect 2 02020202 04040404 10 20 30 40
 packet 0 02020202 04040404 14 25 36 47
 ```
 
-必须使用 STF 格式编写 stf target 指定的配置文件，目前还没有该格式的说明文档。（如果您想反向工程并提供一些文档，请提交PR！）请参阅 p4app 相关样例，参考其中的基本用法。
+必须使用 stf 格式编写 stf target 指定的配置文件，目前还没有该格式的说明文档。（如果您想反向工程并提供一些文档，请提交PR！）请参阅 p4app 相关样例，参考其中的基本用法。
 
-此后端还支持`compile-bmv2`目标的配置值。
+此后端还支持 `compile-bmv2` target 的配置值。
 
 ### compile-bmv2
 
-这是一个简单的后端，将 p4 程序编译成 BMV2 目标。
+一个简单的后端，将 p4 程序编译成 BMV2 目标。
 
 支持以下可选配置值：
 
@@ -447,7 +446,7 @@ packet 0 02020202 04040404 14 25 36 47
 
 ### 指定 docker image
 
-如果你想使用自己的 P4 工具链或 p4app，可通过 `P4APP_IMAGE` 环境变量配置 Docker image，替代标准 p4lang image。例如：
+如果想使用自定义的 P4 工具链或 p4app，可通过 `P4APP_IMAGE` 环境变量配置 Docker image，替代标准 p4lang image。例如：
 
 ```
 P4APP_IMAGE=me/my_p4app_image:latest p4app run examples/simple_router.p4app
