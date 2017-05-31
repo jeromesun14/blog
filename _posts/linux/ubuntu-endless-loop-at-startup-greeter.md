@@ -3,7 +3,7 @@ date: 2015-07-02 22:08:18
 toc: false
 tags: [Linux, ubuntu]
 categories: linux
-keywords: [ubuntu, 登录, 死循环]
+keywords: [ubuntu, 登录, 死循环, login, failed, greeter]
 ---
 
 到登录界面后，即使密码正确输入之后，会直接返回登陆界面让你再输入密码，一直这样死循环，没有进入图形界面。
