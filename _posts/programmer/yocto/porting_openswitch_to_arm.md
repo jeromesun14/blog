@@ -3,8 +3,8 @@ date: 2017-04-21 11:02:20
 toc: true
 tags: [Linux, yocto, openswitch]
 categories: yocto
-keywords: [yocto, bitbake, openswitch, openembedded, oe, ops, download too slowly, 下载太慢, sstate, gcc, tune, compile, long, 编译太久]
-description: 记录移值 HP openswitch 到 arm CPU 的过程。
+keywords: [yocto, bitbake, openswitch, openembedded, oe, ops, download too slowly, 下载太慢, sstate, gcc, tune, compile, long, 编译太久, 适配, 移植]
+description: 记录适配 HP openswitch 到 arm CPU 的过程。
 ------------
 
 HP ops 目前已过时，现在主导 openswitch 项目的是 DELL 和 SnapRoute，主推 DELL NAS + SnapRoute Flexswitch （称为 opx）。
