@@ -3,7 +3,7 @@ date: 2015-04-27 22:48:18
 toc: true
 tags: [版本控制, git]
 categories: tools
-keywords: [git, command, version control]
+keywords: [git, command, version control, 分支, 标签, branch, tag, push, pull, stage, 版本号]
 description: 本文描述git的基础使用方法、基本概念。
 ---
 git - the stupid content tracker
