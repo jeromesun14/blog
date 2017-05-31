@@ -3,7 +3,7 @@ date: 2017-04-11 11:34:20
 toc: false
 tags: [server, administrator]
 categories: administrator
-keywords: [http server, python, simpleHTTPServer]
+keywords: [http server, python, simpleHTTPServer, 服务器, 快速, 简单, simple]
 description: 一个灰常灰常简单的 HTTP server，一个命令部署
 ---
 
