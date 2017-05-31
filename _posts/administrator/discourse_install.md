@@ -3,7 +3,7 @@ date: 2016-11-20 11:57:18
 toc: true
 tags: [discourse, administrator]
 categories: administrator
-keywords: [administrator, bbs, discourse, markdown, smtp, email]
+keywords: [administrator, bbs, discourse, markdown, smtp, email, app.xml, 编译, 启动, 配置, docker, ruby]
 description: 记录 discourse 安装过程。
 ---
 
