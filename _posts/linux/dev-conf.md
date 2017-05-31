@@ -3,7 +3,7 @@ date: 2015-09-10 21:13:24
 toc: true
 tags: [Linux, ubuntu, 远程登录, 文件共享, 串口]
 categories: linux
-keywords: [ubuntu, remmina, freerdp, serialport, kermit, samba, tftp]
+keywords: [ubuntu, remmina, freerdp, serialport, kermit, samba, tftp, windows, 远程登陆, samba 密码错误, 拷贝粘贴, 失败, 串口, lrz, wine, 共享, ser2net, comfoolery, linux, 启机进入命令行, startup to command line]
 description: Linux开发环境常用配置记录，含远程登录、文件共享、串口访问与共享、交叉编译器、终端等内容。
 ---
 
