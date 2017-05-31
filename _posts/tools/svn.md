@@ -3,7 +3,7 @@ date: 2015-01-08 22:48:18
 toc: true
 tags: [版本控制, svn]
 categories: tools
-keywords: [svn, command, version control]
+keywords: [svn, command, version control, create branch, 创建新分支, 应用补丁, apply patch, 回退, reverse, excel, merge, 合并, diff, log]
 description: 本文描述SVN的基础使用方法。
 ---
 
