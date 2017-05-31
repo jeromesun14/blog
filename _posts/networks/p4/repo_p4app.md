@@ -34,7 +34,7 @@ p4app bug: [pull request 17](https://github.com/p4lang/p4app/pull/17)，docker �
 -P4APP_IMAGE=${P4APP_IMAGE:-p4lang/p4app:latest}
 ```
 
-* 如果没有安装 [docker](https://docs.docker.com/engine/installation/) ，需先安装。
+* 如果没有安装 [docker](https://docs.docker.com/engine/installation/) ，需先安装。一键搞定：`wget -qO- https://get.docker.com/ | sh`。
 
 * 为方便，建议把 `p4app` 脚本拷贝到 PATH 路径，例如：
 
