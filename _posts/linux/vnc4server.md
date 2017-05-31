@@ -3,7 +3,7 @@ date: 2017-04-19 19:57:00
 toc: true
 tags: [ubuntu, 远程登录, vnc]
 categories: linux
-keywords: [ubuntu, linux, vnc, vnc4server, unity, gnome, chrome, 16.04]
+keywords: [ubuntu, linux, vnc, vnc4server, unity, gnome, chrome, 16.04, 远程, remote, 登陆, access, login, graphic]
 description: windows 通过 vnc4server 远程 ubuntu 记录。
 ---
 
