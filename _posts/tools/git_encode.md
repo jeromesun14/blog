@@ -3,7 +3,7 @@ date: 2017-01-22 14:09:24
 toc: true
 tags: [git]
 categories: tools
-keywords: [git, 编码, utf-8, 中文]
+keywords: [git, 编码, utf-8, 中文, 乱码, windows]
 description: git中文编码问题及其配置
 ---
 来自 [解决git在Windows下的乱码问题](http://howiefh.github.io/2014/10/11/git-encoding/)。
