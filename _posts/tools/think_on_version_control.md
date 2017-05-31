@@ -3,7 +3,7 @@ date: 2017-04-01 22:02:02
 toc: true
 tags: [版本控制, svn, git]
 categories: tools
-keywords: [svn, git, version control]
+keywords: [svn, git, version control, 分支管理, branch management, master, develop, release, hotfix]
 description: 关于版本控制分支管理的思考。
 ---
 
