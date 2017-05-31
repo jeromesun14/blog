@@ -1,4 +1,4 @@
-title: 拷贝文件到 docker 容器
+title: docker 快速入门
 date: 2017-04-19 13:54:20
 toc: true
 tags: [Linux, ubuntu, docker]

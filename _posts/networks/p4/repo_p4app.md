@@ -9,7 +9,8 @@ description: p4app 仓库使用说明。
 
 本文译自 [p4app readme](https://github.com/p4lang/p4app/blob/master/README.md)，对内容结构进行少量调整，并附上运行 log。
 
-## 简介
+简介
+----
 p4lang 于 2017-02-23 创建 [p4app](https://github.com/p4lang/p4app) 仓库，用于快速、简便地构建、运行、调试和测试 P4 程序。
 
  [p4factory](https://github.com/p4lang/p4factory) 或 [switch](https://github.com/p4lang/switch) 等 P4 样例依赖安装步骤复杂、编译时间超长。p4app 可很好地解决此问题，降低 P4 入门门槛。与预期的相符，p4app 将 bmv2 等基础组件整合成一个 docker image。
@@ -27,13 +28,7 @@ git clone https://github.com/p4lang/p4app
 
 * Bug fix.
 
-p4app bug: [pull request 17](https://github.com/p4lang/p4app/pull/17)，docker 镜像名已由 `p4lang/p4app:stable` 改为 `p4lang/p4app:latest`。修改 `p4app`：
-
-```
--P4APP_IMAGE=${P4APP_IMAGE:-p4lang/p4app:stable}
-``` 
-
-修改为：
+p4app bug: [pull request 17](https://github.com/p4lang/p4app/pull/17)，docker 镜像名已由 `p4lang/p4app:stable` 改为 `p4lang/p4app:latest`。修改 `p4app` L16 为: 
 
 ```
 -P4APP_IMAGE=${P4APP_IMAGE:-p4lang/p4app:latest}
@@ -52,22 +47,23 @@ sudo cp p4app /usr/local/bin
 使用
 ------
 
-p4app 运行以 `.p4app` 为后缀的目录，称 p4app 包。p4app 仓库中包含多个样例，例如 `simple_router.p4app`，以下是运行它的方法：
+p4app 运行以 `.p4app` 为后缀的目录，称 p4app 包。p4app 仓库中包含多个样例，例如 `simple_router.p4app`，运行方法：
 
 ```
 p4app run examples/simple_router.p4app
 ```
 
-该命令最终进入 mininet 命令行，这此之前，p4app 进行如下处理：
+此样例最终进入 mininet 命令行，在此之前，p4app 进行如下处理：
 
-1. 【首次运行 p4app 命令时】自动下载 docker 镜像 `p4lang/p4app:latest`，该镜像包含 P4 编译器、抓包工具 `tshark`、发包工具 `scapy`、net-tools 和 nmap 套件等工具
+1. 【首次运行 p4app 命令时】自动下载 docker 镜像 `p4lang/p4app:latest`，该镜像包含 P4 编译器、抓包工具 tshark、发包工具 scapy、net-tools 和 nmap 套件等工具
 2. 编译 `simper_router.p4`
 3. 设置并启动一个容器做为软件交换机
 4. 设置并启动 mininet 模拟实验网络
 
-## p4app 命令参数
+p4app 命令参数
+-----
 
-* run，运行 p4app，可带 target 名。
+* run，运行 p4app，可带 target 参数。
 * pack，压缩 p4app 包为单独文件，便于分享。使用 gzip 压缩
 * unpack，解压上述压缩包
 * update，更新 p4app 本地缓存的 P4 编译器和相关工具到最新版本。p4app 在本地缓存P4编译器和工具，因此不必每次都重新下载。
@@ -96,6 +92,24 @@ p4app 包最终将怎么运行，由配置文件 manifest file `p4app.json` 的�
 p4app run examples/simple_couter.p4app debug
 ```
 
+如果有多个 target，且使用者没有通过名字指定默认 target，则 p4app 随机运行其中一个。可使用 `default-target` 选项，设置默认 backend。例如：
+
+```
+{
+  "program": "my_program.p4",
+  "language": "p4-14",
+  "default-target": "debug",
+  "targets": {
+    "debug": { "use": "mininet", "num-hosts": 2 },
+    "test1": { "use": "stf", "test": "test1.stf" },
+    "test2": { "use": "stf", "test": "test2.stf" },
+  }
+}
+```
+
+这里定义一个名为 “debug” 的 mininet backend，以及两个 STF backend，分别名为 “test1” 和 “test2”。`"user":"mininet"` 用于指明每个 target 使用哪个 backend，如果不使用 user 字段，则 target 名同时被认定为 backend 名。这也是为什么，在之前的样例中，不需要指明`"use": "mininet"` ，因为 target 名就已经是 mininet，如果直接被用成 backend 名，p4app 也可以识别。
+
+
 目前支持以下几种 backend，具体见后文详述。
 
 * mininet
@@ -119,7 +133,7 @@ p4app 包的目录结构一般为：
     |- ...other files...
 ```
 
-`p4app.json`  是这个包的 manifest 文件，说明如何构建和运行 p4 程序，功能有点像 Markfile 文件。样例：
+`p4app.json`  是这个包的 manifest 文件，说明如何构建和运行 p4 程序，功能有点像 Makefile 文件。样例：
 
 ```
 {
@@ -134,24 +148,7 @@ p4app 包的目录结构一般为：
 }
 ```
 
-样例 manifest 告诉 p4app 应该运行 `my_program.p4`，该 p4 程序使用 `p4-14` 编写（同样也可以用 `p4-16`，P4-16 草案版本）。该样例定义一个 target，该 target 的 backend 为 `mininet`，同时提供一些 mininet 配置选项：测试网络有两个 host，一个模拟交换机，该交换机启机默认加载 `my_program.config` 中的配置。如果你在 `p4app.json` 中引用像 `my_program.config` 时，则需要将 `my_program.config` 文件包在 p4app 包中，p4app 将确保相应工具可找到它。
-
-如果有多个 target，且使用者没有通过名字指定默认 target，则 p4app 随机运行其中一个。可使用 `default-target` 选项，设置默认 backend。例如：
-
-```
-{
-  "program": "my_program.p4",
-  "language": "p4-14",
-  "default-target": "debug",
-  "targets": {
-    "debug": { "use": "mininet", "num-hosts": 2 },
-    "test1": { "use": "stf", "test": "test1.stf" },
-    "test2": { "use": "stf", "test": "test2.stf" },
-  }
-}
-```
-
-这里定义一个名为 “debug” 的 mininet backend，以及两个 STF backend，分别名为 “test1” 和 “test2”。`"user":"mininet"` 用于指明每个 target 使用哪个 backend，如果不使用 user 字段，则 target 名同时被认定为 backend 名。这也是为什么，在之前的样例中，不需要指明`"use": "mininet"` ，因为 target 名就已经是 mininet，如果直接被用成 backend 名，p4app 也可以识别。
+样例 manifest 告诉 p4app 应该运行 `my_program.p4`，该 p4 程序使用 `p4-14` 编写（同样也可以用 `p4-16`，P4-16 版本）。该样例定义一个 target，该 target 的 backend 为 `mininet`，同时提供一些 mininet 配置选项：测试网络有两个 host，一个模拟交换机，该交换机启机默认加载 `my_program.config` 中的配置。如果你在 `p4app.json` 中引用像 `my_program.config` 时，则需要将 `my_program.config` 文件包在 p4app 包中，p4app 将确保相应工具可找到它。
 
 Backend
 ------------
@@ -1198,3 +1195,4 @@ sunyongfeng@openswitch-OptiPlex-380:~/workshop/p4app$ docker images
 REPOSITORY            TAG                 IMAGE ID            CREATED             SIZE
 p4lang/p4app          latest              07024040be0e        6 hours ago         908MB
 ```
+
