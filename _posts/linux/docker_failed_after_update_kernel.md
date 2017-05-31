@@ -3,7 +3,7 @@ date: 2017-04-18 17:27:20
 toc: true
 tags: [Linux, ubuntu, docker]
 categories: linux
-keywords: [ubuntu, update, kernel, 更新, 内核, docker, 不可用, 16.04, 3.19, 4.4.0]
+keywords: [ubuntu, update, kernel, 更新, 内核, docker, 不可用, 16.04, 3.19, 4.4.0, fail, aufs, failure]
 description: ubuntu 升级/降级 内核之后，docker 不可用问题及解决。
 ---
 
