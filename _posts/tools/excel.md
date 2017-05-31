@@ -3,7 +3,7 @@ date: 2016-04-12 22:23:00
 toc: true
 tags: [Excel]
 categories: tools
-keywords: [office, excel]
+keywords: [office, excel, 透视, 自动统计, 删除空白字符, 周数, 删除空白单元格, 单元格]
 description: Excel 使用备忘，主要是函数相关
 ---
 
