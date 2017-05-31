@@ -7,15 +7,15 @@ keywords: [p4, p4app, 快速验证, p4lang, github, repo, topo, stf, bmv2, build
 description: p4app 仓库使用说明。
 ---
 
-本文译自 [p4app readme](https://github.com/p4lang/p4app/blob/master/README.md)，对内容结构进行少量调整，并附上运行 log。
+
+本文译自 [p4app README](https://github.com/p4lang/p4app/blob/master/README.md)，对内容结构进行少量调整，并附上运行 log。同时发布在 [sunyongfeng.com](http://sunyongfeng.com/201705/networks/p4/repo_p4app.html)。
 
 简介
 ----
-p4lang 于 2017-02-23 创建 [p4app](https://github.com/p4lang/p4app) 仓库，用于快速、简便地构建、运行、调试和测试 P4 程序。
 
- [p4factory](https://github.com/p4lang/p4factory) 或 [switch](https://github.com/p4lang/switch) 等 P4 样例依赖安装步骤复杂、编译时间超长。p4app 可很好地解决此问题，降低 P4 入门门槛。与预期的相符，p4app 将 bmv2 等基础组件整合成一个 docker image。
+[p4app](https://github.com/p4lang/p4app) 仓库创建于 2017-02-23，是一种构建、运行、调试和测试 P4 程序的工具。哲学是“简单的东西应尽可能简单”，旨在使小而简单的 P4 程序易于编写、易于与他人分享。
 
-> p4app 是一种构建、运行、调试和测试 P4 程序的工具。其背后的哲学是“简单的东西应尽可能简单”。p4app 旨在使小而简单的 P4 程序易于编写、易于与他人分享。
+[p4factory](https://github.com/p4lang/p4factory) 或 [switch](https://github.com/p4lang/switch) 等 P4 样例依赖安装步骤复杂、编译时间超长。p4app 可很好地解决此问题，降低 P4 入门门槛。与预期的相符，p4app 将 bmv2 等基础组件整合成一个 docker image。
 
 安装
 -------
