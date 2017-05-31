@@ -3,7 +3,7 @@ date: 2015-09-02 20:03:22
 toc: true
 tags: [Linux, ubuntu, apt]
 categories: linux
-keywords: [ubuntu, apt, 网络配置, 中文支持, fcitx, grub, Linux, 静态IP配置, DNS配置, 引导修复, 大写提示, 禁用触摸板, root密码]
+keywords: [ubuntu, apt, 网络配置, 中文支持, fcitx, grub, Linux, 静态IP配置, DNS配置, 引导修复, 大写提示, 禁用触摸板, root密码, log, 默认密码, 添加用户, sudo 用户, network configuration, 强制使用IPv4, 配置源, 中文支持, 输入法, 引导失败]
 description: Linux装机后的常用配置、软件说明，及使用问题记录。
 ---
 
