@@ -3,7 +3,7 @@ date: 2017-04-25 14:18:00
 toc: true
 tags: [Linux, ubuntu]
 categories: linux
-keywords: [ubuntu, cron, 定时执行, scheduled, task, commands, 备份]
+keywords: [ubuntu, cron, 定时执行, scheduled, task, commands, 备份, backup, dokuwiki, EDITOR, vim, nano]
 description: 通过 cron 定时执行备份任务。
 ---
 
@@ -20,6 +20,8 @@ description: 通过 cron 定时执行备份任务。
 
 ## 实现备份的脚本
 
+在服务器 172.168.111.192 上实现备份脚本。
+
 ```
 root@ubuntu:~# cat dokuwiki.backup.sh 
 #!/bin/bash
@@ -34,7 +36,7 @@ root@ubuntu:~#
 
 ## cron 配置
 
-每天 4:30 执行备份脚本。
+在服务器 172.168.111192 上每天 4:30 执行备份脚本。
 
 ```
 root@ubuntu:~# export EDITOR=vim 
@@ -66,3 +68,52 @@ no crontab for root - using an empty one
 ```
 
 首次选择 cron 编辑器不小心选择了 nano，不懂怎么用。通过 `export EDITOR=vim` 将编辑器切成 vim。
+
+## 效果
+
+备份机器 192.168.204.168 上的效果：
+
+```
+sunyongfeng@openswitch-OptiPlex-380:~/backup$ ls -al
+total 8759824
+drwxrwxrwx   7 sunyongfeng sunyongfeng       4096 5月  31 04:30 .
+drwxr-xr-x  44 sunyongfeng sunyongfeng       4096 5月  31 09:24 ..
+-rw-r--r--   1 sunyongfeng sunyongfeng   30790523 4月  18 20:26 dokuwiki-170418.tar.gz
+-rw-r--r--   1 sunyongfeng sunyongfeng   30829080 4月  25 14:14 dokuwiki-170425.tar.gz
+-rw-r--r--   1 sunyongfeng sunyongfeng   30829128 4月  26 04:31 dokuwiki-170426.tar.gz
+-rw-r--r--   1 sunyongfeng sunyongfeng   30840695 4月  27 04:31 dokuwiki-170427.tar.gz
+-rw-r--r--   1 sunyongfeng sunyongfeng   30878801 4月  28 04:31 dokuwiki-170428.tar.gz
+-rw-r--r--   1 sunyongfeng sunyongfeng   30878561 4月  29 04:31 dokuwiki-170429.tar.gz
+-rw-r--r--   1 sunyongfeng sunyongfeng   30878561 4月  30 04:31 dokuwiki-170430.tar.gz
+-rw-r--r--   1 sunyongfeng sunyongfeng   30878561 5月   1 04:31 dokuwiki-170501.tar.gz
+-rw-r--r--   1 sunyongfeng sunyongfeng   30878561 5月   2 04:31 dokuwiki-170502.tar.gz
+-rw-r--r--   1 sunyongfeng sunyongfeng   30925192 5月   3 04:31 dokuwiki-170503.tar.gz
+-rw-r--r--   1 sunyongfeng sunyongfeng   31827534 5月   4 04:31 dokuwiki-170504.tar.gz
+-rw-r--r--   1 sunyongfeng sunyongfeng   31830576 5月   5 04:31 dokuwiki-170505.tar.gz
+-rw-r--r--   1 sunyongfeng sunyongfeng   31830576 5月   6 04:31 dokuwiki-170506.tar.gz
+-rw-r--r--   1 sunyongfeng sunyongfeng   31830576 5月   7 04:32 dokuwiki-170507.tar.gz
+-rw-r--r--   1 sunyongfeng sunyongfeng   31830576 5月   8 04:31 dokuwiki-170508.tar.gz
+-rw-r--r--   1 sunyongfeng sunyongfeng   31832468 5月   9 04:31 dokuwiki-170509.tar.gz
+-rw-r--r--   1 sunyongfeng sunyongfeng   31832468 5月  10 04:31 dokuwiki-170510.tar.gz
+-rw-r--r--   1 sunyongfeng sunyongfeng   31833486 5月  11 04:31 dokuwiki-170511.tar.gz
+-rw-r--r--   1 sunyongfeng sunyongfeng   31834472 5月  12 04:31 dokuwiki-170512.tar.gz
+-rw-r--r--   1 sunyongfeng sunyongfeng   31833802 5月  13 04:31 dokuwiki-170513.tar.gz
+-rw-r--r--   1 sunyongfeng sunyongfeng   31833802 5月  14 04:31 dokuwiki-170514.tar.gz
+-rw-r--r--   1 sunyongfeng sunyongfeng   31835188 5月  15 04:31 dokuwiki-170515.tar.gz
+-rw-r--r--   1 sunyongfeng sunyongfeng   31835398 5月  16 04:30 dokuwiki-170516.tar.gz
+-rw-r--r--   1 sunyongfeng sunyongfeng   31834919 5月  17 04:30 dokuwiki-170517.tar.gz
+-rw-r--r--   1 sunyongfeng sunyongfeng   31834919 5月  18 04:30 dokuwiki-170518.tar.gz
+-rw-r--r--   1 sunyongfeng sunyongfeng   31832950 5月  19 04:30 dokuwiki-170519.tar.gz
+-rw-r--r--   1 sunyongfeng sunyongfeng   31832950 5月  20 04:30 dokuwiki-170520.tar.gz
+-rw-r--r--   1 sunyongfeng sunyongfeng   31832950 5月  21 04:30 dokuwiki-170521.tar.gz
+-rw-r--r--   1 sunyongfeng sunyongfeng   31832950 5月  22 04:30 dokuwiki-170522.tar.gz
+-rw-r--r--   1 sunyongfeng sunyongfeng   31832950 5月  23 04:30 dokuwiki-170523.tar.gz
+-rw-r--r--   1 sunyongfeng sunyongfeng   31832950 5月  24 04:30 dokuwiki-170524.tar.gz
+-rw-r--r--   1 sunyongfeng sunyongfeng   31833337 5月  25 04:30 dokuwiki-170525.tar.gz
+-rw-r--r--   1 sunyongfeng sunyongfeng   31833232 5月  26 04:30 dokuwiki-170526.tar.gz
+-rw-r--r--   1 sunyongfeng sunyongfeng   31833446 5月  27 04:30 dokuwiki-170527.tar.gz
+-rw-r--r--   1 sunyongfeng sunyongfeng   31833446 5月  28 04:30 dokuwiki-170528.tar.gz
+-rw-r--r--   1 sunyongfeng sunyongfeng   31835384 5月  29 04:30 dokuwiki-170529.tar.gz
+-rw-r--r--   1 sunyongfeng sunyongfeng   31835403 5月  30 04:30 dokuwiki-170530.tar.gz
+-rw-r--r--   1 sunyongfeng sunyongfeng   31835403 5月  31 04:30 dokuwiki-170531.tar.gz
+```
