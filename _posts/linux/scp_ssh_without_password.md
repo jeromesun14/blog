@@ -3,7 +3,7 @@ date: 2017-04-25 13:58:24
 toc: false
 tags: [Linux, ubuntu, 远程登录, scp, ssh]
 categories: linux
-keywords: [ubuntu, scp, ssh, rsa]
+keywords: [ubuntu, scp, ssh, rsa, without, password, script]
 description: 让 scp / ssh 不需要密码，可在脚本中直接使用。
 ---
 
