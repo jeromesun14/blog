@@ -3,7 +3,7 @@ date: 2015-11-02 13:03:24
 toc: true
 tags: [vlc]
 categories: tools
-keywords: [app, 软件, vlc]
+keywords: [app, 软件, vlc, 服务器, 设置]
 description: VLC 作为服务器记录。
 ---
 
