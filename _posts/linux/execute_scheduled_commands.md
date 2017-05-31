@@ -3,7 +3,7 @@ date: 2017-04-25 14:18:00
 toc: true
 tags: [Linux, ubuntu]
 categories: linux
-keywords: [ubuntu, cron, 定时执行, scheduled, task, commands, 备份, backup, dokuwiki, EDITOR, vim, nano]
+keywords: [ubuntu, cron, 定期执行, 任务, scheduled, task, commands, 备份, backup, dokuwiki, EDITOR, vim, nano]
 description: 通过 cron 定时执行备份任务。
 ---
 
