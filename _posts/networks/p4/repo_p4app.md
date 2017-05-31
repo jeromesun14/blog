@@ -8,7 +8,7 @@ description: p4app 仓库使用说明。
 ---
 
 
-本文译自 [p4app README](https://github.com/p4lang/p4app/blob/master/README.md)，对内容结构进行少量调整，并附上运行 log。同时发布在 [sunyongfeng.com](http://sunyongfeng.com/201705/networks/p4/repo_p4app.html)。
+本文译自 [p4app README](https://github.com/p4lang/p4app/blob/master/README.md)，对内容结构进行少量调整，并附上运行 log。
 
 简介
 ----
