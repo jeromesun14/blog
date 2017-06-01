@@ -3,7 +3,7 @@ date: 2016-05-17 12:13:24
 toc: true
 tags: [Linux, ubuntu, python, 交叉编译]
 categories: python
-keywords: [ubuntu, python, 交叉编译, mips64]
+keywords: [ubuntu, python, 交叉编译, mips, mips64, arm, ppc, 2.7, cross compile, sqlite3, ncurses, readline, ssl, 环境变量, PYTHONHOME, PYTHONPATH, not found, 裁剪]
 description: ubuntu 16.04 下交叉编译 mips64 python 2.7.11
 ---
 
