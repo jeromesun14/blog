@@ -3,7 +3,7 @@ date: 2017-04-18 16:45:20
 toc: true
 tags: [p4, int]
 categories: p4
-keywords: [p4, int, in band telemetry, p4factory, demo, ubuntu, 16.04, 3.19, kernel, linux, webui, success, 成功, docker, webui, iperf, failed]
+keywords: [p4, int, inband network telemetry, in-band network telemetry, 带内遥测, p4factory, demo, ubuntu, 16.04, 3.19, kernel, linux, webui, success, 成功, docker, webui, iperf, failed, 网页, 失败, vxlan, mininet, CLI, gcc, dockerfile, 版本, tshark, ping, connection refuse]
 description: p4factory 样例 app int 跑通的过程记录。
 ---
 
