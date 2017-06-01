@@ -3,7 +3,7 @@ date: 2015-06-17 20:40:18
 toc: true
 tags: [调试, GDB, Linux]
 categories: programmer
-keywords: [gdb, 调试, Debug, Linux]
+keywords: [gdb, 调试, Debug, Linux, 调用栈, 变量, 调用, 函数, backtrace, 多线程, 死锁, 设置, 断点, watch, 入参, 局部变量, thread, local, 内存, 查看, 线程]
 description: 记录GDB使用过的方法。
 ---
 
