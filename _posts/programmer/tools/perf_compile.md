@@ -4,7 +4,7 @@ date: 2016-08-24 20:13:24
 toc: true
 tags: [perf]
 categories: programmer
-keywords: [linux, kernel, perf]
+keywords: [linux, kernel, perf, compile, arm, mips, 性能, 分析, 工具, ubuntu, x86, callchains, zlib, failed, 编译, elfutils, 失败, ]
 description: linux kernel perf 工具编译到 arm/mips 平台；ubuntu x86 平台使用 perf 工具的记录。
 ---
 
