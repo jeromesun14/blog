@@ -3,7 +3,7 @@ date: 2015-10-12 21:10:18
 toc: false
 tags: [网络测试]
 categories: networks
-keywords: [computer networks test, 模拟WAN, 时延, 丢包]
+keywords: [computer, network, test, 模拟, WAN, 时延, 丢包, simulator, tc, netem, PC, linux]
 description: Linux模拟WAN报文时延与丢包率的方法。
 ---
 
