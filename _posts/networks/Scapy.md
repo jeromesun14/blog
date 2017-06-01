@@ -3,7 +3,7 @@ date: 2015-09-22 20:00:30
 toc: true
 tags: [网络测试]
 categories: networks
-keywords: [发包, scapy, 网络测试]
+keywords: [发包, scapy, 网络测试, send packet, test, network, python,]
 description: Python发包工具scapy使用简介，待进一步补充
 ---
 
