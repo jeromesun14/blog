@@ -3,7 +3,7 @@ date: 2016-12-15 01:03:24
 toc: true
 tags: [linux, c]
 categories: c
-keywords: [linux, c, container_of, get structure head]
+keywords: [linux, c, container_of, get structure head, 结构体, 成员, 头指针]
 description: linux c 通过结构体成员获取结构体头指针。
 ---
 
