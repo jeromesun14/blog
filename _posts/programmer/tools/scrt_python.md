@@ -3,7 +3,7 @@ date: 2013-11-21 13:13:24
 toc: true
 tags: [python, SecureCRT]
 categories: programmer
-keywords: [python, secure CRT, ctrl c, ^c]
+keywords: [python, secure CRT, ctrl c, ^c, 脚本, script, vb]
 description: Secure CRT python 脚本记录
 ---
 
