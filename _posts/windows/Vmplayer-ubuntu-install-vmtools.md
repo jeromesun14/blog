@@ -3,7 +3,7 @@ date: 2015-07-02 22:22:19
 toc: false
 tags: [windows, 虚拟机]
 categories: windows
-keywords: [windows, vmplayer, ubuntu]
+keywords: [windows, vmplayer, ubuntu, vm-tools, 找不到, kernel, C header files]
 ---
 
 win7 vmplayer中安装ubuntu，在安装vm-tools的时候出现找不到“the location of the directory of C header files that match your running kernel?”。
