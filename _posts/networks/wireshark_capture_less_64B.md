@@ -3,7 +3,7 @@ date: 2017-02-16 10:39:18
 toc: false
 tags: [网络测试]
 categories: networks
-keywords: [computer networks, wireshark, 抓包, capture]
+keywords: [computer, networks, wireshark, 抓包, capture, FCS, less than 64, 小于64, 字节]
 description: wireshark 可以抓到小于 64 字节报文的原因。
 ---
 
