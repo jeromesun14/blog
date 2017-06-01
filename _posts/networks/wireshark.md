@@ -3,7 +3,7 @@ date: 2015-12-13 15:05:20
 toc: true
 tags: [wireshark]
 categories: networks
-keywords: [抓包, scapy, 网络测试, wireshark]
+keywords: [抓包, scapy, 网络测试, wireshark, linux, root, 用户, 非]
 description: Wireshark使用过程中的一些记录。
 ---
 
