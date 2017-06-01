@@ -3,7 +3,7 @@ date: 2017-05-12 11:00:00
 toc: true
 tags: [p4]
 categories: p4
-keywords: [p4, p4app, simple_switch, bmv2, CLI, simple_switch_CLI, bm_CLI]
+keywords: [p4, p4app, simple_switch, bmv2, CLI, simple_switch_CLI, bm_CLI, 使用, 添加, 删除, 表项]
 description: p4 simple_switch_CLI 使用说明
 ---
 
