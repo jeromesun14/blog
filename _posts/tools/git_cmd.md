@@ -10,6 +10,7 @@ description: 本文描述常见 git 命令备忘。
 * 第一次切换分支，git checkout -b xxx origin/xxx
 * 后续切分支，git checkout xxx
 * 查看当前分支，git branch -a | grep "*"
+* git checkout到特定版本，git checkout upstream的前8位
 
 * stage
 
@@ -17,6 +18,10 @@ Q：多一个 stage 有什么优点？
 A：暂存空间。git add 后的文件放到 stage 区，再修改同样的文件，其修订不会体现在此次 commit，除非再 git add 一次。
 
 * git format-patch，已提交版本生成 patch
+  + `git format-patch -<n> <SHA1>`，输出从 SHA1 开始的 n 个提交 patch，会输出 10 个 patch
+  + `git format-patch -10 HEAD --stdout > 0001-last-10-commits.patch`，输出最新前 10 次修订为一个 patch
+* `git log -p -1 <commit>`，查看某次提交的具体修订
+* `git diff sha1 sha2 > mypatch.diff`，输出 sha1 到 sha2 的所有修订，如果 sha1 比 sha2 早，则是修订 patch，如果晚，则是回退 patch。
 * git am -3 --ignore-space-change，只能使用 format-patch 的 patch
 * git config core.editor vim
 * git checkout file，可以让 file 从 staged 状态返回 untracked 状态
