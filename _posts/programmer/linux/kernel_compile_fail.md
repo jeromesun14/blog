@@ -3,7 +3,7 @@ date: 2017-01-10 17:31:00
 toc: true
 tags: [kernel, compile]
 categories: kernel
-keywords: [Linux, kernel, compile, perl, timeconst.pl, failed]
+keywords: [Linux, kernel, compile, perl, timeconst.pl, failed, 内核, 编译, 失败, line 373]
 description: Linux 编译问题汇总记录。
 ---
 
