@@ -3,7 +3,7 @@ date: 2017-03-31 11:39:24
 toc: true
 tags: [vagrant, virtualBox]
 categories: programmer
-keywords: [vagrant, virtualBox, host ping virtualBox]
+keywords: [vagrant, virtualBox, ping, failed, NAT, 网络配置, network configuration, private network, bridge, public network, vagrantfile, 端口映射, 失败, failed, ubuntu, 16.04, 默认密码, default password, 下载位置, download location, 打包, package, 集群, 多机, cluster, 外网访问, 服务, service, mapping]
 description: Vagrant + virtualBox 使用记录
 ---
 
