@@ -3,7 +3,7 @@ date: 2016-09-02 15:03:24
 toc: true
 tags: [Linux, arm]
 categories: c
-keywords: [Linux, c, arm, coredump, abort]
+keywords: [Linux, c, arm, coredump, abort, 堆栈, gcc, backtrace, cannot display, 无法打出]
 description: ARM 平台 assert 退出后堆栈打不出来。
 ---
 
