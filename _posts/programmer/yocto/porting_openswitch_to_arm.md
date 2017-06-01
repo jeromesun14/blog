@@ -3,7 +3,7 @@ date: 2017-04-21 11:02:20
 toc: true
 tags: [Linux, yocto, openswitch]
 categories: yocto
-keywords: [yocto, bitbake, openswitch, openembedded, oe, ops, download too slowly, 下载太慢, sstate, gcc, tune, compile, long, 编译太久, 适配, 移植, porting, adapter, arm]
+keywords: [yocto, bitbake, openswitch, openembedded, oe, ops, download too slowly, 下载太慢, sstate, gcc, tune, compile, long, 编译太久, 适配, 移植, porting, adapter, arm, mips, ppc, powerpc]
 description: 记录适配 HP openswitch 到 arm CPU 的过程。
 ------------
 
