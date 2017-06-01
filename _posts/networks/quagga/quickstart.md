@@ -3,7 +3,7 @@ date: 2017-05-09 16:32:30
 toc: true
 tags: [quagga, 路由协议]
 categories: networks
-keywords: [quagga, quickstart, ospf, bgp, rip, isis, 路由, 路由协议, zebra]
+keywords: [quagga, quickstart, ospf, bgp, rip, isis, 路由, 路由协议, zebra, CLI, telnet, port, 端口号, 默认密码]
 description: Quagga 基本使用记录
 -------------
 
