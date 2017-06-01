@@ -3,7 +3,7 @@ date: 2017-04-20 21:39:00
 toc: true
 tags: [python]
 categories: python
-keywords: [python, xmind, excel, export, convert, 导出, 转换]
+keywords: [python, xmind, excel, export, convert, 导出, 转换, freemind, to]
 description: 实现 xmind pro 才有的功能 —— 转换 xmind 为 excel。
 ---
 
