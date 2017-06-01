@@ -3,7 +3,7 @@ date: 2015-07-02 22:07:18
 toc: true
 tags: [L2]
 categories: networks
-keywords: [computer networks, mac, layer2]
+keywords: [computer, networks, mac, address, layer2, 地址, OUI, 特殊, 组播]
 description: MAC地址概述
 ---
 
