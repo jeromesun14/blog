@@ -3,7 +3,7 @@ date: 2017-02-16 16:34:00
 toc: true
 tags: [windows, dos]
 categories: windows
-keywords: [windows, dos, command, 命令]
+keywords: [windows, dos, command, 命令, 网络配置, 目录树, tree, netsh]
 desciption: windows dos 常用命令记录
 ---
 
