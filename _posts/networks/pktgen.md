@@ -3,7 +3,7 @@ date: 2016-03-18 12:00:30
 toc: true
 tags: [网络测试]
 categories: networks
-keywords: [发包, pktgen, linux, 网络测试, packet generator]
+keywords: [发包, pktgen, linux, 网络测试, packet, generate, 内核, 高速, high spped, kernel]
 description: 介绍 Linux 内核发包工具 pktgen 及其配置、使用方法和样例。
 ---
 
