@@ -4,7 +4,7 @@ date: 2017-04-01 10:15:24
 toc: true
 tags: [java]
 categories: java
-keywords: [java, 32-bit, 64-bit, jre, UnsatisfiedLinkError, canit load, 无法加载, dll]
+keywords: [java, 32-bit, 64-bit, jre, UnsatisfiedLinkError, can't load, 无法加载, dll, 32, 64]
 description: 解决64位系统上无法使用32位 dll 的问题
 ---
 
