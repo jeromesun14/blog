@@ -3,7 +3,7 @@ date: 2016-09-14 22:22:14
 toc: true
 tags: [Linux, coredump]
 categories: programmer
-keywords: [linux, c, gcc, coredump, gdb]
+keywords: [linux, c, gcc, coredump, gdb, 异常退出, 进程, 调试, core, crashed, 路径, 文件名, 配置, ]
 description: linux core 文件配置与如何进行调试使用。
 ---
 
