@@ -80,3 +80,8 @@ Swap:        0k total,        0k used,        0k free,    61552k cached
     1 root      20   0  2004  696  592 S    0  0.1   0:02.49 0 init             
     2 root      20   0     0    0    0 S    0  0.0   0:00.00 1 kthreadd   
 ```
+
+## 跟踪系统调用和信号 - strace
+
+* strace -p xxx -c，ctrl + c 退出后列出运行期间的所有调用情况统计
+* strace -p xxx，实时显示系统调用信息
