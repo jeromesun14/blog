@@ -7,19 +7,28 @@ keywords: [ubuntu, docker, copy, cp, container]
 description: 如何从 host 拷贝文件到 docker 容器中。
 ---
 
-http://stackoverflow.com/questions/22907231/copying-files-from-host-to-docker-container
+## 安装 docker
 
-重命名：docker tag image-id REPOSITORY[:TAG]
+一键安装 [docker](https://docs.docker.com/engine/installation/)：`wget -qO- https://get.docker.com/ | sh`。
 
-docker tag 20b119d0ceea p4dockerswitch_bmv2
+## 镜像相关
 
-docker ps
+* 查看本地镜像，`docker images`
+* 重命名镜像，`docker tag image-id REPOSITORY[:TAG]`
 
-docker ps -a
+## 运行容器
 
-docker run -it xxx /bin/bash
+* 运行容器，`docker run -it xxx /bin/bash`，此为运行带 bash shell 的容器，默认进入命令行。
+* 查看正在运行的容器，`docker ps [-a]`
+* 类似 ssh 访问 docker 容器（进入命令行进行操作）。`docker exec -i -t $DID bash`，不会像 docker attach 进去退出后，直接将在跑的 docker 实例退出来。
+* 拷贝文件到 docker 容器。`docker cp` 命令，参考 [stackoverflow](http://stackoverflow.com/questions/22907231/copying-files-from-host-to-docker-container)。
 
-类似 ssh 进入 docker，直接起一个 bash 即可，docker exec -i -t $DID bash。不会像 docker attach 进去退出后，直接将在跑的 docker 实例退出来。
+```
+docker cp [OPTIONS] CONTAINER:SRC_PATH DEST_PATH|-
+docker cp [OPTIONS] SRC_PATH|- CONTAINER:DEST_PATH
+```
+
+连接容器命令行样例：
 
 ```
 sunyongfeng@openswitch-OptiPlex-380:~$ docker ps
