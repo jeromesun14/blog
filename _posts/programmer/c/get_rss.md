@@ -19,6 +19,59 @@ description: Linux c 如何查看当前进程内存使用情况。
 * 截取 VmRSS 行，打印 VmRSS 值
 * 通过 sed/awk 获取打印值，并进行计算，确认哪个业务初始化消耗太多内存
 
+### /proc/[pid]/status
+
+详见 [man 5 proc](http://man7.org/linux/man-pages/man5/proc.5.html)。
+
+> VmRSS: Resident set size.  Note that the value here is the sum of RssAnon, RssFile, and RssShmem.
+
+样例：
+
+```
+ sunyongfeng  ~  cat /proc/1610/status 
+Name:	upstart-udev-br
+State:	S (sleeping)
+Tgid:	1610
+Ngid:	0
+Pid:	1610
+PPid:	1524
+TracerPid:	0
+Uid:	1003	1003	1003	1003
+Gid:	1003	1003	1003	1003
+FDSize:	64
+Groups:	27 999 1003 
+VmPeak:	   34596 kB
+VmSize:	   34596 kB
+VmLck:	       0 kB
+VmPin:	       0 kB
+VmHWM:	    1916 kB
+VmRSS:	    1788 kB
+VmData:	     240 kB
+VmStk:	     136 kB
+VmExe:	      80 kB
+VmLib:	    4760 kB
+VmPTE:	      76 kB
+VmSwap:	     204 kB
+Threads:	1
+SigQ:	1/15283
+SigPnd:	0000000000000000
+ShdPnd:	0000000000000000
+SigBlk:	0000000000000000
+SigIgn:	0000000000000001
+SigCgt:	0000000180014000
+CapInh:	0000000000000000
+CapPrm:	0000000000000000
+CapEff:	0000000000000000
+CapBnd:	0000003fffffffff
+Seccomp:	0
+Cpus_allowed:	ff
+Cpus_allowed_list:	0-7
+Mems_allowed:	00000000,00000001
+Mems_allowed_list:	0
+voluntary_ctxt_switches:	2212
+nonvoluntary_ctxt_switches:	30
+```
+
 ## 代码
 
 ```c
