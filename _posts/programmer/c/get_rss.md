@@ -78,7 +78,7 @@ nonvoluntary_ctxt_switches:	30
 const char data_mem[] = "VmRSS:";
  
 /* 打印当前消耗内存 */
-void get_mem(int pid, char *func_name)
+void print_mem(int pid, char *func_name)
 {
     FILE *stream;
     char cache[256];
@@ -105,5 +105,5 @@ void get_mem(int pid, char *func_name)
 调用：
 
 ```
-get_mem(getpid(), your_func_name);
+print_mem(getpid(), your_func_name);
 ```
