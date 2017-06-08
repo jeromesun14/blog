@@ -25,7 +25,7 @@ description: octeon mips64 CPU 上使用 gprof 记录。
 
 gprof 通过 atexit 注册函数 `_mcleanup`，因此只要在退出前调用该函数即可。使用 SIGUSR1 信号，在信号处理函数中调用 `_mcleanup` 和 `_exit`。可正常运行！代码如下。
 
-```
+```c
 #include <dlfcn.h>
 #include <stdio.h>
 #include <unistd.h>
