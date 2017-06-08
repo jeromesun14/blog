@@ -20,6 +20,29 @@ description: octeon mips64 CPU 上使用 gprof 记录。
 -rw-r--r--    1 root     root           20 Jun  8 21:54 gmon.out
 ```
 
+## 查看 octeon mips64 app 生成的 gmon.out
+* 嵌入式设备上没有 gprof 程序
+* 把 gmon.out 传到 x86 PC
+* 通过交叉编译工具链中的 `mips64-octeon-linux-gnu-gprof` 查看
+
+```
+sunyongfeng@openswitch-OptiPlex-380:~/workshop/test$mips64-octeon-linux-gnu-gprof ./rtxx -Q
+Flat profile:
+
+Each sample counts as 0.01 seconds.
+  %   cumulative   self              self     total           
+ time   seconds   seconds    calls  ms/call  ms/call  name    
+ 23.64      0.13     0.13    79992     0.00     0.00  s_lookup
+  3.64      0.15     0.02   553816     0.00     0.00  e_dump_prefix
+  3.64      0.17     0.02   396896     0.00     0.00  db_get_key
+  3.64      0.19     0.02    99999     0.00     0.00  e_dump_nsmmsg
+  3.64      0.21     0.02    99999     0.00     0.01  e_handle
+  3.64      0.23     0.02    79992     0.00     0.00  create_info
+  3.64      0.25     0.02    79992     0.00     0.00  e_lkup_find_entry
+  3.64      0.27     0.02    79991     0.00     0.00  e_proc
+...
+```
+
 ## 如何在不退出的业务中使用 gprof
 详见 [Saving gmon.out before killing a process](https://stackoverflow.com/questions/10205543/saving-gmon-out-before-killing-a-process)。
 
