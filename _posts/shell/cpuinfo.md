@@ -7,8 +7,6 @@ toc: true
 description: Linux命令行查看 CPU 信息。
 ---
 
-[TOC]
-
 本文记录 Linux 操作系统中查看 CPU 信息的方法。查看的内容包含但不局限于：
 
 * CPU 型号
