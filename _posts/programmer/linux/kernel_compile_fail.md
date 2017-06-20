@@ -18,14 +18,14 @@ Can't use 'defined(@array)' (Maybe you should just omit the defined()?) at kerne
 `kernel/timeconst.pl` 中的代码：
 
 ```
-@val = @{$canned_values{$hz}}; 
-if (defined(@val)) { 
-@val = compute_values($hz); 
-} 
-output($hz, @val); 
+372     @val = @{$canned_values{$hz}};                                                                  
+373     if (!defined(@val)) {                                                                                    
+374         @val = compute_values($hz);                                                                 
+375     }                                                                                               
+376     output($hz, @val); 
 ```
 
-将`if (defined(@val))`改为`if (@val)`，再次编译就 OK。
+将`if (!defined(@val))`改为`if (!@val)`，再次编译就 OK。
 
 原因：perl版本升级到 v5.22.1，发现官网因为一个bug，将defined(@array)去掉了。可以直接使用数组判断非空。
 
