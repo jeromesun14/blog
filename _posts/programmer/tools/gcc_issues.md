@@ -98,3 +98,15 @@ sunyongfeng@openswitch-OptiPlex-380:~/workshop/test$
 > It makes a difference where in the command you write this option; the linker searches and processes libraries and object files in the order they are specified. Thus, foo.o -lz bar.o' searches libraryz' after file foo.o but before bar.o. If bar.o refers to functions in `z', those functions may not be loaded.
 
 * 解决：把 -lpython2.7 写在 -lxxx 之后。像这种库中依赖库的地方需要注意。
+
+### relocation R_X86_64_32 against `xxx' can not be used when making a shared object; recompile with -fPIC sub.o: could not read symbols: Bad value
+
+```
+x86_64-unknown-linux-gnu-gcc -fPIC -shared -D_LITTLE_ENDIAN -g  -Wno-error=deprecated-declarations  -Wall -D_GNU_SOURCE -lpthread
+/home/sunyongfeng/workshop/../build/sub.o /home/sunyongfeng/workshop/../build/undef.o /home/sunyongfeng/workshop/../build/libxy.so
+/home/sunyongfeng/workshop/toolchain/toolchain-x86_64/x86_64/bin/../lib/gcc/x86_64-unknown-linux-gnu/4.2.4/../../../../x86_64-unknown-linux-gnu/bin/ld: /home/sunyongfeng/workshop/../build/libproxy/policy/sub.o: relocation R_X86_64_32 against `g_lock' can not be used when making a shared object; recompile with -fPIC
+/home/sunyongfeng/workshop/../build/libproxy/policy/sub.o: could not read symbols: Bad value
+collect2: ld returned 1 exit status
+makefile:69: recipe for target 'build' failed
+```
+源代码编译也添加 `-fPIC` 选项，在 ARM / MIPS 平台都没此问题，在 x86 才有。
