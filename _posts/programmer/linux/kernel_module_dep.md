@@ -124,7 +124,7 @@ pps_core               19332  1 ptp
 drm                   341489  5 i915,drm_kms_helper
 ```
 
-* /lib/modules/`uname -r`/modules.dep，几乎与 lsmod 一样，但是包含未加载的内核模块依赖关系，ubuntu 默认有很多很多！
+* cat modules.dep，几乎与 lsmod 一样，但是包含未加载的内核模块依赖关系，ubuntu 默认有很多很多！
 
 ```
 sunyongfeng@ubuntu:~$ cat /lib/modules/`uname -r`/modules.dep
