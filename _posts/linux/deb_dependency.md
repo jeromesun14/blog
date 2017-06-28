@@ -49,8 +49,8 @@ mydep_2.24-1
 
 该实验主要用到两个字段：
 
-* Version，本 package 版本号
-* Depends，本 package 依赖哪些软件包，及依赖的版本号是多少
+1. Version，本 package 版本号
+2. Depends，本 package 依赖哪些软件包，及依赖的版本号是多少
 
 * helloworld 控制文件
 
