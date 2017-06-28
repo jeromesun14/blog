@@ -224,6 +224,50 @@ Removing mydep (2.24-1) ...
 
 因此对被依赖的软件包，如果升级为不向前兼容的版本，只能以“死给你看”的形式“通知”依赖它的软件包。
 
+```
+sunyongfeng@ubuntu:~/workshop/test$ vi helloworld_1.0-1/DEBIAN/control
+sunyongfeng@ubuntu:~/workshop/test$ rm helloworld_1.0-1.deb 
+sunyongfeng@ubuntu:~/workshop/test$ dpkg-deb --build helloworld_1.0-1/
+dpkg-deb: building package 'helloworld' in 'helloworld_1.0-1.deb'.
+sunyongfeng@ubuntu:~/workshop/test$ sudo apt-get remove helloworld 
+Reading package lists... Done
+Building dependency tree       
+Reading state information... Done
+The following packages will be REMOVED:
+  helloworld
+0 upgraded, 0 newly installed, 1 to remove and 278 not upgraded.
+1 not fully installed or removed.
+After this operation, 0 B of additional disk space will be used.
+Do you want to continue? [Y/n] y
+(Reading database ... 325288 files and directories currently installed.)
+Removing helloworld (1.0-1) ...
+sunyongfeng@ubuntu:~/workshop/test$ sudo dpkg -i helloworld_1.0-1.deb 
+Selecting previously unselected package helloworld.
+(Reading database ... 325288 files and directories currently installed.)
+Preparing to unpack helloworld_1.0-1.deb ...
+Unpacking helloworld (1.0-1) ...
+Setting up helloworld (1.0-1) ...
+sunyongfeng@ubuntu:~/workshop/test$ sudo dpkg -i mydep_2.24-1.deb 
+dpkg: warning: downgrading mydep from 2.25-1 to 2.24-1
+(Reading database ... 325288 files and directories currently installed.)
+Preparing to unpack mydep_2.24-1.deb ...
+Unpacking mydep (2.24-1) over (2.25-1) ...
+Setting up mydep (2.24-1) ...
+
+sunyongfeng@ubuntu:~/workshop/test$  sudo dpkg -i helloworld_1.0-1.deb 
+(Reading database ... 325289 files and directories currently installed.)
+Preparing to unpack helloworld_1.0-1.deb ...
+Unpacking helloworld (1.0-1) over (1.0-1) ...
+dpkg: dependency problems prevent configuration of helloworld:
+ helloworld depends on mydep (= 2.24-1); however:
+  Version of mydep on system is 2.25-1.
+
+dpkg: error processing package helloworld (--install):
+ dependency problems - leaving unconfigured
+Errors were encountered while processing:
+ helloworld
+```
+
 ## 参考资料
 1. http://tldp.org/HOWTO/html_single/Debian-Binary-Package-Building-HOWTO/
 2. https://www.debian.org/doc/manuals/debian-faq/ch-pkg_basics.en.html
