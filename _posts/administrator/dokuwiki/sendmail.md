@@ -7,6 +7,9 @@ keywords: [administrator, dokuwiki, plugin, 插件, 发送邮件, sendmail, 失�
 description: dokuwiki 解决无法发送邮件通知。
 ---
 
+# CAUTION！
+若开户 163 邮箱的“授权码”功能，本文无效。
+
 # 问题概述
 
 * 插件 [smtp](https://www.dokuwiki.org/plugin:smtp)
