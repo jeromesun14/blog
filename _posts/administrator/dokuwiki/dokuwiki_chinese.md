@@ -8,6 +8,7 @@ description: 记录 dokuwiki 中文相关支持
 ---
 
 # 中文名 page 被转为 url 保存到磁盘
+**注意：** 每次升級 dokuwiki 都必须做“问题解决”一节中第2步操作。
 
 元凶：URL rewrite。
 
