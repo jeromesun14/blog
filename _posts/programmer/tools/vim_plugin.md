@@ -53,3 +53,17 @@ vundle
 * `git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle`
 * .vimrc 配置好要安装的插件，可参考我的[配置文件](http://sunyongfeng.com/201605/programmer/tools/vimrc.html)
 * 用 vim 随便打开一个文件，`:BundleInstall` 安装配置好的插件
+
+cscope for c like language
+--------------------------
+
+例如配置 [P4 lang](p4.org):
+
+* mkdir ~/.vim/plugin
+* cd ~/.vim/plugin
+* wget http://cscope.sourceforge.net/cscope_maps.vim
+* cd your_p4_src
+* cscope -R *.p4
+* vim xxx.p4, 尽情享用 tag 跳转等功能。
+
+
