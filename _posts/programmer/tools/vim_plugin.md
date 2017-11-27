@@ -26,3 +26,25 @@ windows 下的字体可直接在 github 上搜，个人比较喜欢 [consolas](h
 * 下载字体
 * 双击字体，点击安装
 * 在 console 上（比如 SecureCRT 或 putty）选择字体为 `Consolas for Powerline`。
+
+winmanager
+----------
+
+有个 bug，使用 `wm` 启用 winmanager 的时候会出现一个空的窗口。详见 [将Vim改造为强大的IDE—Vim集成Ctags/Taglist/Cscope/Winmanager/NERDTree/OmniCppComplete（有图有真相）
+](http://blog.csdn.net/bokee/article/details/6633193#)。
+
+* 找到.vim 中 的`winmanager.vim`
+* 添加如下的 `exe 'q'`
+
+```
+function! <SID>ToggleWindowsManager()  
+   if IsWinManagerVisible()  
+      call s:CloseWindowsManager()  
+   else  
+      call s:StartWindowsManager()  
+      exe 'q'  
+   end  
+endfunction
+```
+
+
