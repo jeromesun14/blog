@@ -47,4 +47,9 @@ function! <SID>ToggleWindowsManager()
 endfunction
 ```
 
+vundle
+------
 
+* `git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle`
+* .vimrc 配置好要安装的插件，可参考我的[配置文件](http://sunyongfeng.com/201605/programmer/tools/vimrc.html)
+* 用 vim 随便打开一个文件，`:BundleInstall` 安装配置好的插件
