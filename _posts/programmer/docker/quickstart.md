@@ -41,3 +41,29 @@ bin   dev  home  lib64  mnt            nanomsg-1.0.0.tar.gz  opt        proc  ru
 boot  etc  lib   media  nanomsg-1.0.0  nnpy                  p4factory  root  sbin  sys  thrift-0.9.2  tmp                  var
 root@dab2267a06dd:/#
 ```
+
+## docker 命令没有权限
+必须 sudo docker xxx？
+
+见 [使用docker第一步](http://wiki.jikexueyuan.com/project/docker/articles/basics.html):
+
+本指南假设你已经完成了Docker的安装工作。检查你安装的Docker,运行以下命令：
+
+```
+# Check that you have a working install
+$ docker info
+```
+
+如果你得到 `docker: command not found`，你可能没有完整的安装上Docker。
+如果你得到 `/var/lib/docker/repositories: permission denied`，那你可能没有权限访问你主机上的Docker。
+
+为获得访问Docker权限可以直接在命令前加sudo，或者采取以下步骤授予权限：：
+
+```
+# 如果还没有docker group就添加一个：
+$ sudo groupadd docker
+# 将用户加入该group内。然后退出并重新登录即可生效。
+$ sudo gpasswd -a ${USER} docker
+# 重启docker
+$ sudo service docker restart
+```
