@@ -268,6 +268,11 @@ sudo apt-get install gcc-arm-linux-gnueabi
 
 ### screen
 
+* screen -S sessionName，为 screen 会话取名字
+* screen -list，查看当前有哪些会话
+* screen -r sessionName，Reattach 到 sessionName 会话
+* ctrl + a + d，detach 当前会话
+
 ### script
 
 ## 启机进入命令行
