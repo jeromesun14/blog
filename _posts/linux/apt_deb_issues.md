@@ -95,3 +95,21 @@ root@c60c282d2d76:/#
 ```
 
 OK，是时候把 Backports 的源踢掉了。
+
+故障时的源，被 [163 的 Debian镜像使用帮助](http://mirrors.163.com/.help/debian.html)误导了。
+
+```
+deb http://mirrors.163.com/debian/ jessie main non-free contrib
+deb http://mirrors.163.com/debian/ jessie-updates main non-free contrib
+deb http://mirrors.163.com/debian/ jessie-backports main non-free contrib
+deb-src http://mirrors.163.com/debian/ jessie main non-free contrib
+deb-src http://mirrors.163.com/debian/ jessie-updates main non-free contrib
+deb-src http://mirrors.163.com/debian/ jessie-backports main non-free contrib
+deb http://mirrors.163.com/debian-security/ jessie/updates main non-free contrib
+deb-src http://mirrors.163.com/debian-security/ jessie/updates main non-free contrib
+```
+
+在调试的时候，一开始已注意到可能是源的问题，但是还是一遍一遍傻逼式地试不同的源，比如上面的 debian 官方中国源 ftp.cn.debian.org。
+
+**烂习惯。。。。。调东西还是乱试一通，没去找根本原因。。。**
+教训是一个下午没了，正常已经半个小时就可以发现根本原因了。
