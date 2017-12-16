@@ -3,7 +3,7 @@ date: 2017-12-16 16:32:30
 toc: true
 tags: [版本控制, git]
 categories: tools
-keywords: [git, command, version control, branch, keep, all commits, branches, tags]
+keywords: [git, gitlab, mirror, 镜像, command, version control, branch, keep, all commits, branches, tags]
 description: git 镜像已有仓库到 gitlab，保留所有的提交、分支和 tags。
 ---
 
