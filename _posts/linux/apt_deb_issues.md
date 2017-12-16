@@ -1,9 +1,17 @@
+title: apt-deb 相关问题记录
+date: 2017-12-14 10:42:00
+toc: true
+tags: [ubuntu, deb, apt]
+categories: linux
+keywords: [ubuntu, linux, deb, apt, package, control, dependency, dependencies, build dependency, source.list, build-dep, backports, 编译依赖, 查看, ]
+description: 记录 apt / deb 使用过程中的各种问题及解决方法。
+---
+
 ##  修改源
 
 ## 查看依赖关系
 
 * 编译依赖，`apt-rdepends --build-depends package_name`
-* 运行时依赖
 
 ## 问题记录
 ### apt-get -y build-dep linux 失败
