@@ -12,11 +12,11 @@ description: git 镜像已有仓库到 gitlab，保留所有的提交、分支�
 感谢 GFW，在编译 SONiC 开源项目的时候碰到很多源码下载不下来。因此有必要本地保存一份源码。
 而且，有的源码下载下来，需要切换分支，因此需要完整保存该源码的镜像，包含所有的提交、分支和 tags。
 
-很明显，这是一个很常见的需求，git 可以很快地做这个活。详见 [Import an existing git project into GitLab?](https://stackoverflow.com/questions/20359936/import-an-existing-git-project-into-gitlab)
-
 本文以自建的 gitlab ce 服务器为例。目标：mirror https://anonscm.debian.org/cgit/pkg-dhcp/isc-dhcp.git 到本地的 gitlab 服务器。
 
-## 实现
+## 方法一：命令行
+
+很明显，这是一个很常见的需求，git 可以很快地做这个活。详见 [Import an existing git project into GitLab?](https://stackoverflow.com/questions/20359936/import-an-existing-git-project-into-gitlab)
 
 * 在 gitlab ce 服务器上添加对应的仓库，比如 `http://your_gitlab_url/sonic/isc-dhcp.git`
 * 下载 isc-dhcp 的源码到本地，`git clone https://anonscm.debian.org/cgit/pkg-dhcp/isc-dhcp.git --mirror`
@@ -122,3 +122,9 @@ To http://your_gitlab_url/sonic/isc-dhcp.git
  * [new tag]         upstream/4.3.5_b1 -> upstream/4.3.5_b1
 netadmin@kmc-b0230:~/isc-dhcp$
 ```
+
+## 方法二：gitlab 使用 import project 创建新项目
+
+详见 gitlab 图形界面，支持从 github / bitbucket / google code 等网站直接 import，也支持通过 URL 指定要 import 的 git 仓库。
+
+![git-mirror](/images/tools/git/git-mirror.png)
