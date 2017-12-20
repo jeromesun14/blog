@@ -1,4 +1,4 @@
-title: Linux命令行 - sde
+title: Linux命令行 - sed
 date: 2017-12-5 20:03:59
 tags: [Linux]
 categories: shell
