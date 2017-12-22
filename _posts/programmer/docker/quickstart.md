@@ -67,3 +67,16 @@ $ sudo gpasswd -a ${USER} docker
 # 重启docker
 $ sudo service docker restart
 ```
+
+## docker 空间不足
+配置 docker 的 basesize。
+
+```
+sudo systemctl stop docker
+/etc/docker/daemon.json
+{
+  "storage-driver": "devicemapper"
+}
+sudo dockerd --storage-opt dm.basesize=50G
+sudo systemctl start docker
+```
