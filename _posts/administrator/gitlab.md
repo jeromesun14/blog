@@ -1,5 +1,5 @@
 title: 搭建 gitlab 服务器
-date: 2018-12-16 17:19:20
+date: 2017-12-16 17:19:20
 toc: true
 tags: [版本控制, git]
 categories: tools
