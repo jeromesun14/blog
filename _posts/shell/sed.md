@@ -14,3 +14,5 @@ description: Linux 命令 sed 常用方法记录。
 
 * 所有 subdir.mk 替换 "$(CC) $(BUILD_CFLAGS)" 为 “$(CC) $(BUILD_CFLAGS) -fPIC”，`find . -name "subdir.mk" -exec sed -i 's;$(CC) $(BUILD_CFLAGS);$(CC) $(BUILD_CFLAGS) -fPIC;' '{}' \;`
 * 所有 .c 文件首行添加 “#include <asm-generic/io.h>”，`find . -name "*.c" -exec sed -i '1 i#include <asm-generic/io.h>' "{}" \;`
+* 行首，行尾加字符，例如 # 号：`s/^/\#/g`，`s/$/\#/g`
+* sed 替换匹配行的某个字符，例如还是行首加 # 号：`sed -i '/your_pattern/s/^/\#/g'`
