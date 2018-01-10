@@ -3,7 +3,7 @@ date: 2017-12-16 17:19:20
 toc: true
 tags: [版本控制, git]
 categories: tools
-keywords: [git, gitlab, server, 服务器, 搭建]
+keywords: [git, gitlab, server, 服务器, 搭建, 备份, backup]
 description: 记录搭建 gitlab 服务器的过程。
 ---
 
@@ -179,3 +179,73 @@ netadmin@kmc-b0232:/etc/nginx/sites-available$
 * gitlab.yml:    host: your_ip
 
 修改完后 `sudo gitlab-ctl restart` （还不清楚与 sudo gitlab-ctl reconfigure 的差异），即可通过 IP 访问到本地 gitlab 服务器。
+
+## 备份
+
+备份功能官方说明文档，详见 https://docs.gitlab.com/omnibus/settings/backups.html。这里只讲直接运行在 host 主机上的模式，docker 模式见链接里的说明。
+
+* 备份命令，`sudo gitlab-rake gitlab:backup:create`
+* 备份路径配置
+  + 配置文件路径 `/etc/gitlab/gitlab.rb`
+  + 配置内容，修改 `manage_backup_path` 为 true，`backup_path` 为你所需要的路径，默认情况这两项都被注释，默认路径为 `/var/opt/gitlab/backups`
+  + 配置生效，需要执行命令 `sudo gitlab-ctl reconfigure`
+
+备份过程：
+
+```
+usernamexxx@hostnameyyy:~$ sudo gitlab-rake gitlab:backup:create     
+[sudo] password for usernamexxx: 
+Dumping database ... 
+Dumping PostgreSQL database gitlabhq_production ... [DONE]
+done
+Dumping repositories ...
+ * abc/wtf_proxy ... [DONE]
+ * abc/wtf_proxy.wiki ...  [SKIPPED]
+done
+Dumping uploads ... 
+done
+Dumping builds ... 
+done
+Dumping artifacts ... 
+done
+Dumping pages ... 
+done
+Dumping lfs objects ... 
+done
+Dumping container registry images ... 
+[DISABLED]
+Creating backup archive: 1515588043_2018_01_10_10.2.4_gitlab_backup.tar ... done
+Uploading backup archive to remote storage  ... skipped
+Deleting tmp directories ... done
+done
+done
+done
+done
+done
+done
+done
+Deleting old backups ... skipping
+usernamexxx@hostnameyyy:~$ 
+```
+
+备份后大小：
+
+```
+usernamexxx@hostnameyyy:~$ sudo ls -ahl /var/opt/gitlab/backups/
+total 938M
+drwx------  2 git  root 4.0K 1月  10 20:40 .
+drwxr-xr-x 18 root root 4.0K 12月 13 19:37 ..
+-rw-------  1 git  git  469M 1月  10 14:46 1515566815_2018_01_10_10.2.4_gitlab_backup.tar
+-rw-------  1 git  git  469M 1月  10 20:40 1515588043_2018_01_10_10.2.4_gitlab_backup.tar
+```
+
+备份文件路径配置：
+
+```
+usernamexxx@hostnameyyy:~$ sudo cat /etc/gitlab/gitlab.rb | grep backup
+###! Docs: https://docs.gitlab.com/omnibus/settings/backups.html
+# gitlab_rails['manage_backup_path'] = true
+# gitlab_rails['backup_path'] = "/var/opt/gitlab/backups"
+```
+
+这只是备份到本地，建议把 tar 包备份到其他主机。
