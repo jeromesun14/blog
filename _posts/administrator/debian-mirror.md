@@ -245,5 +245,66 @@ binary-arm64  Contents-amd64.gz  Contents-source.gz   Contents-udeb-ppc64el.gz  
 ```
 
 ## 搭建局域网镜像源服务器
+见 (http://www.cnblogs.com/beynol/p/nginx-simple-file-server.html)
 
-TBD
+## 问题记录
+
+Update 失败
+
+```
+root@b58bb3484992:/# cat etc/apt/sources.list
+deb http://192.168.250.250/debian stretch main
+deb http://192.168.250.250/debian stretch-updates main
+deb http://192.168.250.250/debian-security stretch/updates main
+
+root@b58bb3484992:/# cat etc/apt/sources.list
+deb http://192.168.250.250/debian stretch main
+deb http://192.168.250.250/debian stretch-updates main
+deb http://192.168.250.250/debian-security stretch/updates main
+root@b58bb3484992:/# 
+root@b58bb3484992:/# apt-get update
+Ign:1 http://192.168.250.250/debian stretch InRelease
+Ign:2 http://192.168.250.250/debian stretch-updates InRelease
+Get:3 http://192.168.250.250/debian-security stretch/updates InRelease [63.0 kB]
+Ign:4 http://192.168.250.250/debian stretch Release
+Ign:5 http://192.168.250.250/debian stretch-updates Release
+Ign:6 http://192.168.250.250/debian stretch/main all Packages
+Ign:7 http://192.168.250.250/debian stretch/main amd64 Packages
+Ign:8 http://192.168.250.250/debian stretch-updates/main amd64 Packages
+Ign:9 http://192.168.250.250/debian stretch-updates/main all Packages
+Ign:6 http://192.168.250.250/debian stretch/main all Packages
+Ign:7 http://192.168.250.250/debian stretch/main amd64 Packages
+Ign:8 http://192.168.250.250/debian stretch-updates/main amd64 Packages
+Ign:9 http://192.168.250.250/debian stretch-updates/main all Packages
+Ign:6 http://192.168.250.250/debian stretch/main all Packages
+Ign:7 http://192.168.250.250/debian stretch/main amd64 Packages
+Ign:8 http://192.168.250.250/debian stretch-updates/main amd64 Packages
+Ign:9 http://192.168.250.250/debian stretch-updates/main all Packages
+Ign:6 http://192.168.250.250/debian stretch/main all Packages
+Ign:7 http://192.168.250.250/debian stretch/main amd64 Packages
+Ign:8 http://192.168.250.250/debian stretch-updates/main amd64 Packages
+Ign:9 http://192.168.250.250/debian stretch-updates/main all Packages
+Ign:6 http://192.168.250.250/debian stretch/main all Packages
+Ign:7 http://192.168.250.250/debian stretch/main amd64 Packages
+Ign:8 http://192.168.250.250/debian stretch-updates/main amd64 Packages
+Ign:9 http://192.168.250.250/debian stretch-updates/main all Packages
+Ign:6 http://192.168.250.250/debian stretch/main all Packages
+Err:7 http://192.168.250.250/debian stretch/main amd64 Packages
+  404  Not Found
+Err:8 http://192.168.250.250/debian stretch-updates/main amd64 Packages
+  404  Not Found
+Ign:9 http://192.168.250.250/debian stretch-updates/main all Packages
+Get:10 http://192.168.250.250/debian-security stretch/updates/main amd64 Packages [333 kB]
+Fetched 396 kB in 0s (1023 kB/s)    
+Reading package lists... Done
+W: The repository 'http://192.168.250.250/debian stretch Release' does not have a Release file.
+N: Data from such a repository can't be authenticated and is therefore potentially dangerous to use.
+N: See apt-secure(8) manpage for repository creation and user configuration details.
+W: The repository 'http://192.168.250.250/debian stretch-updates Release' does not have a Release file.
+N: Data from such a repository can't be authenticated and is therefore potentially dangerous to use.
+N: See apt-secure(8) manpage for repository creation and user configuration details.
+E: Failed to fetch http://192.168.250.250/debian/dists/stretch/main/binary-amd64/Packages  404  Not Found
+E: Failed to fetch http://192.168.250.250/debian/dists/stretch-updates/main/binary-amd64/Packages  404  Not Found
+E: Some index files failed to download. They have been ignored, or old ones used instead.
+root@b58bb3484992:/# 
+```
