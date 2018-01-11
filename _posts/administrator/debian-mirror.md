@@ -42,7 +42,45 @@ ftpsync 的获取方式：
 * 执行 ftpsync，等下载结束了！
 
 还有另一处方式，由上级镜像源触发更新操作，则需要做其他处理：
+
 > If only you receive an update trigger, Setup the .ssh/authorized_keys for the mirror user and place the public key of your upstream mirror into it. Preface it with `no-port-forwarding,no-X11-forwarding,no-agent-forwarding,no-pty,command="~/bin/ftpsync",from="IPADDRESS"` and replace $IPADDRESS with that of your upstream mirror.
+
+
+arch 配置项，有两个互斥的选项，`ARCH_INCLUDE` 和 `ARCH_EXCLUDE`，相当于要下载的白名单和黑名单。查看 `bin/ftpsync` 脚本的源码，可以看出两个选项只能配置一个。建议直接配置 ARCH_INCLUDE，因为 ARCH_EXCLUDE 容易有漏网之鱼。
+
+```
+# Learn which archs to include/exclude based on ARCH_EXCLUDE and ARCH_INCLUDE
+# settings.
+# Sets EXCLUDE (which might also have --include statements
+# followed by a --exclude *_*.<things>.
+set_exclude_include_archs() {
+    if [[ -n "${ARCH_EXCLUDE}" ]] && [[ -n "${ARCH_INCLUDE}" ]]; then
+        echo >&2 "ARCH_EXCLUDE and ARCH_INCLUDE are mutually exclusive.  Set only one."
+        exit 1
+    fi
+    
+    if [[ -n "${ARCH_EXCLUDE}" ]]; then
+        for ARCH in ${ARCH_EXCLUDE}; do
+            arch_exclude ${ARCH}
+        done
+        arch_include '*'
+        arch_include source
+    elif [[ -n "${ARCH_INCLUDE}" ]]; then
+        local include_arch_all=false 
+        for ARCH in ${ARCH_INCLUDE}; do
+            arch_include ${ARCH}
+            if [[ ${ARCH} != source ]]; then
+                include_arch_all=true
+            fi
+        done
+        if [[ true = ${include_arch_all} ]]; then
+            arch_include all
+        fi
+        arch_exclude '*'
+        arch_exclude source
+    fi
+}
+```
 
 ## 配置文件
 ### $HOME/etc/ftpsync.conf
@@ -190,9 +228,8 @@ rsync error: error starting client-server protocol (code 5) at main.c(1653) [Rec
 
 详见官方的镜像大小记录，每日更新，https://www.debian.org/mirror/size。
 
-如果要减少镜像的大小，需要配置 `ARCH_EXCLUDE=`。我从网上搜索的，见上面的配置，然后下完发现还多了 ppc64el / arm64，其实我只想要 all、amd64、source。。。当前总大小 180G（不包含 debian-security，debian-security 还没下完）。
+如果要减少镜像的大小，需要配置 `ARCH_EXCLUDE=`。我从网上搜索的，见上面的配置，然后下完发现还多了 ppc64el / arm64，其实我只想要 all、amd64、source。。。当前debian 180G，debian-security 47G。
 
-不清楚 `ARCH_INCLUDE=` 的配置项是不是白名单机制。
 
 ```
 $ ls mirrors/debian/dists/jessie/main/
@@ -202,6 +239,9 @@ binary-arm64  Contents-amd64.gz  Contents-source.gz   Contents-udeb-ppc64el.gz  
 
 ~/mirrors/debian$ du -hd 0
 180G    .
+
+~/mirrors/debian-security$ du -hd 0
+47G     .
 ```
 
 ## 搭建局域网镜像源服务器
