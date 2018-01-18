@@ -80,3 +80,18 @@ sudo systemctl stop docker
 sudo dockerd --storage-opt dm.basesize=50G
 sudo systemctl start docker
 ```
+
+## 修改 docker storage driver 为 aufs
+
+ubuntu 16.04 默认为 overlay2，但是目前在用的 sonic 不支持，因此只能回退为 aufs。可通过 `docker info` 命令查看，其中有一句为：
+
+```
+Storage Driver: overlay2
+```
+
+0. 查看本机 docker storage driver 是否为 aufs，`docker info`，
+1. 备份 docker 数据，`sudo cp /var/lib/docker /var/lib/docker.bak`
+2. 停止 docker 服务，`sudo systemctl stop docker`
+3. 修改 `/etc/default/docker`，添加一行 `DOCKER_OPTS="--storage-driver=aufs"`
+4. 启动 docker 服务，`sudo systemctl start docker`
+5. 确认 docker storage driver 已改为 aufs，`docker info`
