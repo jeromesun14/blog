@@ -89,19 +89,24 @@ ubuntu 16.04 默认为 overlay2，但是目前在用的 sonic 不支持，因此
 Storage Driver: overlay2
 ```
 
+ubuntu 16.04 如何支持 aufs？
+
+
 0. 查看本机 docker storage driver 是否为 aufs，`docker info`，
 1. 备份 docker 数据，`sudo cp /var/lib/docker /var/lib/docker.bak`
-2. 停止 docker 服务，`sudo systemctl stop docker`
-3. 修改 `/etc/default/docker`，添加一行 `DOCKER_OPTS="--storage-driver=aufs"`
-4. 启动 docker 服务，`sudo systemctl start docker`
-5. 确认 docker storage driver 已改为 aufs，`docker info`
+2. 停止 docker 服务，`sudo service docker stop`
+3. 确认系统是否支持 aufs，`grep aufs /proc/filesystem`
+4. 如果系统不支持 aufs，安装依赖包，`sudo apt-get install linux-image-extra-$(uname -r) linux-image-extra-virtual`
+5. 加载 aufs 内核模块，`sudo modprobe aufs`
+6. 配置 docker 启动参数，依赖 `/etc/docker/daemon.json` 为以下内容。
+6. 启动 docker 服务，`sudo service docker start`
+7. 确认 docker storage driver 已改为 aufs，`docker info`
 
-然而以上并不适用于 ubuntu 16.04，以下为 ubuntu 16.04 支持 aufs 的方法：（执行到以上第3步后，执行以下）
+/etc/docker/daemon.json 内容：
 
 ```
-sudo apt-get install linux-image-extra-$(uname -r) linux-image-extra-virtual
-
-sudo modprobe aufs
-
-sudo service docker restart
+{                                                                                                   
+    "storage-driver": "aufs"                                                                        
+} 
 ```
+
