@@ -95,3 +95,13 @@ Storage Driver: overlay2
 3. 修改 `/etc/default/docker`，添加一行 `DOCKER_OPTS="--storage-driver=aufs"`
 4. 启动 docker 服务，`sudo systemctl start docker`
 5. 确认 docker storage driver 已改为 aufs，`docker info`
+
+然而以上并不适用于 ubuntu 16.04，以下为 ubuntu 16.04 支持 aufs 的方法：（执行到以上第3步后，执行以下）
+
+```
+sudo apt-get install linux-image-extra-$(uname -r) linux-image-extra-virtual
+
+sudo modprobe aufs
+
+sudo service docker restart
+```
