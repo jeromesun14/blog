@@ -89,7 +89,7 @@ ubuntu 16.04 默认为 overlay2，但是目前在用的 sonic 不支持，因此
 Storage Driver: overlay2
 ```
 
-ubuntu 16.04 如何支持 aufs？
+ubuntu 16.04 如何支持 aufs？详见 [Use the AUFS storage driver](https://docs.docker.com/engine/userguide/storagedriver/aufs-driver/)。
 
 
 0. 查看本机 docker storage driver 是否为 aufs，`docker info`，
@@ -109,4 +109,3 @@ ubuntu 16.04 如何支持 aufs？
     "storage-driver": "aufs"                                                                        
 } 
 ```
-
