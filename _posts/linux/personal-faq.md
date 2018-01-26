@@ -3,7 +3,7 @@ date: 2015-09-02 20:03:22
 toc: true
 tags: [Linux, ubuntu, apt]
 categories: linux
-keywords: [ubuntu, apt, 网络配置, 中文支持, fcitx, grub, Linux, 静态IP配置, DNS配置, 引导修复, 大写提示, 禁用触摸板, root密码, log, 默认密码, 添加用户, sudo 用户, network configuration, 强制使用IPv4, 配置源, 中文支持, 输入法, 引导失败]
+keywords: [ubuntu, apt, 网络配置, 中文支持, fcitx, grub, Linux, 静态IP配置, DNS配置, 引导修复, 大写提示, 禁用触摸板, root密码, log, 默认密码, 添加用户, sudo 用户, network configuration, 强制使用IPv4, 配置源, 中文支持, 输入法, 引导失败, ssh, 慢]
 description: Linux装机后的常用配置、软件说明，及使用问题记录。
 ---
 
@@ -368,4 +368,15 @@ drwx------  2 root root    4096 Nov  4 15:25 .cache
 sudo cp -a msfonts /usr/share/fonts/msfonts
 sudo fc-cache -f -v
 fc-cache -f -s -v
+```
+
+### ssh
+#### ssh 远程登陆后很久才提示输入密码
+
+原因：配置 `GSSAPIAuthentication` 为 `yes` 了。默认情况下该配置并未开启，详见 `/etc/ssh/sshd_config`
+
+```
+# GSSAPI options
+#GSSAPIAuthentication no
+#GSSAPICleanupCredentials yes
 ```
