@@ -380,3 +380,5 @@ fc-cache -f -s -v
 #GSSAPIAuthentication no
 #GSSAPICleanupCredentials yes
 ```
+
+详见 [SSH 中的 GSSAPI 相关选项](http://jaminzhang.github.io/linux/GSSAPI-related-options-in-ssh-configuration/)
