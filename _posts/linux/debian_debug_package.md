@@ -1,9 +1,9 @@
 title: deb debug package
 date: 2018-02-06 14:51:01
 toc: true
-tags: [ubuntu, deb]
+tags: [deb]
 categories: linux
-keywords: [ubuntu, linux, deb, debug, core dump]
+keywords: [ubuntu, linux, deb, debug, core dump, gdb, no debugging symbols]
 description: 如何使用 debian debug package 做调试。
 ---
 
