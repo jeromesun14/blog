@@ -19,7 +19,7 @@ description: linux 聚合口 team & libteam 简介
 * 内核中的代码尽可能少。把内核当成是 puppet
 * 控制逻辑在用户空间实现，puppeteer
 
-![libteam架构](/images/programmer/libteam.png)
+![libteam架构](/images/linux/libteam.png)
 
 整个项目称为 team project，其中用户空间的代码项目为 libteam，含 libteam 库、teamd daemon、teamd-utils 三个组件。
 
