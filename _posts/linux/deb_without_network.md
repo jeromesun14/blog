@@ -9,7 +9,7 @@ description: 无网络下安装常用 deb 包。
 
 安装方法：到官网下载对应软件 ubuntu / debian 的 deb 包。
 
-例如 openssh-server，以 ubuntu 16.04 为例，下载路径 https://packages.ubuntu.com/xenial/openssh-server，在页面底部，选择对应的硬件架构（arch），比如 amd64。
+例如 openssh-server，以 ubuntu 16.04 为例，[下载路径](https://packages.ubuntu.com/xenial/openssh-server)，在页面底部，选择对应的硬件架构（arch），比如 amd64。
 
 ## openssh-server
 
