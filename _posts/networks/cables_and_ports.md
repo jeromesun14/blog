@@ -7,6 +7,10 @@ keywords: [computer, networks, cable, 线缆, AOC, DAC, 一分四]
 description: 设备上用的线缆总结
 ---
 
+详见 [数据中心线缆基础架构](https://www.viavisolutions.com/zh-cn/literature/shu-ju-zhong-xin-xian-lan-ji-chu-jia-gou-jian-ti-zhong-wen-ying-yong-zhi-nan-zh-hans.pdf)。
+
+![数据中心线缆](/images/networks/ethernet_interfaces.png)
+
 ## 线缆
 ### CAT
 #### CAT5
