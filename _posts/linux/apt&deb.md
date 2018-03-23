@@ -31,3 +31,21 @@ APT的底层包是dpkg, 而dpkg 安装Package时, 会将 *.deb 放在 /var/cache
 
 apt-get clean 
 使用 apt-get clean 会将 /var/cache/apt/archives/ 的 所有 deb 删掉，可以理解为 rm /var/cache/apt/archives/*.deb。
+
+## apt-get install -y
+对所有的提示执行 y（yes）.
+
+## install 和 build-dep 差异
+The short version.
+
+apt-get install
+installs a new package, automatically resolving and downloading dependent packages. If package is installed then try to upgrade to latest version.
+
+apt-get build-dep
+Causes apt-get to install/remove packages in an attempt to satisfy the build dependencies for a source package.
+
+The command sudo apt-get build-dep packagename means to install all dependencies for 'packagename' so that I can build it". So build-dep is an apt-get command just like install, remove, update, etc.
+
+The build-dep command searches the local repositories in the system and install the build dependencies for package. If the package does not exists in the local repository it will return an error code.
+
+For installing matplotlib see To Install matplotlib on Ubuntu
