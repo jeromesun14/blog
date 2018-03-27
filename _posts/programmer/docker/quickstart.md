@@ -42,6 +42,33 @@ boot  etc  lib   media  nanomsg-1.0.0  nnpy                  p4factory  root  sb
 root@dab2267a06dd:/#
 ```
 
+## docker 使用中国源
+见 https://www.docker-cn.com/registry-mirror
+
+* 方法1：
+
+```
+$ docker pull registry.docker-cn.com/library/ubuntu:16.04
+```
+
+* 方法2：拉取的时候加参数 `--registry-mirror=https://registry.docker-cn.com `
+
+* 方法3：默认配置，需要重启 docker 服务才能生效
+
+为了永久性保留更改，您可以修改 /etc/docker/daemon.json 文件并添加上 registry-mirrors 键值。
+
+```
+{
+  "registry-mirrors": ["https://registry.docker-cn.com"]
+}
+```
+
+修改保存后重启 Docker 以使配置生效。
+
+
+## 本地 repo
+详见 https://docs.docker.com/registry/，参考 https://www.jianshu.com/p/fc544e27b507。
+
 ## docker 命令没有权限
 必须 sudo docker xxx？
 
