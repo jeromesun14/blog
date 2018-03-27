@@ -75,3 +75,33 @@ sunnogo@a3e420:~/github/hexo/source/_posts/shell$
 * used（“-/+ buffers/cache:”行），used[2] = used[1] - buffers - cached
 * free（“-/+ buffers/cache:”行），free[2] = free[1] + buffers + cached
 
+## 如何清 cached 和 buffers ？
+
+```
+$ sudo sysctl -w vm.drop_caches=3
+```
+
+drop_caches 的含义，见 `man proc`：
+
+```
+/proc/sys/vm/drop_caches (since Linux 2.6.16)
+      Writing  to  this  file  causes the kernel to drop clean caches, dentries, and inodes from memory, causing that
+      memory to become free.  This can be useful for memory management testing and performing reproducible filesystem
+      benchmarks.   Because  writing  to  this file causes the benefits of caching to be lost, it can degrade overall
+      system performance.
+
+      To free pagecache, use:
+
+          echo 1 > /proc/sys/vm/drop_caches
+
+      To free dentries and inodes, use:
+
+          echo 2 > /proc/sys/vm/drop_caches
+
+      To free pagecache, dentries and inodes, use:
+
+          echo 3 > /proc/sys/vm/drop_caches
+
+      Because writing to this file is a nondestructive operation and dirty objects are not freeable, the user  should
+      run sync(1) first.
+```
