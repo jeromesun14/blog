@@ -45,3 +45,51 @@ A：暂存空间。git add 后的文件放到 stage 区，再修改同样的文�
 ## 删除未被跟踪的任何文件和目录
 
 * `git clean -f -d`
+
+```
+jerome@compile:~/sb/src/libttoo$ git status
+On branch master
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+
+        .gitignore
+        debian/files
+        debian/libttoo-dbg.debhelper.log
+        debian/libttoo-dbg.substvars
+        debian/libttoo-dbg/
+        debian/libttoo-dev.debhelper.log
+        debian/libttoo-dev.substvars
+        debian/libttoo-dev/
+        debian/libttoo.debhelper.log
+        debian/libttoo.postinst.debhelper
+        debian/libttoo.postrm.debhelper
+        debian/libttoo.substvars
+        debian/libttoo/
+        debian/tmp/
+        include/ttoo_version.patch
+        output/x86-tt/bin/
+
+nothing added to commit but untracked files present (use "git add" to track)
+jerome@compile:~/sb/src/libttoo$ git clean -df
+Removing .gitignore
+Removing debian/files
+Removing debian/libttoo-dbg.debhelper.log
+Removing debian/libttoo-dbg.substvars
+Removing debian/libttoo-dbg/
+Removing debian/libttoo-dev.debhelper.log
+Removing debian/libttoo-dev.substvars
+Removing debian/libttoo-dev/
+Removing debian/libttoo.debhelper.log
+Removing debian/libttoo.postinst.debhelper
+Removing debian/libttoo.postrm.debhelper
+Removing debian/libttoo.substvars
+Removing debian/libttoo/
+Removing debian/tmp/
+Removing include/ttoo_version.patch
+Removing output/x86-tt/bin/
+Removing output/x86-tt/objects/
+jerome@compile:~/sb/src/libttoo$ git status
+On branch master
+nothing to commit, working directory clean
+jerome@compile:~/sb/src/libttoo$
+```
