@@ -41,3 +41,7 @@ A：暂存空间。git add 后的文件放到 stage 区，再修改同样的文�
 * git rebase，不推荐新手使用。
 
 * git remote -v，查看当前仓库的链接
+
+## 删除未被跟踪的任何文件和目录
+
+* `git clean -f -d`
