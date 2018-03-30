@@ -7,6 +7,8 @@ keywords: [Linux, serial, serial port, ttyS0, ttyUSB0, grub, startup, baudrate, 
 description: linux 串口相关使用汇总
 ---
 
+可学习一下 [TTY的那些事儿](http://ytliu.info/blog/2013/09/28/ttyde-na-xie-shi-er/)
+
 ## 开机自启动，通过串口输出
 
 grub 的配置文件中修改相应行：
