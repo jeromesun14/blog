@@ -9,6 +9,7 @@ description: 本文描述常见 git 命令备忘。
 
 * 第一次切换分支，git checkout -b xxx origin/xxx
 * 后续切分支，git checkout xxx
+* 删除分支，git branch -d xxx
 * 查看当前分支，git branch -a | grep "*"
 * git checkout到特定版本，git checkout upstream的前8位
 
