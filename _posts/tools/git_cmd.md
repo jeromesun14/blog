@@ -12,6 +12,7 @@ description: 本文描述常见 git 命令备忘。
 * 删除分支，git branch -d xxx
 * 查看当前分支，git branch -a | grep "*"
 * git checkout到特定版本，git checkout upstream的前8位
+* git clone / push 的时候不用密码：git config --global credential.helper 'cache --timeout 7200'
 
 * stage
 
