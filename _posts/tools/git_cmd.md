@@ -100,6 +100,7 @@ jerome@compile:~/sb/src/libttoo$
 
 * [gitlab或github下fork后如何同步源的新更新内容？](https://www.zhihu.com/question/28676261)
 * [同步一个 fork](https://gaohaoyang.github.io/2015/04/12/Syncing-a-fork/)
+* [Git远程操作详解](http://www.ruanyifeng.com/blog/2014/06/git_remote.html)
 
 ```
 $ git clone http://192.168.199.32/sonic/libteam/ 
@@ -142,4 +143,84 @@ Writing objects: 100% (4/4), 511 bytes | 0 bytes/s, done.
 Total 4 (delta 3), reused 0 (delta 0)
 To http://192.168.199.32/sonic/libteam/
    3ede1b2..789591c  master -> master
+```
+
+如果远程“父”仓库的有很多 tags 和 branches，如何同步到本地远程 repo？
+
+```
+$ git remote add upstream https://github.com/opencomputeproject/SAI
+$ git remote -v 
+origin  http://192.168.199.32/sonic/SAI (fetch)
+origin  http://192.168.199.32/sonic/SAI (push)
+upstream        https://github.com/opencomputeproject/SAI (fetch)
+upstream        https://github.com/opencomputeproject/SAI (push)
+$ git fetch upstream
+remote: Counting objects: 190, done.
+remote: Compressing objects: 100% (6/6), done.
+remote: Total 190 (delta 119), reused 122 (delta 119), pack-reused 65
+Receiving objects: 100% (190/190), 291.31 KiB | 250.00 KiB/s, done.
+Resolving deltas: 100% (139/139), completed with 57 local objects.
+From https://github.com/opencomputeproject/SAI
+ * [new branch]      master     -> upstream/master
+ * [new branch]      revert-648-vlanigmpcontrol -> upstream/revert-648-vlanigmpcontrol
+ * [new branch]      v0.9.1     -> upstream/v0.9.1
+ * [new branch]      v0.9.2     -> upstream/v0.9.2
+ * [new branch]      v0.9.4     -> upstream/v0.9.4
+ * [new branch]      v0.9.5     -> upstream/v0.9.5
+ * [new branch]      v0.9.6     -> upstream/v0.9.6
+ * [new branch]      v1.0       -> upstream/v1.0
+ * [new branch]      v1.1       -> upstream/v1.1
+ * [new branch]      v1.2       -> upstream/v1.2
+ * [new tag]         v1.2.1     -> v1.2.1
+ * [new tag]         v1.2.2     -> v1.2.2
+ * [new tag]         v1.2.3     -> v1.2.3
+ * [new tag]         v1.2.4     -> v1.2.4
+ * [new tag]         v1.3.0     -> v1.3.0
+$ git push --mirror 
+Username for 'http://192.168.199.32': your_name
+Password for 'http://your_name@192.168.199.32': 
+Counting objects: 200, done.
+Delta compression using up to 24 threads.
+Compressing objects: 100% (93/93), done.
+Writing objects: 100% (200/200), 351.49 KiB | 0 bytes/s, done.
+Total 200 (delta 161), reused 145 (delta 107)
+remote: Resolving deltas: 100% (161/161), completed with 60 local objects.
+To http://192.168.199.32/sonic/SAI
+ - [deleted]         revert-648-vlanigmpcontrol
+ - [deleted]         riotmac
+ - [deleted]         v0.9.1
+ - [deleted]         v0.9.2
+ - [deleted]         v0.9.4
+ - [deleted]         v0.9.5
+ - [deleted]         v0.9.6
+ - [deleted]         v1.0
+ - [deleted]         v1.1
+ - [deleted]         v1.2
+ * [new branch]      origin/HEAD -> origin/HEAD
+ * [new branch]      origin/master -> origin/master
+ * [new branch]      origin/revert-648-vlanigmpcontrol -> origin/revert-648-vlanigmpcontrol
+ * [new branch]      origin/riotmac -> origin/riotmac
+ * [new branch]      origin/v0.9.1 -> origin/v0.9.1
+ * [new branch]      origin/v0.9.2 -> origin/v0.9.2
+ * [new branch]      origin/v0.9.4 -> origin/v0.9.4
+ * [new branch]      origin/v0.9.5 -> origin/v0.9.5
+ * [new branch]      origin/v0.9.6 -> origin/v0.9.6
+ * [new branch]      origin/v1.0 -> origin/v1.0
+ * [new branch]      origin/v1.1 -> origin/v1.1
+ * [new branch]      origin/v1.2 -> origin/v1.2
+ * [new branch]      upstream/master -> upstream/master
+ * [new branch]      upstream/revert-648-vlanigmpcontrol -> upstream/revert-648-vlanigmpcontrol
+ * [new branch]      upstream/v0.9.1 -> upstream/v0.9.1
+ * [new branch]      upstream/v0.9.2 -> upstream/v0.9.2
+ * [new branch]      upstream/v0.9.4 -> upstream/v0.9.4
+ * [new branch]      upstream/v0.9.5 -> upstream/v0.9.5
+ * [new branch]      upstream/v0.9.6 -> upstream/v0.9.6
+ * [new branch]      upstream/v1.0 -> upstream/v1.0
+ * [new branch]      upstream/v1.1 -> upstream/v1.1
+ * [new branch]      upstream/v1.2 -> upstream/v1.2
+ * [new tag]         v1.2.1 -> v1.2.1
+ * [new tag]         v1.2.2 -> v1.2.2
+ * [new tag]         v1.2.3 -> v1.2.3
+ * [new tag]         v1.2.4 -> v1.2.4
+ * [new tag]         v1.3.0 -> v1.3.0
 ```
