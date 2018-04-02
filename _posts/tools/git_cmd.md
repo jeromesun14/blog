@@ -290,3 +290,57 @@ Date:   Mon Apr 2 19:49:11 2018 +0800
     
     [COMPILE] fix xxx issues
 ```
+
+## 处理 merge 冲突
+
+* git pull 发现有冲突
+
+```
+$ git pull
+Auto-merging .gitmodules
+CONFLICT (content): Merge conflict in .gitmodules
+Automatic merge failed; fix conflicts and then commit the result.
+```
+
+* 打开冲突的文件 .gitmodules
+
+```
+$ vi .gitmodules 
+[submodule "src/repo"]
+    path = src/repo
+<<<<<<< HEAD
+    url = http://192.168.250.250/repog/repo
+=======
+    url = http://192.168.250.250/repog/repo.git
+>>>>>>> 19c2ee6f54ab1a860a54c38708024e69572a9358
+```
+
+* fix 对应的冲突
+例如上文修订为：
+
+```
+[submodule "src/repo"]
+    path = src/repo
+    url = http://192.168.250.250/repog/repo
+```
+
+* 提交 fix 的结果
+
+```
+$ git add .gitmodules               
+$ git commit -m "fix merge conflict"
+[your_branch ee31e1a] fix merge conflict
+```
+
+* 提交代码
+
+```
+$ git push origin your_branch
+Counting objects: 34, done.
+Delta compression using up to 24 threads.
+Compressing objects: 100% (33/33), done.
+Writing objects: 100% (34/34), 3.49 KiB | 0 bytes/s, done.
+Total 34 (delta 25), reused 0 (delta 0)
+To http://192.168.250.250/repog/repox
+   19c2ee6..ee31e1a  your_branch -> your_branch
+```
