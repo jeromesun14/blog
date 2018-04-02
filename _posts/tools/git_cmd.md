@@ -93,3 +93,53 @@ On branch master
 nothing to commit, working directory clean
 jerome@compile:~/sb/src/libttoo$
 ```
+
+## git fork 一个仓库到本地后，同步远程仓库的修订
+
+详见：
+
+* [gitlab或github下fork后如何同步源的新更新内容？](https://www.zhihu.com/question/28676261)
+* [同步一个 fork](https://gaohaoyang.github.io/2015/04/12/Syncing-a-fork/)
+
+```
+$ git clone http://192.168.199.32/sonic/libteam/ 
+Cloning into 'libteam'...
+remote: Counting objects: 4985, done.
+remote: Compressing objects: 100% (1822/1822), done.
+remote: Total 4985 (delta 3089), reused 4985 (delta 3089)
+Receiving objects: 100% (4985/4985), 15.87 MiB | 0 bytes/s, done.
+Resolving deltas: 100% (3089/3089), done.
+Checking connectivity... done.
+$ cd libteam/
+$ git remote -v
+origin  http://192.168.199.32/sonic/libteam/ (fetch)
+origin  http://192.168.199.32/sonic/libteam/ (push)
+$ git remote add upstream https://github.com/jpirko/libteam.git
+$ git remote -v
+origin  http://192.168.199.32/sonic/libteam/ (fetch)
+origin  http://192.168.199.32/sonic/libteam/ (push)
+upstream        https://github.com/jpirko/libteam.git (fetch)
+upstream        https://github.com/jpirko/libteam.git (push)
+$ git fetch upstream 
+remote: Counting objects: 4, done.
+remote: Total 4 (delta 3), reused 3 (delta 3), pack-reused 1
+Unpacking objects: 100% (4/4), done.
+From https://github.com/jpirko/libteam
+ * [new branch]      gh-pages   -> upstream/gh-pages
+ * [new branch]      master     -> upstream/master
+$ git merge upstream/master 
+Updating 3ede1b2..789591c
+Fast-forward
+ man/teamd.conf.5 | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
+$ git push origin master 
+Username for 'http://192.168.199.32': your_name
+Password for 'http://your_name@192.168.199.32': 
+Counting objects: 4, done.
+Delta compression using up to 24 threads.
+Compressing objects: 100% (4/4), done.
+Writing objects: 100% (4/4), 511 bytes | 0 bytes/s, done.
+Total 4 (delta 3), reused 0 (delta 0)
+To http://192.168.199.32/sonic/libteam/
+   3ede1b2..789591c  master -> master
+```
