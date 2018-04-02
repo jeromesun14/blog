@@ -12,7 +12,7 @@ description: 本文描述常见 git 命令备忘。
 * 删除分支，git branch -d xxx
 * 查看当前分支，git branch -a | grep "*"
 * git checkout到特定版本，git checkout upstream的前8位
-* git clone / push 的时候不用密码：git config --global credential.helper 'cache --timeout 7200'
+* git clone / push 的时候不用密码：`git config --global credential.helper 'cache --timeout 7200'`
 
 * stage
 
@@ -225,4 +225,68 @@ To http://192.168.199.32/sonic/SAI
  * [new tag]         v1.2.3 -> v1.2.3
  * [new tag]         v1.2.4 -> v1.2.4
  * [new tag]         v1.3.0 -> v1.3.0
+```
+
+## 合并多次本地提交
+
+* 不喜欢默认编译器 nano，先配置一下默认编辑器为 vim：`git config --global core.editor vim`
+* git rebase -i HEAD~2，合并前两次提交
+
+```
+$ git log
+commit 3d4729bc94a3a780afb2892c967ea23383933419
+Author: your_name <your_name@your_company.com>
+Date:   Mon Apr 2 20:30:16 2018 +0800
+
+    [COMPILE] fix xxx issues
+
+commit 19c2ee6f54ab1a860a54c38708024e69572a9358
+Author: your_name <your_name@your_company.com>
+Date:   Mon Apr 2 19:49:11 2018 +0800
+
+    [Version Control] remove modules are not needed
+$ git rebase -i HEAD~2
+  GNU nano 2.5.3                                     File: /home/user/workshop/.git/rebase-merge/git-rebase-todo                                                                                 
+
+pick 19c2ee6 [Version Control] remove modules are not needed
+pick 3d4729b [COMPILE] fix xxx issues
+
+# Rebase 8572f84..3d4729b onto 8572f84 (2 command(s))
+#
+# Commands:
+# p, pick = use commit
+# r, reword = use commit, but edit the commit message
+# e, edit = use commit, but stop for amending
+# s, squash = use commit, but meld into previous commit
+# f, fixup = like "squash", but discard this commit's log message
+# x, exec = run command (the rest of the line) using shell
+# d, drop = remove commit
+#
+# These lines can be re-ordered; they are executed from top to bottom.
+#
+# If you remove a line here THAT COMMIT WILL BE LOST.
+#
+# However, if you remove everything, the rebase will be aborted.
+#
+# Note that empty commits are commented out
+```
+
+改要保留的提交 log 为 pick，把要合并的提交改为 squash。如上文改为 
+
+```
+pick 19c2ee6 [Version Control] remove modules are not needed
+squash 3d4729b [COMPILE] fix xxx issues
+```
+
+保存退出后看 git log：
+
+```
+$ git log
+commit 47c2b52a018680d314673fa11afd14d46a8841cf
+Author: your_name <your_name@your_company.com>
+Date:   Mon Apr 2 19:49:11 2018 +0800
+
+    [Version Control] remove modules are not needed
+    
+    [COMPILE] fix xxx issues
 ```
