@@ -12,6 +12,10 @@ description: apt 和 deb 相关工具使用记录。
 * 查看 .deb 文件包含的内容，`dpkg-deb -c packageName.deb`
 * 查看已安装 deb 包的内容，`dpkg -L packageName`
 
+## 解压 deb 包
+
+* `dpkg -x xxx.deb your_dir`
+
 ## apt 卸载命令
 
 http://blog.csdn.net/get_set/article/details/51276609
