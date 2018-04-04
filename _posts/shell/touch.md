@@ -15,6 +15,7 @@ touch常用于Linux命令行创建空文件，而从`man touch`的结果看来�
 * `touch -t YearMonthDateHourMinute file`，指定时间修改文件时间戳，时间方式如201402232200。
 * `touch -a file`，只修改访问时间（access timestamp）
 * `touch -m file`，只修改修改时间（modify timestamp）
+* `find . -name "*" -print0 | xargs -0 -I '{}' touch -r '{}' -d '-3 month' '{}'`，对查找的所有文件，修改时间戳，减 3 个月
 
 <!--more-->
 
