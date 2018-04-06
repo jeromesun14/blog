@@ -7,6 +7,8 @@ keywords: [git, command, version control]
 description: 本文描述常见 git 命令备忘。
 ----------
 
+* 查看 log，按 message 过滤、按 author 过滤、按日期过滤等。https://www.atlassian.com/git/tutorials/git-log。
+* 灵活打 patch，https://www.jianshu.com/p/814fb6606734
 * 第一次切换分支，git checkout -b xxx origin/xxx
 * 后续切分支，git checkout xxx
 * 删除分支，git branch -d xxx
