@@ -346,3 +346,11 @@ Total 34 (delta 25), reused 0 (delta 0)
 To http://192.168.250.250/repog/repox
    19c2ee6..ee31e1a  your_branch -> your_branch
 ```
+
+## 如何不留 log 的 revert？
+
+强制 revert 远程服务器的内容为本地 repo 内容。一般为 rebase 之后所需。
+
+命令：`git push --force-with-lease`
+
+但是如果不是洁癖，最好还是用 `git revert`，有记录地回退。
