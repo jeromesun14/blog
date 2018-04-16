@@ -45,3 +45,11 @@ listening on Ethernet52, link-type EN10MB (Ethernet), capture size 262144 bytes
 10 packets received by filter
 0 packets dropped by kernel
 ```
+
+## tcpdump 如何看 tag?
+
+tcpdump 带 `-e` 选项。
+
+```
+ -e     Print the link-level header on each dump line.  This can be used, for example, to print MAC layer addresses for protocols such as Ethernet and IEEE 802.11.
+```
