@@ -85,10 +85,7 @@ set_exclude_include_archs() {
 ## 配置文件
 ### $HOME/etc/ftpsync.conf
 
-此配置只下载 amd64 和 source，其他架构忽略。
-
 ```
-$ cat etc/ftpsync.conf 
 ########################################################################
 ########################################################################
 ## This is a sample configuration file for the ftpsync mirror script. ##
@@ -98,8 +95,8 @@ $ cat etc/ftpsync.conf
 ########################################################################
 
 MIRRORNAME=`hostname -f`
-TO="/home/mirror-user/mirrors/debian/"
-# MAILTO="$LOGNAME"
+TO="/home/mirror/mirror/debian"
+MAILTO="$LOGNAME"
 # HUB=false
 
 ########################################################################
@@ -125,14 +122,14 @@ RSYNC_PATH="debian"
 ## Include and exclude options
 ########################################################################
 
-# ARCH_INCLUDE=
-ARCH_EXCLUDE="alpha arm armel armhf hppa hurd-i386 i386 ia64 kfreebsd-amd64 kfreebsd-i386 m68k mipsel mips powerpc s390 s390x sh sparc"
+ARCH_INCLUDE="amd64 source"
+# ARCH_EXCLUDE=
 
 ########################################################################
 ## Log option
 ########################################################################
 
-# LOGDIR=/var/log/mirror
+# LOGDIR=
 ```
 
 ### $HOME/etc/ftpsync-security.conf
@@ -141,7 +138,6 @@ ARCH_EXCLUDE="alpha arm armel armhf hppa hurd-i386 i386 ia64 kfreebsd-amd64 kfre
 RSYNC_HOST 尝试 `ftp.cn.debian.org` 和 `mirrors.ustc.edu.cn"`，都不行，只能用 `security.debian.org`。目前还没有搞懂，感觉很奇怪，这两个源都有 debian-security 目录。
 
 ```
-$ cat etc/ftpsync-security.conf 
 ########################################################################
 ########################################################################
 ## This is a sample configuration file for the ftpsync mirror script. ##
@@ -150,10 +146,13 @@ $ cat etc/ftpsync-security.conf
 ########################################################################
 ########################################################################
 
-MIRRORNAME=`hostname -f`
-TO="/home/mirror-user/mirrors/debian-security/"
-MAILTO="mirror-usersun@xxx.com"
+# MIRRORNAME=`hostname -f`
+# TO="/srv/mirrors/debian/"
+# MAILTO="$LOGNAME"
 # HUB=false
+MIRRORNAME=`hostname -f`
+TO="/home/mirror/mirror/debian-security"
+MAILTO="$LOGNAME"
 
 ########################################################################
 ## Connection options
@@ -161,8 +160,6 @@ MAILTO="mirror-usersun@xxx.com"
 
 RSYNC_HOST="security.debian.org"
 RSYNC_PATH="debian-security"
-
-# ARCHIVE=security
 # RSYNC_USER=
 # RSYNC_PASSWORD=
 
@@ -180,21 +177,33 @@ RSYNC_PATH="debian-security"
 ## Include and exclude options
 ########################################################################
 
-# ARCH_INCLUDE=
-ARCH_EXCLUDE="alpha arm armel armhf hppa hurd-i386 i386 ia64 kfreebsd-amd64 kfreebsd-i386 m68k mipsel mips powerpc s390 s390x sh sparc"
+ARCH_INCLUDE="amd64 source"
+# ARCH_EXCLUDE=
 
 ########################################################################
 ## Log option
 ########################################################################
 
-# LOGDIR=/var/log/mirror
+# LOGDIR=
 ```
 
-## 做 debian-security 镜像源
+### 做 debian-security 镜像源
 
 配置文件如上所示，执行的命令为 `./bin/ftpsync sync:archive:security`，注意字符串的一致，这里 security 要和配置文件 ftpsync-security.conf 中的 security 保持一致。
 
-## log
+### cron 每天定时 sync
+
+```
+$ cat /etc/cron.d/ftpsync
+SHELL=/bin/bash
+PATH=/home/mirror/bin:/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+
+#minute hour day_of_month month day_of_week user command
+0 2 * * * mirror ftpsync sync:archive:security
+0 2 * * * mirror ftpsync
+```
+
+### log
 
 如果下载失败，中间过程可见 LOGDIR 中的 log 进行排查。例如先前排查 debian-security 下载失败的问题。
 
@@ -224,32 +233,84 @@ $ cat log/rsync-ftpsync-security.error.0
 rsync error: error starting client-server protocol (code 5) at main.c(1653) [Receiver=3.1.1]
 ```
 
-## 镜像总大小
+### 镜像总大小
 
 详见官方的镜像大小记录，每日更新，https://www.debian.org/mirror/size。
 
-如果要减少镜像的大小，需要配置 `ARCH_EXCLUDE=`。我从网上搜索的，见上面的配置，然后下完发现还多了 ppc64el / arm64，其实我只想要 all、amd64、source。。。当前debian 180G，debian-security 47G。
-
+如果要减少镜像的大小，需要配置 `ARCH_INCLUDE=`，ARCH_EXCLUDE 要排除太多东西。
 
 ```
-$ ls mirrors/debian/dists/jessie/main/
-binary-all    binary-ppc64el     Contents-arm64.gz    Contents-udeb-amd64.gz    debian-installer  installer-arm64
-binary-amd64  by-hash            Contents-ppc64el.gz  Contents-udeb-arm64.gz    i18n              installer-ppc64el
-binary-arm64  Contents-amd64.gz  Contents-source.gz   Contents-udeb-ppc64el.gz  installer-amd64   source
-
-~/mirrors/debian$ du -hd 0
-180G    .
-
-~/mirrors/debian-security$ du -hd 0
-47G     .
+mirror$ du -hd 1
+35G     ./debian-security
+487G    ./debian
+522G    .
 ```
 
-## 搭建局域网镜像源服务器
-见 (http://www.cnblogs.com/beynol/p/nginx-simple-file-server.html)
+## 设置本地 mirror
+
+### 搭建局域网镜像源服务器
+见 (http://www.cnblogs.com/beynol/p/nginx-simple-file-server.html) 该链已失效。。
+
+1. 安装 nginx, `sudo apt-get install nginx`
+2. 配置 `/etc/nginx/conf.d/files_server.conf`
+3. 重启 nginx 服务，`sudo service nginx restart`
+
+```
+cat /etc/nginx/conf.d/files_server.conf
+
+server {
+    listen  80;
+    server_name    10.162.250.250;
+    charset utf-8;
+    root /home/mirror/mirror;
+    location / {
+        autoindex on;
+        autoindex_exact_size on;
+        autoindex_localtime on;
+    }
+}
+```
+
+### debian OS 中的 sources.list 配置
+
+* sources.list
+
+```
+deb http://192.168.250.250/debian jessie main
+deb http://192.168.250.250/debian jessie-updates main
+deb http://192.168.250.250/debian-security jessie/updates main
+```
+
+* apt-get update
+
+```
+$ docker run -it debian:jessie bash
+root@bc80cd6b79e9:/# cd /etc/apt/
+root@bc80cd6b79e9:/etc/apt# rm sources.list
+root@bc80cd6b79e9:/etc/apt# echo "deb http://192.168.250.250/debian jessie main" >> sources.list
+root@bc80cd6b79e9:/etc/apt# echo "deb http://192.168.250.250/debian jessie-updates main" >> sources.list
+root@bc80cd6b79e9:/etc/apt# echo "deb http://192.168.250.250/debian-security jessie/updates main" >> sources.list
+root@bc80cd6b79e9:/etc/apt# cat sources.list
+deb http://192.168.250.250/debian jessie main
+deb http://192.168.250.250/debian jessie-updates main
+deb http://192.168.250.250/debian-security jessie/updates main
+root@bc80cd6b79e9:/etc/apt# apt-get update
+Ign http://192.168.250.250 jessie InRelease
+Get:1 http://192.168.250.250 jessie-updates InRelease [145 kB]
+Get:2 http://192.168.250.250 jessie/updates InRelease [94.4 kB]
+Get:3 http://192.168.250.250 jessie Release.gpg [2434 B]
+Get:4 http://192.168.250.250 jessie Release [148 kB]
+Get:5 http://192.168.250.250 jessie-updates/main amd64 Packages [23.1 kB]
+Get:6 http://192.168.250.250 jessie/updates/main amd64 Packages [644 kB]
+Get:7 http://192.168.250.250 jessie/main amd64 Packages [9064 kB]
+Fetched 10.1 MB in 5s (1739 kB/s)
+Reading package lists... Done
+root@bc80cd6b79e9:/etc/apt#
+```
 
 ## 问题记录
 
-Update 失败
+Update 失败。原因：ftpsync 可能不是一次性能能完成下载，需要下载比较久。
 
 ```
 root@b58bb3484992:/# cat etc/apt/sources.list
