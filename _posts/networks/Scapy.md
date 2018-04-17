@@ -45,8 +45,9 @@ sendp(x, inter=0, loop=0, iface=None, iface_hint=None, count=None, verbose=None,
 > Sr() is for sending and receiving packets,it returns a couple of packet and answers,and the unanswered packets.but sr1() only receive the first answer.srloop() is for sending a packet in loop and print the answer each time
 
 
-发送pcap格式的报文
---------------------------
+## 常用操作
+### 发送pcap格式的报文
+
 1. 读取pcap文件
 2. 以二层的形式发包。
 
@@ -57,3 +58,59 @@ sendp(buffer, iface="eth2",inter=0.001, loop=1, count=1000000000000)
 sendp(ETHER()/IP(dst="1.1.1.1")/TCP()/"You are offline.", iface="eth2",inter=0.001, loop=1, count=1000000000000)
 ```
 
+### 发送 raw 报文
+
+使用 `Raw` 类。
+
+```
+$ sudo scapy 
+INFO: Can't import python gnuplot wrapper . Won't be able to plot.
+INFO: Can't import PyX. Won't be able to use psdump() or pdfdump().
+WARNING: No route found for IPv6 destination :: (no default route?)
+INFO: Can't import python Crypto lib. Won't be able to decrypt WEP.
+INFO: Can't import python Crypto lib. Disabled certificate manipulation tools
+Welcome to Scapy (2.2.0)
+>>> pkt = Raw('\x00\xe0\xec\x5a\x68\x34\x00\xe0\xec\x83\xb4\x78\x08\x00\x45\xc0\x00\x3c\x38\xe7\x40\x00\x01\x06\x18\x13\x14\x00\x00\x01\x14\x00\x00\x02\x8d\x49\x00\xb3\xe6\x7e\x5f\xfa\x00\x00\x00\x00\xa0\x02\x72\x10\x53\x43\x00\x00\x02\x04\x05\xb4\x04\x02\x08\x0a\x00\xc4\x85\x70\x00\x00\x00\x00\x01\x03\x03\x07')
+>>> sendp(pkt, iface="Ethernet52",  inter=1, loop=1, count=10) 
+..........
+Sent 10 packets.
+```
+
+### 发送特定长度报文
+
+使用 `RandString(size=xxx)`。
+
+```
+>>> a=IP(dst="76.200.0.2",ttl=1)/TCP(sport=176)/Raw(RandString(size=8000))   
+>>> send(a, iface="Ethernet76",  inter=0.001, loop=1, count=1000)  
+```
+
+### 使用 send 发送三层报文提示 MAC 未解析
+
+使用 `send` 发送三层报文的时候，Ethernet 的信息由 PF_PACKET 自行解析，不需要提供，否则会提示 `WARNING: Mac address to reach destination not found. Using broadcast.`。
+
+```
+$ sudo scapy3k          
+WARNING: No route found for IPv6 destination :: (no default route?). This affects only IPv6
+INFO: Please, report issues to https://github.com/phaethon/scapy
+INFO: Can't import python cryptography lib. Won't be able to decrypt WEP.
+INFO: Can't import python cryptography lib. Disabled IPsec encryption/authentication.
+INFO: Can't import python cryptography. Disabled certificate manipulation tools
+WARNING: IPython not available. Using standard Python shell instead.
+Welcome to Scapy (3.0.0)
+>>> a=Ether(dst="00:e0:ec:b1:b6:92")/IP(dst="76.200.0.2",ttl=2)/TCP()                           
+>>> send(a, iface="Ethernet76", inter=0.001, loop=1, count=1000)
+WARNING: Mac address to reach destination not found. Using broadcast.
+.WARNING: Mac address to reach destination not found. Using broadcast.
+.WARNING: more Mac address to reach destination not found. Using broadcast.
+..........................................................................................................................................^C
+Sent 141 packets.
+>>> a=IP(dst="76.200.0.2",ttl=2)/TCP()                                     
+>>> send(a, iface="Ethernet76")                                      
+.
+Sent 1 packets.
+>>> send(a, iface="Ethernet76",  inter=0.001, loop=1, count=1000)
+........................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................
+Sent 1000 packets.
+>>>
+```
