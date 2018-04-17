@@ -260,7 +260,7 @@ cat /etc/nginx/conf.d/files_server.conf
 
 server {
     listen  80;
-    server_name    10.162.250.250;
+    server_name    192.168.250.250;
     charset utf-8;
     root /home/mirror/mirror;
     location / {
