@@ -8,6 +8,9 @@ description: 网络相关命令入门使用
 ---
 
 ## FAQ
+
+## tcpdump 
+
 ### 命令执行很慢 / 报文没显示，但是已抓到 / 报文抓得不全 / ...
 
 Linux 网络相关命令，如果执行起来很慢，尝试一下 `-n` 选项。没了 ip 地址、L4 port 解析成名称，速度杠杠的。
@@ -46,10 +49,27 @@ listening on Ethernet52, link-type EN10MB (Ethernet), capture size 262144 bytes
 0 packets dropped by kernel
 ```
 
-## tcpdump 如何看 tag?
+### 如何看 tag?
 
 tcpdump 带 `-e` 选项。
 
 ```
  -e     Print the link-level header on each dump line.  This can be used, for example, to print MAC layer addresses for protocols such as Ethernet and IEEE 802.11.
+```
+
+### 如何看 raw data?
+
+带 `-x`、`-xx`、`-X`、`-XX`
+
+```
+       -x     When parsing and printing, in addition to printing the headers of each packet, print the data of each packet (minus its link level header) in hex.  The  smaller  of  the  entire  packet  or
+              snaplen  bytes  will  be  printed.  Note that this is the entire link-layer packet, so for link layers that pad (e.g. Ethernet), the padding bytes will also be printed when the higher layer
+              packet is shorter than the required padding.
+
+       -xx    When parsing and printing, in addition to printing the headers of each packet, print the data of each packet, including its link level header, in hex.
+
+       -X     When parsing and printing, in addition to printing the headers of each packet, print the data of each packet (minus its link level header)  in  hex  and  ASCII.   This  is  very  handy  for
+              analysing new protocols.
+
+       -XX    When parsing and printing, in addition to printing the headers of each packet, print the data of each packet, including its link level header, in hex and ASCII.
 ```
