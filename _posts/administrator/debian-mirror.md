@@ -3,7 +3,7 @@ date: 2018-01-10 19:57:20
 toc: true
 tags: [administrator, debian, mirror]
 categories: administrator
-keywords: [local, mirror, debian, debian-security, administrator, 本地, 镜像, jessie]
+keywords: [local, mirror, debian, debian-security, administrator, 本地, 镜像, jessie, ustc]
 description: 本地镜像 debian 的记录。
 ---
 
@@ -375,4 +375,115 @@ E: Failed to fetch http://192.168.250.250/debian/dists/stretch/main/binary-amd64
 E: Failed to fetch http://192.168.250.250/debian/dists/stretch-updates/main/binary-amd64/Packages  404  Not Found
 E: Some index files failed to download. They have been ignored, or old ones used instead.
 root@b58bb3484992:/# 
+```
+
+## 使用 apt-mirror 出现的问题
+
+以下贴出 USTC 同学的邮件往来记录，谢谢 USTC LUG！
+
+* 发现问题：
+
+```
+因本地开发网与外网隔离，想做一个本地镜像站，但是发出使用 apt-mirror 做镜像时，通常下载一小会儿的时候就会 connection refused，此时正常使用也使用不了。请问是否 USTC mirror 对使用者的下载有限制，如果有限制，我应该如何做自己的本地镜像站？
+
+Need to get 136 kB of source archives.
+Err http://ftp.cn.debian.org/debian/ jessie/main tcp-wrappers 7.6.q-25 (dsc)
+  Could not connect to mirrors.ustc.edu.cn:80 (202.141.160.110). - connect (111: Connection refused) [IP: 202.141.160.110 80]
+Err http://ftp.cn.debian.org/debian/ jessie/main tcp-wrappers 7.6.q-25 (tar)
+  Unable to connect to mirrors.ustc.edu.cn:http: [IP: 202.141.160.110 80]
+Err http://ftp.cn.debian.org/debian/ jessie/main tcp-wrappers 7.6.q-25 (diff)
+  Unable to connect to mirrors.ustc.edu.cn:http: [IP: 202.141.160.110 80]
+E: Failed to fetch http://ftp.cn.debian.org/debian/pool/main/t/tcp-wrappers/tcp-wrappers_7.6.q-25.dsc  Could not connect to mirrors.ustc.edu.cn:80 (202.141.160.110). - connect (111: Connection refused) [IP: 202.141.160.110 80]
+
+E: Failed to fetch http://ftp.cn.debian.org/debian/pool/main/t/tcp-wrappers/tcp-wrappers_7.6.q.orig.tar.gz  Unable to connect to mirrors.ustc.edu.cn:http: [IP: 202.141.160.110 80]
+
+E: Failed to fetch http://ftp.cn.debian.org/debian/pool/main/t/tcp-wrappers/tcp-wrappers_7.6.q-25.debian.tar.xz  Unable to connect to mirrors.ustc.edu.cn:http: [IP: 202.141.160.110 80]
+
+E: Failed to fetch some archives.
+```
+
+* Request more log
+
+```
+请您尝试重现这个故障， 并在故障发生时执行 
+
+```
+curl -vvLI http://mirrors.ustc.edu.cn/debian/README
+```` 
+
+请反馈该命令的完整输出。
+```
+
+* Reply more log
+
+```
+Log 如下所示
+
+$ curl -vvLI http://mirrors.ustc.edu.cn/debian/README
+*   Trying 202.38.95.110...
+* connect to 202.38.95.110 port 80 failed: Connection refused
+*   Trying 202.141.160.110...
+* connect to 202.141.160.110 port 80 failed: Connection refused
+*   Trying 2001:da8:d800:95::110...
+* Immediate connect fail for 2001:da8:d800:95::110: Network is unreachable
+*   Trying 2001:da8:d800:95::110...
+* Immediate connect fail for 2001:da8:d800:95::110: Network is unreachable
+* Failed to connect to mirrors.ustc.edu.cn port 80: Connection refused
+* Closing connection 0
+curl: (7) Failed to connect to mirrors.ustc.edu.cn port 80: Connection refused
+
+
+$ ping mirrors.ustc.edu.cn
+PING mirrors.ustc.edu.cn (202.141.160.110) 56(84) bytes of data.
+64 bytes from 202.141.160.110: icmp_seq=1 ttl=52 time=26.4 ms
+64 bytes from 202.141.160.110: icmp_seq=2 ttl=52 time=25.5 ms
+^C
+--- mirrors.ustc.edu.cn ping statistics ---
+2 packets transmitted, 2 received, 0% packet loss, time 1001ms
+rtt min/avg/max/mdev = 25.533/25.994/26.455/0.461 ms
+
+$ ping 202.38.95.110
+PING 202.38.95.110 (202.38.95.110) 56(84) bytes of data.
+64 bytes from 202.38.95.110: icmp_seq=1 ttl=46 time=80.9 ms
+64 bytes from 202.38.95.110: icmp_seq=2 ttl=46 time=76.6 ms
+^C
+--- 202.38.95.110 ping statistics ---
+2 packets transmitted, 2 received, 0% packet loss, time 1001ms
+rtt min/avg/max/mdev = 76.614/78.759/80.905/2.163 ms
+```
+
+* 反馈
+
+```
+你好！
+
+目前mirrors有两类流控措施：
+
+1.  TCP并发连接数限制
+2. HTTP请求频率限制
+
+根据您的反馈，我认为可能是触发了连接数限制。  目前HTTP/HTTPS类请求的连接数限制为11。第12个http连接将返回tcp reset。请议尝试降低apt-mirror的并发线程数量，然后重试一次。
+
+我们不推荐使用apt-mirorr执行大量同步，这是由于HTTP协议有较大的额外开销，会显著增加服务器负载。
+建议您使用rsync协议同步软件仓库，这也是debian官方向下游镜像分发软件包的协议。不仅传输速度更快，而且不需要繁琐的apt-mirror配置。
+
+可以使用debian官方制作的ftpsync脚本（虽然叫ftpsync，但实际上是rsync命令的包装），ftpsync能很好得解决当上游正在更新时，下游同步结果不一致的问题。也可以直接调用rsync命令，参考指令如下：
+rsync -avH --progress rsync.mirrors.ustc.edu.cn::debian/  path/to/local/storage/
+
+如果任何疑问，欢迎来信交流。
+
+祝好
+```
+
+* 确认问题原因
+
+```
+谢谢你的回复！
+apt-mirror 的默认并连接数为 20 个，超过 11 个了。
+好的，接下来我尝试用 ftpsync 做。
+
+非常感谢！
+
+Regards,
+sunnogo
 ```
