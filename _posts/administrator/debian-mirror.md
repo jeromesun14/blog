@@ -276,9 +276,12 @@ server {
 * sources.list
 
 ```
-deb http://192.168.250.250/debian jessie main
-deb http://192.168.250.250/debian jessie-updates main
-deb http://192.168.250.250/debian-security jessie/updates main
+deb [trusted=yes] http://192.168.250.250/debian jessie main contrib non-free
+deb-src [trusted=yes] http://192.168.250.250/debian jessie main contrib non-free
+deb [trusted=yes] http://192.168.250.250/debian jessie-updates main
+deb-src [trusted=yes] http://192.168.250.250/debian jessie-updates main
+deb [trusted=yes] http://192.168.250.250/debian-security jessie/updates main contrib non-free
+deb-src [trusted=yes] http://192.168.250.250/debian-security jessie/updates main contrib non-free
 ```
 
 * apt-get update
@@ -286,24 +289,28 @@ deb http://192.168.250.250/debian-security jessie/updates main
 ```
 $ docker run -it debian:jessie bash
 root@bc80cd6b79e9:/# cd /etc/apt/
-root@bc80cd6b79e9:/etc/apt# rm sources.list
-root@bc80cd6b79e9:/etc/apt# echo "deb http://192.168.250.250/debian jessie main" >> sources.list
-root@bc80cd6b79e9:/etc/apt# echo "deb http://192.168.250.250/debian jessie-updates main" >> sources.list
-root@bc80cd6b79e9:/etc/apt# echo "deb http://192.168.250.250/debian-security jessie/updates main" >> sources.list
-root@bc80cd6b79e9:/etc/apt# cat sources.list
-deb http://192.168.250.250/debian jessie main
-deb http://192.168.250.250/debian jessie-updates main
-deb http://192.168.250.250/debian-security jessie/updates main
 root@bc80cd6b79e9:/etc/apt# apt-get update
 Ign http://192.168.250.250 jessie InRelease
 Get:1 http://192.168.250.250 jessie-updates InRelease [145 kB]
 Get:2 http://192.168.250.250 jessie/updates InRelease [94.4 kB]
 Get:3 http://192.168.250.250 jessie Release.gpg [2434 B]
 Get:4 http://192.168.250.250 jessie Release [148 kB]
-Get:5 http://192.168.250.250 jessie-updates/main amd64 Packages [23.1 kB]
-Get:6 http://192.168.250.250 jessie/updates/main amd64 Packages [644 kB]
-Get:7 http://192.168.250.250 jessie/main amd64 Packages [9064 kB]
-Fetched 10.1 MB in 5s (1739 kB/s)
+Get:5 http://192.168.250.250 jessie-updates/main Sources [20.8 kB]
+Get:6 http://192.168.250.250 jessie-updates/main amd64 Packages [23.1 kB]
+Get:7 http://192.168.250.250 jessie/updates/main Sources [279 kB]
+Get:8 http://192.168.250.250 jessie/updates/contrib Sources [1298 B]
+Get:9 http://192.168.250.250 jessie/updates/non-free Sources [20 B]
+Get:10 http://192.168.250.250 jessie/updates/main amd64 Packages [644 kB]
+Get:11 http://192.168.250.250 jessie/updates/contrib amd64 Packages [2366 B]
+Get:12 http://192.168.250.250 jessie/updates/non-free amd64 Packages [20 B]
+Get:13 http://192.168.250.250 jessie/main Sources [9167 kB]
+Get:14 http://192.168.250.250 jessie/contrib Sources [58.9 kB]
+Get:15 http://192.168.250.250 jessie/non-free Sources [119 kB]
+Get:16 http://192.168.250.250 jessie/main amd64 Packages [9064 kB]
+Get:17 http://192.168.250.250 jessie/contrib amd64 Packages [59.2 kB]
+Get:18 http://192.168.250.250 jessie/non-free amd64 Packages [101 kB]
+Fetched 19.9 MB in 4s (4019 kB/s)
+Reading package lists...
 Reading package lists... Done
 root@bc80cd6b79e9:/etc/apt#
 ```
