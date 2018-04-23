@@ -15,6 +15,9 @@ description: 本文描述常见 git 命令备忘。
 * 查看当前分支，git branch -a | grep "*"
 * git checkout到特定版本，git checkout upstream的前8位
 * git clone / push 的时候不用密码：`git config --global credential.helper 'cache --timeout 7200'`，timeout 的单位为秒。
+* 创建分析，`git checkout -b newbranch`
+* 提供本地分支到远程 repo（远程 repo 无此分支），`git push origin newbranch`
+* 强制推送本地修订，覆盖远程 repo。会覆盖此间别人的提交。`git push --force-with-lease`
 
 * stage
 
