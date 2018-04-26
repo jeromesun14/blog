@@ -23,3 +23,9 @@ description: ubuntu 下 gnome-terminal / xterm tab 无法自动补全问题。
 ```
 stty rows 32 cols 114
 ```
+
+stty 的功能很强大，还可以修改串口波特率：
+
+```
+stty -F /dev/ttyS0 speed 115200
+```
