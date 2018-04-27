@@ -21,7 +21,7 @@ description: ubuntu 下 gnome-terminal / xterm tab 无法自动补全问题。
 ## 问题：term 太小，vim 打开看到篇幅很小
 
 ```
-stty rows 32 cols 114
+stty rows 40 cols 200
 ```
 
 stty 的功能很强大，还可以修改串口波特率：
