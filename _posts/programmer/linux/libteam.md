@@ -698,8 +698,8 @@ LACP RUNNER SPECIFIC OPTIONS
 
               Default: 255
 
-      runner.min_ports (int)
-              Specifies the minimum number of ports that must be active before asserting carrier in the master interface, value can be 1 – 255.
+      runner.min_ports (int) 
+              Specifies the minimum number of ports that must be active before asserting carrier in the master interface, value can be 1 – 255. 成员口大于等于此值时，LACP 才会 Up，否则 Carrier down。
 
               Default: 0
 
