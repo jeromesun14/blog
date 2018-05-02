@@ -363,3 +363,10 @@ To http://192.168.250.250/repog/repox
 * `git branch -r --contains commitid`
 * `git tag --contains commitid`
 
+## tag 相关操作
+
+* `git tag -l` 列出全部 tag
+* `git checkout <tag_name>`，detach 到某个 tag
+* `git checkout tags/<tag_name> -b <branch_name>`，根据某个 tag 创建分支
+* 查看某个 commmitid 是否属于某个 tag `git tag --contains commitid`
+
