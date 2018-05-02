@@ -35,3 +35,16 @@ wait_ifindex eth0
 ~$ ./test.sh 
 Get interface eth0 ifindex 2
 ```
+
+## 返回值
+
+`$#` 返回上一个命令的执行结果。
+
+```
+~$ ls /
+bin    dev   initrd.img      lib64       mnt   root  snap   sys  var
+boot   etc   initrd.img.old  lost+found  opt   run   sonic  tmp  vmlinuz
+cdrom  home  lib             media       proc  sbin  srv    usr  vmlinuz.old
+~$ echo $#
+0
+```
