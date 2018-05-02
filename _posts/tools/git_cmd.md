@@ -18,6 +18,7 @@ description: 本文描述常见 git 命令备忘。
 * 创建分析，`git checkout -b newbranch`
 * 提供本地分支到远程 repo（远程 repo 无此分支），`git push origin newbranch`
 * 强制推送本地修订，覆盖远程 repo。会覆盖此间别人的提交。`git push --force-with-lease`
+* 打 patch 时，如何把 patch 中的 commit message 和 user 保持不变？`git am xxx.patch`，与 `git format-patch` 相对应
 
 * stage
 
@@ -369,4 +370,11 @@ To http://192.168.250.250/repog/repox
 * `git checkout <tag_name>`，detach 到某个 tag
 * `git checkout tags/<tag_name> -b <branch_name>`，根据某个 tag 创建分支
 * 查看某个 commmitid 是否属于某个 tag `git tag --contains commitid`
+
+## 如何 merge 其他 repo 中的某次提交？
+
+* 添加其他 repo，`git remote add upstream your_repo_url`
+* 下载其他 repo 的代码：`git fetch upstream`
+* 查看其他 repo 的 log：`git log upstream/master`
+* 合并某次提交：`git cherry-pick your_repo_commit_id`
 
