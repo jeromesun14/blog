@@ -30,4 +30,10 @@ CPP_FLAGS := $(CPP_FLAGS_$(ARCH))  ... all the other flags ...
 CFLAGS := $(filter-out -Werror,$(CFLAGS))
 ```
 
+## 使用 eval 在 makefile 规则中赋值
 
+```
+  $(eval IMAGE_TIME_STAMP=$(shell date +%Y%m%d%H%M%S))
+  $(eval IMAGE_NAME_SIMPLE=$@)
+  $(eval IMAGE_NAME=$(shell echo $(IMAGE_NAME_SIMPLE) | sed 's/.bin/.$(IMAGE_TIME_STAMP).bin/g'))
+```
