@@ -18,4 +18,9 @@ description: windows / linux 终端使用记录。
 
 ### 色彩问题
 
-* `tmux -2` 解决
+* `tmux -2` 
+* 在 .bashrc 中添加 `alias tmux="tmux -2"` 解决
+
+### 如何翻页看 log （scroll 功能）
+
+见 [How do I scroll in tmux?](https://superuser.com/questions/209437/how-do-i-scroll-in-tmux?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa)
