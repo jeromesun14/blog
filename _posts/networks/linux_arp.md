@@ -32,7 +32,7 @@ ARP 老化时间由 base_reachable_time 决定，当内核软转没有使用到�
 
 ## ARP 容量
 
-目前默认配置为 8K。
+目前默认配置为 512。
 
 * gc_thresh1，如果 ARP cache 小于这个数，gc 不会运行。
 * gc_thresh2，ARP cache 的 soft 最大值。gc 允许 ARP cache 超过这个数 5 秒，5 秒后运行 gc。
