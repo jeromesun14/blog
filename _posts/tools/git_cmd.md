@@ -48,6 +48,7 @@ A：暂存空间。git add 后的文件放到 stage 区，再修改同样的文�
 * git show commit
 * git commit --amend，修改最后一次提交的 log
 * git rebase，不推荐新手使用。
+* git reset --hard commitid, git push, 回退到某个特定版本
 
 * git remote -v，查看当前仓库的链接
 
