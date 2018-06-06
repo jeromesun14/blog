@@ -11,24 +11,23 @@ description: 如何从 host 拷贝文件到 docker 容器中。
 
 一键安装 [docker](https://docs.docker.com/engine/installation/)：`wget -qO- https://get.docker.com/ | sh`。
 
-## 镜像相关
+## 基本操作
 
-* 查看本地镜像，`docker images`
-* 重命名镜像，`docker tag image-id REPOSITORY[:TAG]`
+1. 运行容器，docker run 有多种选项。`docker run -d --net=host --privileged -t -v workshop:/workshop --name jerome debian:jessie bash`
+  + `-v` 选项，将 host 目录挂载到 docker 容器系统中
+  + `--name your_name`，为运行的容器命名，相信直接操作名字总比操作一串数字方便、可用
+2. 查看运行中的容器，`docker ps`
+3. 容器退出后，还会缓存在系统中，
+  + 查看缓存，`docker ps -a`
+  + 运行缓存，`docker start jerome`，
+  + 删除缓存，`docker rm jerome`
+4. 进入容器 shell 命令行，`docker exec -it jerome bash`，不会像 `docker attach` 进去退出后，直接将在跑的 docker 实例退出来。
+5. 怕误操作导致缓存丢失？那就提交一下，`docker commit jerome debian:jessie_jerome`
+6. 查看本地镜像，`docker images`
+7. 重命名镜像，`docker tag image-id REPOSITORY[:TAG]`
+8. 复制文件到容器中，`docker cp abc jerome:/` or `docker cp jerome:/abc host_dir/abc`
 
-## 运行容器
-
-* 运行容器，`docker run -it xxx /bin/bash`，此为运行带 bash shell 的容器，默认进入命令行。
-* 查看正在运行的容器，`docker ps [-a]`
-* 类似 ssh 访问 docker 容器（进入命令行进行操作）。`docker exec -i -t $DID bash`，不会像 docker attach 进去退出后，直接将在跑的 docker 实例退出来。
-* 拷贝文件到 docker 容器。`docker cp` 命令，参考 [stackoverflow](http://stackoverflow.com/questions/22907231/copying-files-from-host-to-docker-container)。
-
-```
-docker cp [OPTIONS] CONTAINER:SRC_PATH DEST_PATH|-
-docker cp [OPTIONS] SRC_PATH|- CONTAINER:DEST_PATH
-```
-
-连接容器命令行样例：
+进入正在运行的容器命令行样例：
 
 ```
 sunyongfeng@openswitch-OptiPlex-380:~$ docker ps
