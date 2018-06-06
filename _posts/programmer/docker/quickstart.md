@@ -14,13 +14,13 @@ description: 如何从 host 拷贝文件到 docker 容器中。
 ## 基本操作
 
 1. 运行容器，docker run 有多种选项。`docker run -d --net=host --privileged -t -v workshop:/workshop --name jerome debian:jessie bash`
-  + `-v` 选项，将 host 目录挂载到 docker 容器系统中
-  + `--name your_name`，为运行的容器命名，相信直接操作名字总比操作一串数字方便、可用
+   + `-v` 选项，将 host 目录挂载到 docker 容器系统中
+   + `--name your_name`，为运行的容器命名，相信直接操作名字总比操作一串数字方便、可用
 2. 查看运行中的容器，`docker ps`
 3. 容器退出后，还会缓存在系统中，
-  + 查看缓存，`docker ps -a`
-  + 运行缓存，`docker start jerome`，
-  + 删除缓存，`docker rm jerome`
+   + 查看缓存，`docker ps -a`
+   + 运行缓存，`docker start jerome`，
+   + 删除缓存，`docker rm jerome`
 4. 进入容器 shell 命令行，`docker exec -it jerome bash`，不会像 `docker attach` 进去退出后，直接将在跑的 docker 实例退出来。
 5. 怕误操作导致缓存丢失？那就提交一下，`docker commit jerome debian:jessie_jerome`
 6. 查看本地镜像，`docker images`
