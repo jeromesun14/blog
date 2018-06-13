@@ -105,3 +105,8 @@ elif condition:
 else
    statement
 ```
+
+## 问题
+### 想保密，如何发布 Python 组件？
+### docker 中的 pyc 无法直接运行
+### docker 中的 pyc 无法 import
