@@ -135,3 +135,60 @@ ubuntu 16.04 如何支持 aufs？详见 [Use the AUFS storage driver](https://do
     "storage-driver": "aufs"                                                                        
 } 
 ```
+
+## docker 提示 daemon 未运行
+
+提示如下：
+
+```
+$ docker ps
+Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?
+```
+
+找 docker log 看原因，原因为 `/etc/docker/daemon.json` 的配置文件有问题
+
+```
+$ vi /var/log/docker.log
+
+unable to configure the Docker daemon with file /etc/docker/daemon.json: invalid character 'r' looking for beginning of object key string
+```
+
+查看配置文件：
+
+```
+$ cat /etc/docker/daemon.json     
+{registry-mirrors: [https://registry.docker-cn.com]}
+```
+
+正确的配置文件对比发现，配置的 field 和 value 都要有双引号
+
+```
+{
+    "storage-driver": "aufs",
+    "experimental": true,
+    "registry-mirrors": ["https://registry.docker-cn.com"]
+}
+```
+
+为什么我的配置文件没有双引号？查看 Dockerfile: 
+
+```
+RUN echo "DOCKER_OPTS=\"--experimental\"" >> /etc/default/docker
+RUN mkdir /etc/docker && echo "{"registry-mirrors": ["https://registry.docker-cn.com"]}" >> /etc/docker/daemon.json
+```
+
+正确的写法如下，echo 的用法整错了。
+
+```
+RUN echo "DOCKER_OPTS=\"--experimental\"" >> /etc/default/docker
+RUN mkdir /etc/docker && echo "{\"registry-mirrors\": [\"https://registry.docker-cn.com\"]}" >> /etc/docker/daemon.json
+```
+
+echo 样例：
+
+```
+~$ echo "{"registry-mirrors": ["https://registry.docker-cn.com"]}"    
+{registry-mirrors: [https://registry.docker-cn.com]}
+~$ echo "{\"registry-mirrors\": [\"https://registry.docker-cn.com\"]}"
+{"registry-mirrors": ["https://registry.docker-cn.com"]}
+```
