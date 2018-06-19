@@ -26,6 +26,10 @@ description: 如何从 host 拷贝文件到 docker 容器中。
 6. 查看本地镜像，`docker images`
 7. 重命名镜像，`docker tag image-id REPOSITORY[:TAG]`
 8. 复制文件到容器中，`docker cp abc jerome:/` or `docker cp jerome:/abc host_dir/abc`
+9. 清除 images, `docker rmi`，
+   + `-f` 强制清除，如果碰到这种 log，`Error response from daemon: conflict: unable to delete b3370fb9c34a (must be forced) - image is being used by stopped container a1e524588570`，带 -f 选项清除
+   + `docker rmi -f $(docker images -f "dangling=true" -q)`，删除 <none>:<none>，没有 tag 的 image
+   + `docker rmi -f $(docker images "your_image_name*" -q)`，删除以 "your_image_name" 开头的所有 image
 
 进入正在运行的容器命令行样例：
 
