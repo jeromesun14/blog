@@ -11,14 +11,22 @@ description: 设备上用的线缆总结
 
 ![数据中心线缆](/images/networks/ethernet_interfaces.png)
 
+## 端口形态
+### 10G
+### 25G
+### 40G
+### 100G
+
 ## 线缆
 ### CAT
 #### CAT5
 #### CAT6
 #### CAT7
 
+
+
 ### AOC
-Active Optical Cable，简称AOC,译为有源光缆。将 2 只光模块与光缆封装在一起。
+Active Optical Cable，简称AOC，译为有源光缆。将 2 只光模块与光缆封装在一起。
 
 #### 一分四
 
@@ -26,8 +34,16 @@ Active Optical Cable，简称AOC,译为有源光缆。将 2 只光模块与光�
 
 Direct Attach Cable，这种线缆都不可更换端口，模块头和铜缆不能分离。重、短。
 
-## 端口形态
-### 10G
-### 25G
-### 40G
-### 100G
+## 光模块
+
+* GBIC，高速以太网路界面转换器（英文：Gigabit Interface Converter，简称GBIC）
+* SFP，小封装热插拔收发器（SFP, Small form-factor pluggable transceiver），mini GBIC，1Gbps
+* SFP+，10Gbps
+* SFP28，25Gbps
+* QSFP，Quad SFP，4x1Gbps
+* QSFP+，4x10Gbps
+* QSFP28，4x25Gbps
+* QSFPDD，4x2x25Gbps，或者4x2x50Gbps
+
+
+
