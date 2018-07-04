@@ -54,4 +54,10 @@ Transceivers MAU GBIC SFP XENPAK X2 XFP SFP+ QSFP CFP
 * QSFP28，4x25Gbps
 * QSFPDD，4x2x25Gbps，或者4x2x50Gbps
 
+### 连接器类型
+
+https://en.wikipedia.org/wiki/Optical_fiber_connector
+
+* LC
+* MPO
 
