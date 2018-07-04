@@ -36,6 +36,8 @@ Direct Attach Cable，这种线缆都不可更换端口，模块头和铜缆不�
 
 ## 光模块
 
+Transceivers MAU GBIC SFP XENPAK X2 XFP SFP+ QSFP CFP
+
 * GBIC，高速以太网路界面转换器（英文：Gigabit Interface Converter，简称GBIC）
 * SFP，小封装热插拔收发器（SFP, Small form-factor pluggable transceiver），mini GBIC，1Gbps
 * SFP+，10Gbps
