@@ -52,6 +52,7 @@ Transceivers MAU GBIC SFP XENPAK X2 XFP SFP+ QSFP CFP
 * QSFP，Quad SFP，4x1Gbps
 * QSFP+，4x10Gbps
 * QSFP28，4x25Gbps
+* QSFP56，4x50Gbps
 * QSFPDD，4x2x25Gbps，或者4x2x50Gbps
 
 ### 连接器类型
