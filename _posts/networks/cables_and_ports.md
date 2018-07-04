@@ -70,6 +70,6 @@ https://en.wikipedia.org/wiki/Optical_fiber_connector
 
 IEEE 命名：
 
-[xxxBASEmRn](http://img.chuansong.me/mmbiz_png/Vg9ZNgPzWbIn0AMnUic04BB8o98uLVzPicbfmjnoWdPiaco8FD5icHeL28Lxaia9PHwX3Jzj2S3o4OPwKZptqyMD9LA/0?wx_fmt=gif)
+![xxxBASEmRn](http://img.chuansong.me/mmbiz_png/Vg9ZNgPzWbIn0AMnUic04BB8o98uLVzPicbfmjnoWdPiaco8FD5icHeL28Lxaia9PHwX3Jzj2S3o4OPwKZptqyMD9LA/0?wx_fmt=gif)
 
-[PMD](http://img.chuansong.me/mmbiz_png/Vg9ZNgPzWbIn0AMnUic04BB8o98uLVzPicSldaHfAJyuUiajfIV8iaYGHhcEibrkHVmOYoQMNyqkeR0KTYez2n570jA/0?wx_fmt=gif)
+![PMD](http://img.chuansong.me/mmbiz_png/Vg9ZNgPzWbIn0AMnUic04BB8o98uLVzPicSldaHfAJyuUiajfIV8iaYGHhcEibrkHVmOYoQMNyqkeR0KTYez2n570jA/0?wx_fmt=gif)
