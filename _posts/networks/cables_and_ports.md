@@ -11,6 +11,14 @@ description: 设备上用的线缆总结
 
 ![数据中心线缆](/images/networks/ethernet_interfaces.png)
 
+## Serdes
+
+* 10G NRZ
+* 25G NRZ
+* 50G NRZ...
+* 50G PAM4
+* 100G PAM4
+
 ## 端口形态
 ### 10G
 ### 25G
@@ -24,9 +32,8 @@ description: 设备上用的线缆总结
 #### CAT7
 
 
-
 ### AOC
-Active Optical Cable，简称AOC，译为有源光缆。将 2 只光模块与光缆封装在一起。
+Active Optical Cable，简称AOC，译为有源光缆。将 2 只光模块与光缆封装在一起，这种线缆都不可更换模块。
 
 #### 一分四
 
@@ -46,6 +53,5 @@ Transceivers MAU GBIC SFP XENPAK X2 XFP SFP+ QSFP CFP
 * QSFP+，4x10Gbps
 * QSFP28，4x25Gbps
 * QSFPDD，4x2x25Gbps，或者4x2x50Gbps
-
 
 
