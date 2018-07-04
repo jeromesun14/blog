@@ -62,3 +62,14 @@ https://en.wikipedia.org/wiki/Optical_fiber_connector
 * LC
 * MPO
 
+### 其他
+
+* Number of Lanes: 1, 2, 4, 8, 16
+* Number of PMDs: KR, CR, SR, PSM, CWDM, LR, ER
+* Number of FECs: KR, RS(528,514), RS(544, 514)
+
+IEEE 命名：
+
+[xxxBASEmRn](http://img.chuansong.me/mmbiz_png/Vg9ZNgPzWbIn0AMnUic04BB8o98uLVzPicbfmjnoWdPiaco8FD5icHeL28Lxaia9PHwX3Jzj2S3o4OPwKZptqyMD9LA/0?wx_fmt=gif)
+
+[PMD](http://img.chuansong.me/mmbiz_png/Vg9ZNgPzWbIn0AMnUic04BB8o98uLVzPicSldaHfAJyuUiajfIV8iaYGHhcEibrkHVmOYoQMNyqkeR0KTYez2n570jA/0?wx_fmt=gif)
