@@ -81,6 +81,19 @@ print '排序列表：', random
 
 ### dict
 
+赋值：
+
+```
+myDict = {}
+
+myDict['test'] = "Value"
+
+Python3:
+myDict[b'test'] = "Value"
+```
+
+如果使用不当时，key 找不到，会出现 KeyError。此时通过 myDict.get(b'test', None)，判断返回值是否为 None，再进行进一步的操作。
+
 ## print
 
 两种格式化方法：
