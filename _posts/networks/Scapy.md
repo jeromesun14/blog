@@ -114,3 +114,12 @@ Sent 1 packets.
 Sent 1000 packets.
 >>>
 ```
+
+### 发送 ARP 报文
+
+op 还有 `is-at`。
+
+```
+from scapy.all import *
+sendp(Ether(src="00:00:00:00:00:AA", dst="ff:ff:ff:ff:ff:ff")/ARP(pdst="192.168.3.4", psrc="192.168.3.1",op="who-has"), iface="enp132s0f1", inter=0.1, loop=1, count=1) 
+```
