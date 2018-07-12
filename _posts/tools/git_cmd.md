@@ -51,6 +51,7 @@ A：暂存空间。git add 后的文件放到 stage 区，再修改同样的文�
 * git reset --hard commitid, git push, 回退到某个特定版本
 
 * git remote -v，查看当前仓库的链接
+* git status --untracked-files=no，git status 只查看跟踪的文件，同 git status -uno
 
 ## 删除未被跟踪的任何文件和目录
 
