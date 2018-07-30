@@ -27,4 +27,7 @@ description: 本文记录 git 使用过程中出现的一些问题及解决备�
 >
 > Alternatively, we do offer Subversion, which is great for hosting large artifact repositories for your team as well, and because it's not distributed, doesn't have as many issues with copying large amounts of data.
 
+## git status 提示某个子模块 `fatal: git status --porcelain failed`
 
+详见，https://stackoverflow.com/questions/5456683/why-do-i-get-fatal-git-status-porcelain-failed。
+解决，到对应子模块，git init 一下即可。
