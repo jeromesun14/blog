@@ -381,3 +381,14 @@ To http://192.168.250.250/repog/repox
 * 查看其他 repo 的 log：`git log upstream/master`
 * 合并某次提交：`git cherry-pick your_repo_commit_id`
 
+## git am 失败如何合代码
+
+类似这个链接：https://blog.csdn.net/sunnylgz/article/details/7660638。
+
+出现问题时：
+
+* git apply --reject xxx.patch
+* 到对应目录，应可以看到有对应的 .rej 文件，打开一看就可以看出是哪段代码合不进去。
+* 手动处理冲突
+* git add 对应文件
+* git am --continue
