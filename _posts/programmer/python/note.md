@@ -119,6 +119,17 @@ else
    statement
 ```
 
+## 常见 error
+
+### `TypeError: 'NoneType' object is not iterable in Python`
+
+遍历时，对应的 list 或 dict 为空。详见 https://stackoverflow.com/questions/3887381/typeerror-nonetype-object-is-not-iterable-in-python。
+可通过 `or []` 或 `or {}` 规避。
+
+```
+for i in data or []:
+```
+
 ## 问题
 ### 想保密，如何发布 Python 组件？
 ### docker 中的 pyc 无法直接运行
