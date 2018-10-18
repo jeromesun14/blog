@@ -196,3 +196,12 @@ echo 样例：
 ~$ echo "{\"registry-mirrors\": [\"https://registry.docker-cn.com\"]}"
 {"registry-mirrors": ["https://registry.docker-cn.com"]}
 ```
+
+## Dockerfile 中找不到对应路径的文件
+见 https://stackoverflow.com/questions/48126926/unable-to-locate-file-in-docker-container:
+
+* 先通过 `COPY` 把文件拷贝到 docker 容器中的路径
+* 使用时使用 docker 容器中的路径
+
+即 docker build 时，`RUN` 时使用的路径，是 docker 容器中的路径。
+
