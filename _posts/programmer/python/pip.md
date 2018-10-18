@@ -19,9 +19,9 @@ index-url = https://mirrors.ustc.edu.cn/pypi/web/simple
 format = columns
 ```
 
-如果源不支持 https，需要再加一行：`trusted-host = mirrors.ustc.edu.cn`
+如果源不支持 https，需要再加一行：`trusted-host = xxx.com`
 
-> 使用 pip 时如果出现 configparser.MissingSectionHeaderError: File contains no section headers., 说明你的 pip.conf 忘记加上 [global] 这一行了。
+> 使用 pip 时如果出现 `configparser.MissingSectionHeaderError: File contains no section headers.`, 说明你的 `pip.conf` 忘记加上 `[global]` 这一行了。
 
 * pip install 带参数替换
 
