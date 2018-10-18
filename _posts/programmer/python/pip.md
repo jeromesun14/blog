@@ -36,3 +36,7 @@ sudo LANG=C chroot $FILESYSTEM_ROOT pip install $PIP_OPTIONS 'scapy'
 ```
 RUN mkdir -p ~/.pip && echo "[global]\nindex-url = https://mirrors.ustc.edu.cn/pypi/web/simple/\ntrusted-host = mirrors.ustc.edu.cn" > ~/.pip/pip.conf
 ```
+
+## 安装本地 whl 包
+
+需要带**全路径**安装：`pip install /full/path/to/xxx.whl`
