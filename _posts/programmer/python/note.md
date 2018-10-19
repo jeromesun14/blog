@@ -7,6 +7,31 @@ keywords: [python, list, dict, string to int, foreach]
 description: python 学习笔记
 ---
 
+## 全局变量 global
+全局变量一般不建议使用，但是写小脚本的时候可能用到。
+全局变量定义只需要在最外层定义即可，在函数内使用时，用 global 指定变量为外层定义的全局变量。
+
+[样例](https://www.programiz.com/python-programming/global-keyword)：
+
+```
+c = 0 # global variable
+
+def add():
+    global c
+    c = c + 2 # increment by 2
+    print("Inside add():", c)
+
+add()
+print("In main:", c)
+```
+
+运行结果：
+
+```
+Inside add(): 2
+In main: 2
+```
+
 ## 数据结构
 ### list
 #### 遍历列表
@@ -93,6 +118,29 @@ myDict[b'test'] = "Value"
 ```
 
 如果使用不当时，key 找不到，会出现 KeyError。此时通过 myDict.get(b'test', None)，判断返回值是否为 None，再进行进一步的操作。
+
+### copy 赋值、浅复制和深复制的差异
+
+http://www.runoob.com/w3cnote/python-understanding-dict-copy-shallow-or-deep.html
+
+## 线程/锁
+
+这里先只讨论 python 2.7 的。
+线程和锁都隶属 [threading](https://docs.python.org/2/library/threading.html) 库。
+
+threading 库包含几种 objects：
+
+* Thread，创建、启动线程
+* Lock，普通锁，不支持嵌套
+* Rlock，嵌套锁
+* Condition，条件锁
+* Semaphore，信号量
+* Timer，定时器
+* Event
+
+### Thread
+
+### 在 with 语句中使用 locks, conditions, and semaphores
 
 ## print
 
