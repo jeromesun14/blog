@@ -7,6 +7,10 @@ keywords: [python, list, dict, string to int, foreach]
 description: python 学习笔记
 ---
 
+## 运算符
+
+* 逻辑运算符，没有 `|| &&`，换为 `and / or / not` 
+
 ## 全局变量 global
 全局变量一般不建议使用，但是写小脚本的时候可能用到。
 全局变量定义只需要在最外层定义即可，在函数内使用时，用 global 指定变量为外层定义的全局变量。
