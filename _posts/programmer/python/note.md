@@ -183,6 +183,8 @@ for i in data or []:
 ```
 
 ## 问题
+### 多线程 python 程序运行时无法 ctrl + c 退出
+TODO
 ### 想保密，如何发布 Python 组件？
 ### docker 中的 pyc 无法直接运行
 ### docker 中的 pyc 无法 import
