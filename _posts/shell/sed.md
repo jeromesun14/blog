@@ -17,3 +17,4 @@ description: Linux 命令 sed 常用方法记录。
 * 行首，行尾加字符，例如 # 号：`s/^/\#/g`，`s/$/\#/g`
 * sed 替换匹配行的某个字符，例如还是行首加 # 号：`sed -i '/your_pattern/s/^/\#/g'`
 * sed 匹配多个字符串，`sed -n '/hello\|world/p'` 或 `'/hello/p; /world/p'`
+* 完全匹配字符串，`\<your_world\>`
