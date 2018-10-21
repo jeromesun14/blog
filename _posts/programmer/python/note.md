@@ -184,6 +184,37 @@ for i in data or []:
 
 ### `RuntimeError: dictionary changed size during iteration`
 
+字典 items() 和 iteritems() 的差异，都是遍历。
+iteritems 使用时，不能变动字典的大小，即不能增删成员。
+
+```
+jeromesun@km:~/workshop$ python test_copy.py 
+k 1 <type 'str'> v 1
+k 3 <type 'str'> v 3
+k 2 <type 'str'> v 2
+k 4 <type 'str'> v 4
+k 1 <type 'str'> v 1
+Traceback (most recent call last):
+  File "test_copy.py", line 10, in <module>
+    for (k,v) in b.iteritems() or {}:
+RuntimeError: dictionary changed size during iteration
+jeromesun@km:~/workshop$ 
+jeromesun@km:~/workshop$ cat test_copy.py    
+import copy
+
+a = {'1':1, '2':2, '3':3, '4':4}
+for (k,v) in a.items() or {}:
+    print "k {} {} v {}".format(k,type(k), v)
+    del a[k]
+
+a = {'1':1, '2':2, '3':3, '4':4}
+b = copy.copy(a)
+for (k,v) in b.iteritems() or {}:
+    print "k {} {} v {}".format(k,type(k), v)
+    #del a[k]
+    b['5'] = 5
+```
+
 ## 问题
 ### 多线程 python 程序运行时无法 ctrl + c 退出
 TODO
