@@ -215,6 +215,46 @@ for (k,v) in b.iteritems() or {}:
     b['5'] = 5
 ```
 
+items 遍历的性能，在元素多的情况下，差很多：
+
+```
+jeromesun@km:~/workshop$ python test_copy.py 
+len 1000 item 0.000249 a.k.a 4016064.25703 pps, iteritem 0.000116 a.k.a 8620689.65517 pps
+len 10000 item 0.002774 a.k.a 3604902.66763 pps, iteritem 0.001042 a.k.a 9596928.98273 pps
+len 100000 item 0.040658 a.k.a 2459540.55782 pps, iteritem 0.013075 a.k.a 7648183.55641 pps
+len 1000000 item 0.724924 a.k.a 1379454.94976 pps, iteritem 0.176209 a.k.a 5675079.02548 pps
+len 10000000 item 9.40743 a.k.a 1062989.57314 pps, iteritem 2.154777 a.k.a 4640851.4663 pps
+jeromesun@km:~/workshop$ cat test_copy.py 
+import copy
+import datetime
+
+def test_perf(size):
+    a = {}
+    for i in range(0, size):
+        a[str(i)] = i
+
+    item_start = datetime.datetime.now()
+    for (k,v) in a.items() or {}:
+        a[k] += 1
+    item_end = datetime.datetime.now()
+
+    iter_start = datetime.datetime.now()
+    for (k,v) in a.iteritems() or {}:
+        a[k] -= 1
+    iter_end = datetime.datetime.now()
+
+    titem = (item_end - item_start).total_seconds()
+    titer = (iter_end - iter_start).total_seconds()
+    print "len {} item {} a.k.a {} pps, iteritem {} a.k.a {} pps".\
+        format(len(a), titem, size / titem, titer, size / titer)
+
+test_perf(1000)
+test_perf(10000)
+test_perf(100000)
+test_perf(1000000)
+test_perf(10000000)
+```
+
 ## 问题
 ### 多线程 python 程序运行时无法 ctrl + c 退出
 TODO
