@@ -84,8 +84,20 @@ description: python 学习笔记
 | is     | is 是判断两个标识符是不是引用自一个对象     | **x is y**, 类似 **id(x) == id(y)** , 如果引用的是同一个对象则返回 True，否则返回 False |
 | is not | is not 是判断两个标识符是不是引用自不同对象 | **x is not y** ， 类似 **id(a) != id(b)**。如果引用的不是同一个对象则返回结果 True，否则返回 False。 |
 
+## 语法
+### 条件语句
 
-## 全局变量 global
+```
+if condition:
+   statement
+elif condition:
+   statement
+else
+   statement
+```
+
+### 全局变量 global
+
 全局变量一般不建议使用，但是写小脚本的时候可能用到。
 全局变量定义只需要在最外层定义即可，在函数内使用时，用 global 指定变量为外层定义的全局变量。
 
@@ -309,18 +321,7 @@ jeromesun@km:~/workshop/python$ tail -n 10 spam.log
 jeromesun@km:~/workshop/python$ 
 ```
 
-## 条件语句
-
-```
-if condition:
-   statement
-elif condition:
-   statement
-else
-   statement
-```
-
-## 常用参数
+## 常用工具
 
 ### 延迟几秒
 
