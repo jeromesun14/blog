@@ -123,3 +123,74 @@ op 还有 `is-at`。
 from scapy.all import *
 sendp(Ether(src="00:00:00:00:00:AA", dst="ff:ff:ff:ff:ff:ff")/ARP(pdst="192.168.3.4", psrc="192.168.3.1",op="who-has"), iface="enp132s0f1", inter=0.1, loop=1, count=1) 
 ```
+
+### 抓包并基于该包构造、发送新包
+
+以下样例抓特定接口 ARP 请求报文，并返回 ARP 响应报文，类似 proxy ARP 功能。
+
+```
+from scapy.all import *
+import threading
+
+def fakeResponse(packet):
+    for pkt in packet:
+        smac = pkt[Ether].src
+        sip = pkt[ARP].psrc
+        tip = pkt[ARP].pdst
+        hwsrc = pkt[ARP].hwsrc
+        # 1 REQUEST, 2 REPLY
+        op  = pkt[ARP].op
+        
+        if op != 1:
+            return
+        
+        #print "### RECV PACKET START ###"
+        #pkt.show()
+        #print "### RECV PACKET END ###"
+
+        reply = Ether(dst=smac)/ARP(op="is-at", psrc=tip, pdst=sip, hwdst=hwsrc)/Raw(RandString(size=48))
+        #print "### SEND PACKET START ###"
+        #reply.show()
+        #print "### SEND PACKET END ###"
+        global lock
+        global pkts
+        global thd
+        pkts_tmp = []
+        with lock:
+            pkts.append(reply)
+            if len(pkts) >= thd:
+                pkts_tmp = copy.copy(pkts)
+                pkts = []
+        if len(pkts_tmp) != 0:
+            sendp(pkts_tmp, iface='eth4', verbose=0, inter=0.005)
+
+def timer_handler():
+    global lock
+    global pkts
+    global thd
+    pkts_tmp = []
+    with lock:
+        pkts_tmp = copy.copy(pkts)
+        pkts = []
+    if len(pkts_tmp) != 0:
+        sendp(pkts_tmp, iface='eth4', verbose=0, inter=0.005)
+    
+    global timer
+    timer = threading.Timer(0.5, timer_handler)
+    timer.start()
+
+pkts = []
+thd = 50
+lock = threading.Lock()
+timer = threading.Timer(0.5, timer_handler)
+timer.start()
+sniff(iface='eth4', filter="arp", prn=fakeResponse)
+```
+
+## 常见问题
+
+### 发包慢
+
+* 一个一个发包，比按 pkts list 发包慢很多，原因为一个一个发，会一直在 bind socket。
+
+
