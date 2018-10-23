@@ -213,6 +213,21 @@ myDict[b'test'] = "Value"
 
 http://www.runoob.com/w3cnote/python-understanding-dict-copy-shallow-or-deep.html
 
+### 集合（set）
+
+集合，内置函数，`set(['a', 'b'])`，可将列表的数据转换为集合，也是列表格式。
+
+```
+$ python
+Python 2.7.12 (default, Nov 20 2017, 18:23:56) 
+[GCC 5.4.0 20160609] on linux2
+Type "help", "copyright", "credits" or "license" for more information.
+>>> a = [1, 2 ,3, 4, 1, 1, 2, 2, 3]
+>>> b = set(a)
+>>> print b
+set([1, 2, 3, 4])
+```
+
 ## 多线程处理
 
 这里先只讨论 python 2.7 的。
