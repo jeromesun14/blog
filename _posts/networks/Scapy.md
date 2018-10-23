@@ -128,7 +128,7 @@ sendp(Ether(src="00:00:00:00:00:AA", dst="ff:ff:ff:ff:ff:ff")/ARP(pdst="192.168.
 
 以下样例抓特定接口 ARP 请求报文，并返回 ARP 响应报文，类似 proxy ARP 功能。
 
-```
+```python
 from scapy.all import *
 import threading
 
