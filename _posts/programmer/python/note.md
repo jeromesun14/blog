@@ -220,19 +220,94 @@ threading 库包含几种 objects：
 
 ### 在 with 语句中使用 locks, conditions, and semaphores
 
-## print
+## log
+
+### print
 
 两种格式化方法：
 
 * 使用 format，`print '{name} {test}'format(name='yyy', test='zzz')`
 * 原生，`print '%s %s'%('yyy', 'zzz')`
 
-## syslog
+### syslog
 
-* syslog
-  + format: `syslog.syslog('%%Hello: %s'%('your_name'))`
-* logging
+相比 logging，syslog 比较简单易入手，不过没有 logging 灵活。
 
+```
+syslog.syslog('%%Hello: %s'%('your_name'))
+```
+
+### logging
+
+个人觉得比 syslog 好用，可以同时输出到 console 和文件中。
+注意 logging 比较复杂，比如在 class 中用，和在 main 函数中用，写法有很多差异。
+
+```
+jeromesun@km:~/workshop/python$ python test_logging.py 
+2018-10-23 08:58:41,998 - spam_application - INFO - creating an instance of auxiliary_module.Auxiliary
+2018-10-23 08:58:42,000 - spam_application.auxiliary.Auxiliary - INFO - creating an instance of Auxiliary
+2018-10-23 08:58:42,000 - spam_application - INFO - created an instance of auxiliary_module.Auxiliary
+2018-10-23 08:58:42,001 - spam_application - INFO - calling auxiliary_module.Auxiliary.do_something
+2018-10-23 08:58:42,001 - spam_application.auxiliary.Auxiliary - INFO - doing something
+2018-10-23 08:58:42,001 - spam_application.auxiliary.Auxiliary - INFO - done doing something
+2018-10-23 08:58:42,001 - spam_application - INFO - finished auxiliary_module.Auxiliary.do_something
+2018-10-23 08:58:42,001 - spam_application - INFO - calling auxiliary_module.some_function()
+2018-10-23 08:58:42,001 - spam_application - INFO - done with auxiliary_module.some_function()
+jeromesun@km:~/workshop/python$ cat test_logging.py       
+import logging
+
+class hello:
+    def __init__(self):
+        self.logger = logging.getLogger('spam_application.auxiliary.Auxiliary')
+        self.logger.info('creating an instance of Auxiliary')
+
+    def do_something(self):
+        self.logger.info('doing something')
+        a = 1 + 1
+        self.logger.info('done doing something')
+
+def main():
+    # create logger with 'spam_application'
+    logger = logging.getLogger('spam_application')
+    logger.setLevel(logging.DEBUG)
+    # create file handler which logs even debug messages
+    fh = logging.FileHandler('spam.log')
+    fh.setLevel(logging.DEBUG)
+    # create console handler with a higher log level
+    ch = logging.StreamHandler()
+    ch.setLevel(logging.DEBUG)
+    # create formatter and add it to the handlers
+    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    fh.setFormatter(formatter)
+    ch.setFormatter(formatter)
+    # add the handlers to the logger
+    logger.addHandler(fh)
+    logger.addHandler(ch)
+
+    logger.info('creating an instance of auxiliary_module.Auxiliary')
+    a = hello()
+    logger.info('created an instance of auxiliary_module.Auxiliary')
+    logger.info('calling auxiliary_module.Auxiliary.do_something')
+    a.do_something()
+    logger.info('finished auxiliary_module.Auxiliary.do_something')
+    logger.info('calling auxiliary_module.some_function()')
+    logger.info('done with auxiliary_module.some_function()')
+
+if __name__ == '__main__':
+    main()
+jeromesun@km:~/workshop/python$ tail -n 10 spam.log 
+2018-10-22 10:24:27,924 - spam_application - INFO - done with auxiliary_module.some_function()
+2018-10-23 08:58:41,998 - spam_application - INFO - creating an instance of auxiliary_module.Auxiliary
+2018-10-23 08:58:42,000 - spam_application.auxiliary.Auxiliary - INFO - creating an instance of Auxiliary
+2018-10-23 08:58:42,000 - spam_application - INFO - created an instance of auxiliary_module.Auxiliary
+2018-10-23 08:58:42,001 - spam_application - INFO - calling auxiliary_module.Auxiliary.do_something
+2018-10-23 08:58:42,001 - spam_application.auxiliary.Auxiliary - INFO - doing something
+2018-10-23 08:58:42,001 - spam_application.auxiliary.Auxiliary - INFO - done doing something
+2018-10-23 08:58:42,001 - spam_application - INFO - finished auxiliary_module.Auxiliary.do_something
+2018-10-23 08:58:42,001 - spam_application - INFO - calling auxiliary_module.some_function()
+2018-10-23 08:58:42,001 - spam_application - INFO - done with auxiliary_module.some_function()
+jeromesun@km:~/workshop/python$ 
+```
 
 ## 条件语句
 
