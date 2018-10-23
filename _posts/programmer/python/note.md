@@ -127,7 +127,7 @@ myDict[b'test'] = "Value"
 
 http://www.runoob.com/w3cnote/python-understanding-dict-copy-shallow-or-deep.html
 
-## 线程/锁
+## 多线程处理
 
 这里先只讨论 python 2.7 的。
 线程和锁都隶属 [threading](https://docs.python.org/2/library/threading.html) 库。
@@ -170,6 +170,20 @@ elif condition:
 else
    statement
 ```
+
+## 常用参数
+
+### 延迟几秒
+
+```python
+import time
+
+time.sleep(5)
+```
+
+### 字符串对比
+
+`if a == 'abcdefg'`
 
 ## 常见 error
 
