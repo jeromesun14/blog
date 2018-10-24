@@ -259,6 +259,28 @@ From [RootSudo#Allowing_other_users_to_run_sudo](https://help.ubuntu.com/communi
 * `userdel`
 * `adduser`, user adduser can default add a /home/username directory.
 
+批量创建大量用户：
+
+```#!/bin/bash
+
+GRP=(
+"aaa"
+"bbb"
+"ccc"
+)
+
+for i in ${GRP[@]} ; 
+do
+    short=${i:0:2}
+    pass="XX.${short}.123"
+    echo "add $i passwd ${pass}"
+    # centos wheel group has sudo permission
+    useradd -G wheel ${i} -m -s /bin/bash -p `openssl passwd -1 ${pass}`
+    #userdel ${i}
+    #rm -rf /home/${i}
+done
+```
+
 #### 修改密码
 命令：`passwd username`
 
