@@ -254,7 +254,7 @@ From [RootSudo#Allowing_other_users_to_run_sudo](https://help.ubuntu.com/communi
 #### 添加用户
 命令：
 
-* `useradd`, 如果想类似 adduser 那样默认创建用户 home 目录，命令样例为 `useradd -m -d /home/newuser -p yourPaSsWoRd newuser`
+* `useradd`, 如果想类似 adduser 那样默认创建用户 home 目录，命令样例为 `useradd -m -d /home/newuser -p yourPaSsWoRd newuser`，又如 `useradd -G sudo,docker jeromesun -m -s /bin/bash`
 * `usermod`
 * `userdel`
 * `adduser`, user adduser can default add a /home/username directory.
