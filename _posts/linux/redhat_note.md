@@ -43,3 +43,4 @@ GATEWAY='10.6.188.1'
 
 * sudo 组不存在，添加 sudo 组，`groupadd sudo`，否则提示 `useradd: group 'sudo' does not exist`
 * 添加用户，`useradd -G sudo,docker jeromesun -m -s /bin/bash`
+* 添加用户到 sudoers file，在 root 用户下，visudo，添加一行 `jeromesun       ALL=(ALL)       ALL`。否则出现 `jeromesun is not in the sudoers file.  This incident will be reported.`。
