@@ -261,7 +261,8 @@ From [RootSudo#Allowing_other_users_to_run_sudo](https://help.ubuntu.com/communi
 
 批量创建大量用户：
 
-```#!/bin/bash
+```bash
+#!/bin/bash
 
 GRP=(
 "aaa"
