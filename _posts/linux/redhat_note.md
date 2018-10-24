@@ -6,6 +6,9 @@ categories: linux
 keywords: [linux, redhat, centos, add user, networking, restart]
 ---
 
+## 包管理
+
+* 安装本地包，rpm -i xxx.rpm
 
 ## 网络相关
 
