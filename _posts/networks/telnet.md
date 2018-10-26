@@ -130,7 +130,7 @@ jeromesun@km:~/workshop/utelnetd-0.1.11$
 ```
 
 ## openbsd-inetd + telnetd 验证
-
+在 debian jessie 上验证。
 虽然不用，但是存档。
 
 ### 问题分析
@@ -354,4 +354,4 @@ jeromesun@km:~/tcp-wrappers-7.6.q$
 
 ## xinetd + telnetd
 
-未成功。
+在 debian jessie 上验证。未成功。
