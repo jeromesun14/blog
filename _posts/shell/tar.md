@@ -20,6 +20,7 @@ windows 中常见的压缩包有 `.zip` 和 `.rar`，可通过 `unzip` 和 `unra
   + xz，`tar -Jcvf xxx.tar.xz ./*`
 * 解压缩，`tar -xvf xxx.tar.gz`
 * 查看压缩包内容，`tar -tf xxx.tar.gz`
+* 解压到特定目录，`tar -xvf xxx.tar.gz -C /your/dir/`
 
 以 [p4factory](https://github.com/p4lang/p4factory) 为例，log 如下。
 
