@@ -36,7 +36,7 @@ description: 设备上用的线缆总结
 
 * Active Optical Cable，AOC，译为有源光缆。将 2 只光模块与光缆封装在一起，这种线缆都不可更换模块。
 * Passive Direct Attach Cable，DAC, 这种线缆都不可更换端口，模块头和铜缆不能分离。重、短。
-* Active Direct Attach Cable, 也有称 Active Copper Cables, ACC。与 DAC 相似，但是在 transceiver connectors 中加入微处理器和一些电路放大信号。
+* Active Direct Attach Cable, 也有称 Active Copper Cables, ACC。与 DAC 相似，但是在 transceiver connectors 中加入微处理器和一些电路放大信号（也称“线性放大芯片”）。
 
 详见 [4 ADVANTAGES OF DIRECT ATTACH CABLING (DAC)](https://blog.cablestogo.com/4-advantages-of-direct-attach-cabling-dac/)。
 
