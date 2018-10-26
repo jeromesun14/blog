@@ -10,7 +10,7 @@ description: Linux telnet 服务器调研、验证与分析。
 ## linux telnetd 分析
 
 Linux 发行版本视 telnet 为不安全工具，对 telnet 的支持比较差。
-目前发行版主要使用 inetd (internet “super-server”) + telnetd 的形式，并没有独立的 telnet 服务器。一般只有在嵌入式系统中才有 telnet 服务器。
+目前发行版主要使用 inetd (internet “super-server”) + telnetd 的形式，并没有独立的 telnet 服务器。一般只有在嵌入式系统中才有 telnet standalone 服务器。
 
 * [telnetd](https://packages.debian.org/jessie/telnetd), 源码隶属 netkit-telnet 
   + xinetd + telnetd
