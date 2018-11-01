@@ -109,6 +109,19 @@ abc found
 call 参数没空格样例:
 
 ```
+jeromesun@km:~/workshop/hello.test$ cat mkfiles/func_test.mk 
+.ONESHELL:
+
+define func_test
+    echo "func_test parameters: 0:$0, 1:$1, 2:$2"
+    if [ ! -d abc ]; then
+        mkdir abc
+            echo "abc not found"
+    else
+       echo "abc found"
+    fi
+endef
+
 jeromesun@km:~/workshop/hello.test$ cat Makefile 
 .ONESHELL:
 
@@ -135,18 +148,6 @@ jeromesun@km:~/workshop/hello.test$ make
 func_test parameters: 0:func_test, 1: one, 2: two
 abc found
 
-jeromesun@km:~/workshop/hello.test$ cat mkfiles/func_test.mk 
-.ONESHELL:
-
-define func_test
-    echo "func_test parameters: 0:$0, 1:$1, 2:$2"
-    if [ ! -d abc ]; then
-        mkdir abc
-            echo "abc not found"
-    else
-       echo "abc found"
-    fi
-endef
 ```
 
 ## miscellaneous
