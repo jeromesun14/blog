@@ -55,6 +55,40 @@ make: *** [test] Error 2
 
 ## 函数
 
+### 自定义和使用函数
+
+Makefile 样例如下，函数内的代码行不需要以 tab 开始。
+通过 `define` 和 `endef` 围起来。
+
+```makefile
+.ONESHELL:
+
+define func_test
+    @echo "func_test parameters: 0:$0, 1:$1, 2:$2"
+    @if [ ! -d abc ]; then
+    @   mkdir abc
+    @       echo "abc not found"
+    @else
+    @   echo "abc found"
+    @fi
+endef
+
+test:
+        @$(call func_test, one, two)
+```
+
+运行结果:
+
+```
+jeromesun@km:~/workshop/hello$ rmdir abc    
+jeromesun@km:~/workshop/hello$ make test 
+func_test parameters: 0:func_test, 1: one, 2: two
+abc not found
+jeromesun@km:~/workshop/hello$ make test 
+func_test parameters: 0:func_test, 1: one, 2: two
+abc found
+```
+
 ### 使用 eval 在 makefile 规则中赋值
 
 ```
