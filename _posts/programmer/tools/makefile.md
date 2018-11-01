@@ -101,6 +101,54 @@ abc found
 
 ### call 调用函数
 
+**注意**: 
+
+* Call 调用函数时，注意参数和逗号间不要有空格，否则参数分有带空格和没带空格之分
+* 和 foreach 一起使用的时候，注意 call 的自定义函数最后一行要加 `;`
+
+call 参数没空格样例:
+
+```
+jeromesun@km:~/workshop/hello.test$ cat Makefile 
+.ONESHELL:
+
+-include mkfiles/*.mk
+
+test:
+        @$(call func_test,one,two)
+jeromesun@km:~/workshop/hello.test$ make test 
+func_test parameters: 0:func_test, 1:one, 2:two
+abc found
+```
+
+call 参数有空格样例:
+
+```
+jeromesun@km:~/workshop/hello.test$ cat Makefile 
+.ONESHELL:
+
+-include mkfiles/*.mk
+
+test:
+        @$(call func_test, one, two)
+jeromesun@km:~/workshop/hello.test$ make 
+func_test parameters: 0:func_test, 1: one, 2: two
+abc found
+
+jeromesun@km:~/workshop/hello.test$ cat mkfiles/func_test.mk 
+.ONESHELL:
+
+define func_test
+    echo "func_test parameters: 0:$0, 1:$1, 2:$2"
+    if [ ! -d abc ]; then
+        mkdir abc
+            echo "abc not found"
+    else
+       echo "abc found"
+    fi
+endef
+```
+
 ## miscellaneous
 
 ### 判断 32 位还是 64 位
