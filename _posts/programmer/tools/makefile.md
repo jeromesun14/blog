@@ -17,6 +17,51 @@ description: makefile 使用备忘
 
 ### .ONESHELL
 
+Makefile 样例:
+
+```Makefile
+SRCS := hello.c
+OBJS := $(SRCS:.c=.o)
+DEPS := $(OBJS:.o=.d)
+
+.ONESHELL:
+
+-include $(DEPS)
+
+test:
+        @if [ ! -d abc ]; then
+        @   mkdir abc
+        @       echo "abc not found"
+        @else
+        @   echo "abc found"
+        @fi
+
+%.o: %.c
+        $(CC) $(CFLAGS) -MM -MF $(patsubst %.o,%.d,$@) -o $@ $<
+
+hello:${OBJS}
+        $(CC) $^ -o $@
+```
+
+运行结果:
+
+```
+jeromesun@km:~/workshop/hello$ rmdir abc
+jeromesun@km:~/workshop/hello$ make test
+abc not found
+jeromesun@km:~/workshop/hello$ make test 
+abc found
+```
+
+删除 .ONESHELL，运行结果:
+
+```
+jeromesun@km:~/workshop/hello$ make test 
+/bin/sh: 1: Syntax error: end of file unexpected
+Makefile:10: recipe for target 'test' failed
+make: *** [test] Error 2
+```
+
 ### .SECONDEXPANSION
 
 ## 函数
