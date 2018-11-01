@@ -9,7 +9,9 @@ description: makefile 使用备忘
 
 ## 规则
 
-### 
+### .DEFAULT_GOAL
+
+默认目标，即执行不带参数的 `make` 命令。只能配置一条规则，否则报错。例如 `.DEFAULT_GOAL := all`。
 
 ## 函数
 
@@ -104,3 +106,7 @@ download :
     $(foreach target,$(SONIC_DOWNLOAD_SOURCE),$(call fetch_source,$($(target)_SRC_PATH),$($(target)_FETCH_CMD),$($(tar
 get)_FETCH_URL),$($(target)_FETCH_BRANCH),$($(target)_FETCH_COMMITID)))
 ```
+
+### 执行 shell 命令
+
+例如 `PWD := $(shell pwd)`
