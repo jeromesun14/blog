@@ -142,9 +142,9 @@ reset :
      fi
 ```
 
-### 在规则中使用 shell 函数
+### 【已淘汰】在规则中使用 shell 函数
 
-目前的写法还有点挫，不够优雅。
+这种写法很挫，不够优雅。用 .ONESHELL + 自定义 Makefile 函数替换。
 
 ```makefile
 # $(1) path
