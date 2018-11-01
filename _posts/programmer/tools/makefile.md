@@ -7,11 +7,17 @@ keywords: [makefile, compile, gcc, make]
 description: makefile 使用备忘
 ---
 
-## 规则
+## 特殊规则或变量
 
 ### .DEFAULT_GOAL
 
 默认目标，即执行不带参数的 `make` 命令。只能配置一条规则，否则报错。例如 `.DEFAULT_GOAL := all`。
+
+### .INTERMEDIATE
+
+### .ONESHELL
+
+### .SECONDEXPANSION
 
 ## 函数
 
