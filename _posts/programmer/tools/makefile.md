@@ -11,7 +11,7 @@ description: makefile 使用备忘
 
 ### .DEFAULT_GOAL
 
-默认目标，即执行不带参数的 `make` 命令。只能配置一条规则，否则报错。例如 `.DEFAULT_GOAL := all`。
+默认目标，即执行不带参数的 `make` 命令，例如 `.DEFAULT_GOAL := all`。只能配置一条规则，否则报错。
 
 ### .INTERMEDIATE
 
