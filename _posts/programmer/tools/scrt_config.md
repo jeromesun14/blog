@@ -1,4 +1,4 @@
-title: SecureCRT 使用记录
+title: SecureCRT 配置使用记录
 date: 2017-05-02 16:11:24
 toc: true
 tags: [SecureCRT]
