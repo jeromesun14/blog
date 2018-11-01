@@ -147,7 +147,6 @@ test:
 jeromesun@km:~/workshop/hello.test$ make 
 func_test parameters: 0:func_test, 1: one, 2: two
 abc found
-
 ```
 
 ## miscellaneous
