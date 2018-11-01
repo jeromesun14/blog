@@ -18,6 +18,8 @@ windows 中常见的压缩包有 `.zip` 和 `.rar`，可通过 `unzip` 和 `unra
   + gzip，`tar -zcvf xxx.tar.gz ./*`
   + bzip2，`tar -jcvf xxx.tar.bz2 ./*`
   + xz，`tar -Jcvf xxx.tar.xz ./*`
+  + 压缩时，排除某个目录、某个后续或某个文件，`--exclude dir --exclude *.jpg --exclude a_dir/sb.bin`
+  + 压缩时，压缩的源目录和压缩包同一个目录的情况下，通过 `--warning=no-file-changed` 去除告警。
 * 解压缩，`tar -xvf xxx.tar.gz`
 * 查看压缩包内容，`tar -tf xxx.tar.gz`
 * 解压到特定目录，`tar -xvf xxx.tar.gz -C /your/dir/`
