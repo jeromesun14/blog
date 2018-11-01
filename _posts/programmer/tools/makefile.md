@@ -20,13 +20,8 @@ description: makefile 使用备忘
 Makefile 样例:
 
 ```Makefile
-SRCS := hello.c
-OBJS := $(SRCS:.c=.o)
-DEPS := $(OBJS:.o=.d)
 
 .ONESHELL:
-
--include $(DEPS)
 
 test:
         @if [ ! -d abc ]; then
@@ -35,12 +30,6 @@ test:
         @else
         @   echo "abc found"
         @fi
-
-%.o: %.c
-        $(CC) $(CFLAGS) -MM -MF $(patsubst %.o,%.d,$@) -o $@ $<
-
-hello:${OBJS}
-        $(CC) $^ -o $@
 ```
 
 运行结果:
