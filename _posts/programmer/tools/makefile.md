@@ -57,7 +57,7 @@ make: *** [test] Error 2
 
 ### 自定义和使用函数
 
-Makefile 样例如下，函数内的代码行不需要以 tab 开始。
+Makefile 样例如下，函数内的代码行不需要以 tab 开始。不以 @开头，在调用时也不会打印出 shell 语句。
 通过 `define` 和 `endef` 围起来。
 
 ```makefile
