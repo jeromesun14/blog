@@ -21,6 +21,10 @@ description: makefile 使用备忘
   $(eval IMAGE_NAME=$(shell echo $(IMAGE_NAME_SIMPLE) | sed 's/.bin/.$(IMAGE_TIME_STAMP).bin/g'))
 ```
 
+### foreach 遍历
+
+### call 调用函数
+
 ## miscellaneous
 
 ### 判断 32 位还是 64 位
