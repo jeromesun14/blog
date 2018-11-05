@@ -3,7 +3,7 @@ date: 2017-12-14 10:42:00
 toc: true
 tags: [ubuntu, deb, apt]
 categories: linux
-keywords: [ubuntu, linux, deb, apt, package, control, dependency, dependencies, build dependency, source.list, build-dep, backports, 编译依赖, 查看, ]
+keywords: [ubuntu, linux, deb, apt, package, control, dependency, dependencies, build dependency, source.list, build-dep, backports, 编译依赖, 查看, /boot, full, 满]
 description: 记录 apt / deb 使用过程中的各种问题及解决方法。
 ---
 
