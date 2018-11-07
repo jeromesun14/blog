@@ -26,7 +26,7 @@ description: Linux 命令 sed 常用方法记录。
 人生苦短，请用 Python...sb 了，这个搞了一个晚上，刚才才想起来，要用 `;` ...
 
 ```
-jeromesun@kmcb0220:~/workshop/bash$ echo "abcdefghijk" | sed "s/abcd/fghi`pwd`/"
+jeromesun@km:~/workshop/bash$ echo "abcdefghijk" | sed "s/abcd/fghi`pwd`/"
 sed: -e expression #1, char 13: unknown option to `s'
 jeromesun@km:~/workshop/bash$ echo "abcdefghijk" | sed "s;abcd;fghi`pwd`;"
 fghi/home/jeromesun/workshop/bashefghijk
