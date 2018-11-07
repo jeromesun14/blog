@@ -18,3 +18,16 @@ description: Linux 命令 sed 常用方法记录。
 * sed 替换匹配行的某个字符，例如还是行首加 # 号：`sed -i '/your_pattern/s/^/\#/g'`
 * sed 匹配多个字符串，`sed -n '/hello\|world/p'` 或 `'/hello/p; /world/p'`
 * 完全匹配字符串，`\<your_world\>`
+
+## 问题汇总
+
+### 记录一次二次展开的惨案
+
+人生苦短，请用 Python...sb 了，这个搞了一个晚上，刚才才想起来，要用 `;` ...
+
+```
+jeromesun@kmcb0220:~/workshop/bash$ echo "abcdefghijk" | sed "s/abcd/fghi`pwd`/"
+sed: -e expression #1, char 13: unknown option to `s'
+jeromesun@km:~/workshop/bash$ echo "abcdefghijk" | sed "s;abcd;fghi`pwd`;"
+fghi/home/jeromesun/workshop/bashefghijk
+```
