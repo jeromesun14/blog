@@ -69,6 +69,13 @@ no crontab for root - using an empty one
 
 首次选择 cron 编辑器不小心选择了 nano，不懂怎么用。通过 `export EDITOR=vim` 将编辑器切成 vim。
 
+online cron 表达式生成器: https://crontab-generator.org/
+
+注意，每 30 分钟执行一次的写法：
+
+* `*/30 * * * * ls >/dev/null 2>&1`
+* 
+
 ## 效果
 
 备份机器 192.168.204.168 上的效果：
