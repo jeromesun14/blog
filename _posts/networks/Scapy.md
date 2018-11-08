@@ -85,36 +85,6 @@ Sent 10 packets.
 >>> send(a, iface="Ethernet76",  inter=0.001, loop=1, count=1000)  
 ```
 
-### 使用 send 发送三层报文提示 MAC 未解析
-
-使用 `send` 发送三层报文的时候，Ethernet 的信息由 PF_PACKET 自行解析，不需要提供，否则会提示 `WARNING: Mac address to reach destination not found. Using broadcast.`。
-
-```
-$ sudo scapy3k          
-WARNING: No route found for IPv6 destination :: (no default route?). This affects only IPv6
-INFO: Please, report issues to https://github.com/phaethon/scapy
-INFO: Can't import python cryptography lib. Won't be able to decrypt WEP.
-INFO: Can't import python cryptography lib. Disabled IPsec encryption/authentication.
-INFO: Can't import python cryptography. Disabled certificate manipulation tools
-WARNING: IPython not available. Using standard Python shell instead.
-Welcome to Scapy (3.0.0)
->>> a=Ether(dst="00:e0:ec:b1:b6:92")/IP(dst="76.200.0.2",ttl=2)/TCP()                           
->>> send(a, iface="Ethernet76", inter=0.001, loop=1, count=1000)
-WARNING: Mac address to reach destination not found. Using broadcast.
-.WARNING: Mac address to reach destination not found. Using broadcast.
-.WARNING: more Mac address to reach destination not found. Using broadcast.
-..........................................................................................................................................^C
-Sent 141 packets.
->>> a=IP(dst="76.200.0.2",ttl=2)/TCP()                                     
->>> send(a, iface="Ethernet76")                                      
-.
-Sent 1 packets.
->>> send(a, iface="Ethernet76",  inter=0.001, loop=1, count=1000)
-........................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................
-Sent 1000 packets.
->>>
-```
-
 ### 发送 ARP 报文
 
 op 还有 `is-at`。
@@ -187,10 +157,62 @@ timer.start()
 sniff(iface='eth4', filter="arp", prn=fakeResponse)
 ```
 
+### 查看报文
+
+见 https://thepacketgeek.com/scapy-p-04-looking-at-packets/:
+
+```
+pkts[0].summary()
+pkts.summary()
+pkts[3].show()
+packet.haslayer(ICMP)
+packet.getlayer(ICMP).code
+>>> pkts[3]
+<Ether  dst=00:00:16:aa:bb:cc src=00:24:97:2e:d6:c0 type=0x800 |\
+<IP  version=4L ihl=5L tos=0x20 len=84 id=47340 flags= frag=0L ttl=57 proto=icmp chksum=0x3826 src=4.2.2.1 dst=192.168.201.203 options=[] |\
+<ICMP  type=echo-reply code=0 chksum=0xcfbf id=0x3060 seq=0x1 |<Raw |>>>>
+>>> pkts[3][Ether].src
+'00:24:97:2e:d6:c0'
+>>> pkts[3][IP].ttl
+57
+>>> pkts[3][IP].proto
+1
+>>> pkts[3][ICMP].type
+0
+```
+
 ## 常见问题
 
 ### 发包慢
 
 * 一个一个发包，比按 pkts list 发包慢很多，原因为一个一个发，会一直在 bind socket。
 
+### 使用 send 发送三层报文提示 MAC 未解析
 
+使用 `send` 发送三层报文的时候，Ethernet 的信息由 PF_PACKET 自行解析，不需要提供，否则会提示 `WARNING: Mac address to reach destination not found. Using broadcast.`。
+
+```
+$ sudo scapy3k          
+WARNING: No route found for IPv6 destination :: (no default route?). This affects only IPv6
+INFO: Please, report issues to https://github.com/phaethon/scapy
+INFO: Can't import python cryptography lib. Won't be able to decrypt WEP.
+INFO: Can't import python cryptography lib. Disabled IPsec encryption/authentication.
+INFO: Can't import python cryptography. Disabled certificate manipulation tools
+WARNING: IPython not available. Using standard Python shell instead.
+Welcome to Scapy (3.0.0)
+>>> a=Ether(dst="00:e0:ec:b1:b6:92")/IP(dst="76.200.0.2",ttl=2)/TCP()                           
+>>> send(a, iface="Ethernet76", inter=0.001, loop=1, count=1000)
+WARNING: Mac address to reach destination not found. Using broadcast.
+.WARNING: Mac address to reach destination not found. Using broadcast.
+.WARNING: more Mac address to reach destination not found. Using broadcast.
+..........................................................................................................................................^C
+Sent 141 packets.
+>>> a=IP(dst="76.200.0.2",ttl=2)/TCP()                                     
+>>> send(a, iface="Ethernet76")                                      
+.
+Sent 1 packets.
+>>> send(a, iface="Ethernet76",  inter=0.001, loop=1, count=1000)
+........................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................
+Sent 1000 packets.
+>>>
+```
