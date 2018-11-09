@@ -181,12 +181,18 @@ insmod /lib/modules/3.19.8-031908-generic/kernel/net/ipv4/netfilter/iptable_filt
 一个样例，发现 docker 服务起不来，通过 systemd 的 log 查看（`sudo journalctl -u systemd-modules-load.service -b`）是 modprobe 其他模块失败，导致 docker 服务退出。
 
 ```
-Nov 09 11:07:13 hostnamexxx systemd[1]: Starting Docker Application Container Engine...
-Nov 09 11:07:13 hostnamexxx docker[920]: time="2018-11-09T11:07:13.446302992+08:00" level=info msg="New containerd process, pid: 927\n"
-Nov 09 11:07:14 hostnamexxx docker[920]: time="2018-11-09T11:07:14.556895988+08:00" level=info msg="Graph migration to content-addressability took 0.00 seconds"
-Nov 09 11:07:14 hostnamexxx docker[920]: time="2018-11-09T11:07:14.558487154+08:00" level=warning msg="Running modprobe bridge br_netfilter failed with message: modprobe: ERROR: ../libkmod"
-Nov 09 11:07:14 hostnamexxx docker[920]: time="2018-11-09T11:07:14.559583768+08:00" level=warning msg="Running modprobe nf_nat failed with message: `modprobe: ERROR: ../libkmod/libkmod.c:5"
-Nov 09 11:07:14 hostnamexxx docker[920]: time="2018-11-09T11:07:14.560611133+08:00" level=warning msg="Running modprobe xt_conntrack failed with message: `modprobe: ERROR: ../libkmod/libkm"
+Nov 09 11:07:18 hostnamexxx systemd[1]: Starting Docker Application Container Engine...
+Nov 09 11:07:18 hostnamexxx docker[1019]: time="2018-11-09T11:07:18.725826063+08:00" level=info msg="New containerd process, pid: 1024\n"
+Nov 09 11:07:19 hostnamexxx docker[1019]: time="2018-11-09T11:07:19.800079405+08:00" level=info msg="Graph migration to content-addressability took 0.00 seconds"
+Nov 09 11:07:19 hostnamexxx docker[1019]: time="2018-11-09T11:07:19.801535791+08:00" level=warning msg="Running modprobe bridge br_netfilter failed with message: modprobe: ERROR: ../libkmod/libkmod.c:557 kmod_search_moddep() could not open moddep file '/lib/modules/3.16.0-5-amd64/modules.dep.bin'\nmodprobe: ERROR: ../libkmod/libkmod.c:557 kmod_search_moddep() could not open moddep file '/lib/modules/3.16.0-5-amd64/modules.dep.bin'\n, error: exit status 1"
+Nov 09 11:07:19 hostnamexxx docker[1019]: time="2018-11-09T11:07:19.802736912+08:00" level=warning msg="Running modprobe nf_nat failed with message: `modprobe: ERROR: ../libkmod/libkmod.c:557 kmod_search_moddep() could not open moddep file '/lib/modules/3.16.0-5-amd64/modules.dep.bin'`, error: exit status 1"
+Nov 09 11:07:19 hostnamexxx docker[1019]: time="2018-11-09T11:07:19.803828391+08:00" level=warning msg="Running modprobe xt_conntrack failed with message: `modprobe: ERROR: ../libkmod/libkmod.c:557 kmod_search_moddep() could not open moddep file '/lib/modules/3.16.0-5-amd64/modules.dep.bin'`, error: exit status 1"
+Nov 09 11:07:19 hostnamexxx docker[1019]: time="2018-11-09T11:07:19.805611702+08:00" level=info msg="Firewalld running: false"
+Nov 09 11:07:19 hostnamexxx docker[1019]: time="2018-11-09T11:07:19.904012372+08:00" level=fatal msg="Error starting daemon: Error initializing network controller: Error creating default \"bridge\" network: package not installed"
+Nov 09 11:07:19 hostnamexxx systemd[1]: docker.service: main process exited, code=exited, status=1/FAILURE
+Nov 09 11:07:19 hostnamexxx docker[1019]: time="2018-11-09T11:07:19+08:00" level=info msg="stopping containerd after receiving terminated"
+Nov 09 11:07:20 hostnamexxx systemd[1]: Failed to start Docker Application Container Engine.
+Nov 09 11:07:20 hostnamexxx systemd[1]: Unit docker.service entered failed state.
 ```
 
 运行一下 `sudo depmod`，pass。
