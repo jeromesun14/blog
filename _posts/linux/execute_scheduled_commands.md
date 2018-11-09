@@ -124,3 +124,8 @@ drwxr-xr-x  44 sunyongfeng sunyongfeng       4096 5月  31 09:24 ..
 -rw-r--r--   1 sunyongfeng sunyongfeng   31835403 5月  30 04:30 dokuwiki-170530.tar.gz
 -rw-r--r--   1 sunyongfeng sunyongfeng   31835403 5月  31 04:30 dokuwiki-170531.tar.gz
 ```
+
+## misc
+
+* cron 的默认工作目录，`$HOME`
+
