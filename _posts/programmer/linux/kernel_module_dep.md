@@ -1,11 +1,13 @@
-title: 查看 linux kernel module 依赖关系
+title: linux kernel module 依赖相关
 date: 2017-06-22 16:58:00
 toc: true
 tags: [kernel]
 categories: kernel
 keywords: [Linux, kernel, module, dependency, 依赖, 关系, 内核, 模块]
-description: linux 内核模块依赖关系查看方法汇总。
+description: linux 内核模块依赖关系查看方法，及依赖关系相关的问题汇总。
 ---
+
+## 查看依赖关系
 
 问题背景：从专有系统移植某个特定功能的内核模块到 Linux 发行版，确认该模块的依赖关系。包含“我依赖谁”、“谁依赖我”两种情况。
 详见[How to check kernel module dependencies on Linux](http://xmodulo.com/how-to-check-kernel-module-dependencies-on-linux.html)
@@ -157,3 +159,34 @@ insmod /lib/modules/3.19.8-031908-generic/kernel/net/ipv4/netfilter/iptable_filt
 ```
 
 * depmod，生成 modules.dep 和 map 文件
+
+## 依赖相关的问题
+### 提示 "modprobe: ERROR: ../libkmod/libkmod.c:5"
+
+可能出现的原因:
+
+* 内核版本不一致
+* modules.dep.bin 受损
+
+参考:
+
+* [“Could not open moddep file '/lib/modules/3.XX-generic/modules.dep.bin'” when mounting using a loop](https://askubuntu.com/questions/459296/could-not-open-moddep-file-lib-modules-3-xx-generic-modules-dep-bin-when-mo) 
+* [使用循环进行挂载时的modprobe"无法打开moddep文件'/lib/modules/3.XX generic/modules.dep.bin'"](https://www.helplib.com/ubuntu/article_159091)
+
+解决:（思路，重新生成 modules.dep.bin，或干脆重新替换内核）
+
+* `depmod`
+* uname -r, `apt-get install --reinstall linux-image-'uname -r 的结果'`
+
+一个样例，发现 docker 服务起不来，通过 systemd 的 log 查看（`sudo journalctl -u systemd-modules-load.service -b`）是 modprobe 其他模块失败，导致 docker 服务退出。
+
+```
+Nov 09 11:07:13 hostnamexxx systemd[1]: Starting Docker Application Container Engine...
+Nov 09 11:07:13 hostnamexxx docker[920]: time="2018-11-09T11:07:13.446302992+08:00" level=info msg="New containerd process, pid: 927\n"
+Nov 09 11:07:14 hostnamexxx docker[920]: time="2018-11-09T11:07:14.556895988+08:00" level=info msg="Graph migration to content-addressability took 0.00 seconds"
+Nov 09 11:07:14 hostnamexxx docker[920]: time="2018-11-09T11:07:14.558487154+08:00" level=warning msg="Running modprobe bridge br_netfilter failed with message: modprobe: ERROR: ../libkmod"
+Nov 09 11:07:14 hostnamexxx docker[920]: time="2018-11-09T11:07:14.559583768+08:00" level=warning msg="Running modprobe nf_nat failed with message: `modprobe: ERROR: ../libkmod/libkmod.c:5"
+Nov 09 11:07:14 hostnamexxx docker[920]: time="2018-11-09T11:07:14.560611133+08:00" level=warning msg="Running modprobe xt_conntrack failed with message: `modprobe: ERROR: ../libkmod/libkm"
+```
+
+运行一下 `sudo depmod`，pass。
