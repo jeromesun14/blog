@@ -205,3 +205,6 @@ echo 样例：
 
 即 docker build 时，`RUN` 时使用的路径，是 docker 容器中的路径。
 
+## 持续集成编译时出现 'the input device is not a TTY'
+
+原因: 持续集成环境没有以 tty 形式进行编译，需要把 docker run 的 -t 选项删除。
