@@ -392,3 +392,7 @@ To http://192.168.250.250/repog/repox
 * 手动处理冲突
 * git add 对应文件
 * git am --continue
+
+## 查看本地分支与远程分支的差异
+
+git status 的时候经常可以看到 `Your branch is ahead of 'origin/xxx' by 3 commits.`，有时候可能不知道这个 ahead / behind 的 commits 分别是什么。可通过 `git log origin/xxx..xxx` 查看，xxx 指分支名，以 master 分支为例，`git log origin/master..master`。
