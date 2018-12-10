@@ -49,3 +49,12 @@ fi
 ### 如何翻页看 log （scroll 功能）
 
 见 [How do I scroll in tmux?](https://superuser.com/questions/209437/how-do-i-scroll-in-tmux?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa)
+
+
+## screen
+### Solve screen error "Cannot open your terminal '/dev/pts/0' - please check"
+
+原因：用 ssh 登一个账户，`su - xxx` 到另一个账户，再用 screen。
+
+* [Solve screen error "Cannot open your terminal '/dev/pts/0' - please check"](https://makandracards.com/makandra/2533-solve-screen-error-cannot-open-your-terminal-dev-pts-0-please-check)
+* [解决screen Cannot open your terminal '/dev/pts/1'问题](http://blog.sina.com.cn/s/blog_704836f401010osn.html)，有详细原因分析，ssh userA，系统分配的 tty 给 userA，如果 su - userB，userB 还是用的 userA 的 tty，只可读，不可写。
