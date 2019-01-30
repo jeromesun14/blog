@@ -396,3 +396,7 @@ To http://192.168.250.250/repog/repox
 ## 查看本地分支与远程分支的差异
 
 git status 的时候经常可以看到 `Your branch is ahead of 'origin/xxx' by 3 commits.`，有时候可能不知道这个 ahead / behind 的 commits 分别是什么。可通过 `git log origin/xxx..xxx` 查看，xxx 指分支名，以 master 分支为例，`git log origin/master..master`。
+
+## git log 导入 excel
+
+* [stackoverflow](https://stackoverflow.com/questions/39253307/export-git-log-into-an-excel-file)，`git log --pretty=format:%h,%an,%ae,%s > /path/to/file.csv`，然后导入 csv，以 "," 为分隔符隔开。前面 git log 输出格式为（hash [abbreviated], author name, author email, subject）。
