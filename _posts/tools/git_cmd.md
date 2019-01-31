@@ -1,11 +1,13 @@
 title: 一些常见的 git 命令备忘
-date: 2016-04-27 20:33:18
+date: 2019-01-31 09:43:33
 toc: true
 tags: [版本控制, git]
 categories: tools
 keywords: [git, command, version control]
 description: 本文描述常见 git 命令备忘。
 ----------
+
+本文首次编辑：2016-04-27。
 
 * 查看 log，按 message 过滤、按 author 过滤、按日期过滤等。https://www.atlassian.com/git/tutorials/git-log。
 * 灵活打 patch，https://www.jianshu.com/p/814fb6606734
@@ -400,3 +402,6 @@ git status 的时候经常可以看到 `Your branch is ahead of 'origin/xxx' by 
 ## git log 导入 excel
 
 * [stackoverflow](https://stackoverflow.com/questions/39253307/export-git-log-into-an-excel-file)，`git log --pretty=format:%h,%an,%ae,%s > /path/to/file.csv`，然后导入 csv，以 "," 为分隔符隔开。前面 git log 输出格式为（hash [abbreviated], author name, author email, subject）。
+* [类似 svn log --stop-on-copy 功能](https://stackoverflow.com/questions/22588648/git-svn-log-stop-on-copy-equivalent)，只取分支创建后的记录
+  + 本地 git checkout 目标分支和目标分支的父分支。
+  + `git log base_branch..target_branch --pretty=format:%h,%an,%ae,%s > your.csv`
