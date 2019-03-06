@@ -455,8 +455,8 @@ git status 的时候经常可以看到 `Your branch is ahead of 'origin/xxx' by 
 
 ## git add 提示 “error: insufficient permission for adding an object to repository database .git/objects”
 
-原因：.git/objects 中的权限有问题
-解决：见 https://stackoverflow.com/questions/6448242/git-push-error-insufficient-permission-for-adding-an-object-to-repository-datab, `sudo chown yourname:yourgroup -R .git/objects/`
+* 原因：.git/objects 中的权限有问题
+* 解决：见 https://stackoverflow.com/questions/6448242/git-push-error-insufficient-permission-for-adding-an-object-to-repository-datab, `sudo chown yourname:yourgroup -R .git/objects/`
 
 ```
 $ git add openssh_7.9p1.orig.tar.gz.asc
