@@ -452,3 +452,44 @@ git status 的时候经常可以看到 `Your branch is ahead of 'origin/xxx' by 
 * [类似 svn log --stop-on-copy 功能](https://stackoverflow.com/questions/22588648/git-svn-log-stop-on-copy-equivalent)，只取分支创建后的记录
   + 本地 git checkout 目标分支和目标分支的父分支。
   + `git log base_branch..target_branch --pretty=format:%h,%an,%ae,%s > your.csv`
+
+## git add 提示 “error: insufficient permission for adding an object to repository database .git/objects”
+
+原因：.git/objects 中的权限有问题
+解决：见 https://stackoverflow.com/questions/6448242/git-push-error-insufficient-permission-for-adding-an-object-to-repository-datab, `sudo chown yourname:yourgroup -R .git/objects/`
+
+```
+$ git add openssh_7.9p1.orig.tar.gz.asc
+error: insufficient permission for adding an object to repository database .git/objects
+error: openssh_7.9p1.orig.tar.gz.asc: failed to insert into database
+error: unable to index file openssh_7.9p1.orig.tar.gz.asc
+fatal: adding files failed
+$ ls -al .git/objects/
+total 236
+drwxrwxr-x 59 ubuntu ubuntu 4096 Mar  6 19:49 .
+drwxrwxr-x  8 ubuntu ubuntu 4096 Mar  6 20:14 ..
+drwxrwxr-x  2 ubuntu ubuntu 4096 Mar  6 19:49 01
+drwxrwxr-x  2 ubuntu ubuntu 4096 Dec 25 21:46 03
+drwxrwxr-x  2 ubuntu ubuntu 4096 Dec 25 21:46 06
+drwxrwxr-x  2 ubuntu ubuntu 4096 Dec 28 16:12 0c
+drwxrwxr-x  2 ubuntu ubuntu 4096 Jan 17 09:29 1c
+drwxrwxr-x  2 ubuntu ubuntu 4096 Dec  4 09:44 20
+drwxrwxr-x  2 ubuntu ubuntu 4096 Feb 19 09:39 29
+drwxr-xr-x  2 root   root   4096 Jan 18 13:10 31
+...
+$ sudo chown ubuntu:ubuntu -R .git/objects/
+[sudo] password for ubuntu: 
+$ git status
+On branch master
+Your branch is ahead of 'origin/master' by 1 commit.
+  (use "git push" to publish your local commits)
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+
+        openssh_7.9p1.orig.tar.gz.asc
+
+nothing added to commit but untracked files present (use "git add" to track)
+$ git add openssh_7.9p1.orig.tar.gz.asc 
+$
+```
