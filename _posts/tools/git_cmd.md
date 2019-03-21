@@ -13,7 +13,8 @@ description: 本文描述常见 git 命令备忘。
 * 灵活打 patch，https://www.jianshu.com/p/814fb6606734
 * 第一次切换分支，git checkout -b xxx origin/xxx
 * 后续切分支，git checkout xxx
-* 删除分支，git branch -d xxx
+* 删除本地分支，git branch -d xxx
+* 删除远程分支，git push origin --delete xxx
 * 查看当前分支，git branch -a | grep "*"
 * git checkout到特定版本，git checkout upstream的前8位
 * git clone / push 的时候不用密码：`git config --global credential.helper 'cache --timeout 7200'`，timeout 的单位为秒。
