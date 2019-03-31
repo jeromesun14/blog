@@ -31,6 +31,8 @@ sunnogo@a3e420:~/test/script$
 `-p`，preserve，保存属性信息，如owership、timestamp等。  
 `-R`，recursive，递归复制，复制目录需要加上这个选项。
 `-x`，仅限于当前文件系统的复制。
+`-T`, --no-target-directory. treat DEST as a normal file。我用来拷贝隐藏文件。详见 https://superuser.com/a/970185.
+
 
 ```
 sunnogo@a3e420:~/test/script$ ls -li
@@ -49,6 +51,9 @@ total 8
 7340612 -rwxrwxr-x 2 sunnogo sunnogo 94  6月 21  2013 if.sh
 7340612 -rwxrwxr-x 2 sunnogo sunnogo 94  6月 21  2013 link.sh
 7340881 lrwxrwxrwx 1 sunnogo sunnogo  5  2月 23 21:16 symbol.sh -> if.sh
+
+
+cp -rT /etc/skel /home/user
 ```
 
 注意cp -l和cp -s的差异，体现在ls -li中显示的inode是否一致和文件的硬链接总数。关于软、硬链接，在[《Linux命令行创建“快捷方式” - ln》](http://sunnogo.tk/201402/shell/ln.html)一文描述。
