@@ -176,3 +176,8 @@ Use the following Subversion command to create an xml file out of the repository
 1. `svn log -v --xml > repository_log.xml`，还可以根据需求配搭其他的`svn log`选项。
 2. Import the xml file into an Excel spreadsheet (not sure if it will work with LibreOffice/OpenOffice).
 3. You can then save it as a spreadsheet.
+
+# 问题汇总
+## 提示 svn: Can't convert string from 'UTF-8' to native encoding:
+
+处理：(来自 https://blog.csdn.net/ssergsw/article/details/14169987)，在环境变量中添加 `export LC_ALL=zh_CN.UTF-8`。
