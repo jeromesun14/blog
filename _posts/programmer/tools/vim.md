@@ -64,5 +64,4 @@ description: vim 使用备忘
 ```
  NORMAL  /home/jeromesun/.vimrc  vim  utf-8[unix]    0% ☰    1/488  :  1  ☲ [6]trailing [458]mixed-indent [371:13]mix-indent-file 
 76 matches on 76 lines
-76 matches on 76 lines
 ```
