@@ -51,3 +51,18 @@ description: vim 使用备忘
 :set lines=45
 ```
 
+## 统计匹配次数
+
+这里最后带 `n` 表示统计，不是真正替换。
+
+```
+:%s/xxx//gn
+```
+
+统计报告样例：
+
+```
+ NORMAL  /home/jeromesun/.vimrc  vim  utf-8[unix]    0% ☰    1/488  :  1  ☲ [6]trailing [458]mixed-indent [371:13]mix-indent-file 
+76 matches on 76 lines
+76 matches on 76 lines
+```
