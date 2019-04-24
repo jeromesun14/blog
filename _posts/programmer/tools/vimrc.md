@@ -7,6 +7,11 @@ keywords: [vim, 配置, vimrc]
 description: vim 配置文件备忘
 ---
 
+已更新在 [gist](https://gist.github.com/sunnogo/c75a5e7d19871fcd8e17898ed42e1b49)。
+
+
+以下已过时。
+
 这是我的个人 vim 配置。
 
 <!--more-->
