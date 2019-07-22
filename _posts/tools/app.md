@@ -22,6 +22,8 @@ description: 使用过的好软件备忘
   + CTRL + 1..4 -> 发送当前窗口到 1 .. 4 某个桌面
   + ALT + CTRL + SHIFT + Q -> 退出程序
 
+* total commander
+
 ### 文件查找
 
 * Launchy
