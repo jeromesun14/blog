@@ -8,7 +8,7 @@ subtitle: Keep it simple, stupid
 description:
 author: sunnogo
 email: sunnogo@gmail.com
-language: zh-Hans
+language: zh-CN
 timezone:
 
 # URL
@@ -69,6 +69,7 @@ plugins:
 #- hexo-generator-sitemap  
 #- hexo-generator-robotstxt
 ## Themes: https://github.com/hexojs/hexo/wiki/Themes
+#theme: landscape
 theme: next
 exclude_generator:
 
@@ -78,6 +79,9 @@ exclude_generator:
 
 # Deployment
 ## Docs: http://hexo.io/docs/deployment.html
+# install command: 
+# npm config set registry https://mirrors.tencent.com/npm/
+# npm install hexo-deployer-git --save
 deploy:
   type: git
   repo: https://github.com/sunnogo/sunnogo.github.io.git
